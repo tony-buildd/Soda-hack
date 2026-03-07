@@ -199,10 +199,14 @@ def run_reoptimizer(
   alpha: int = 40,
   big_m: int = 10000,
   distance_scale: int = 10,
+  max_distance_km: Optional[float] = 100.0,
   delta_km: Optional[float] = None,
   urgency: str = "medium",
 ) -> Dict[str, Any]:
   blocked_routes = blocked_routes or set()
+  enforce_max_distance = (
+    max_distance_km is not None and float(max_distance_km) > 0.0
+  )
 
   teacher_ids = [
     tid
@@ -245,6 +249,11 @@ def run_reoptimizer(
         "urgency": urgency,
         "urgency_factor": 1.0,
         "average_feasible_dist_km": 0.0,
+        "max_distance_km": (
+          None
+          if max_distance_km is None or float(max_distance_km) <= 0.0
+          else float(max_distance_km)
+        ),
       },
     }
 
@@ -277,7 +286,10 @@ def run_reoptimizer(
         continue
       if (tid, sid) in blocked_routes:
         continue
-      feasible_distances.append(haversine_km(teacher["base"], demand["location"]))
+      dist = haversine_km(teacher["base"], demand["location"])
+      if enforce_max_distance and dist > float(max_distance_km):
+        continue
+      feasible_distances.append(dist)
 
   avg_feasible_dist = (
     sum(feasible_distances) / len(feasible_distances) if feasible_distances else 0.0
@@ -310,6 +322,8 @@ def run_reoptimizer(
         continue
 
       dist = haversine_km(teacher["base"], demand["location"])
+      if enforce_max_distance and dist > float(max_distance_km):
+        continue
       base_cost = int(round(dist * distance_scale)) - alpha * priority
 
       old_hours = int(old_allocation.get(tid, {}).get(sid, {}).get(subject, 0))
@@ -369,5 +383,10 @@ def run_reoptimizer(
       "urgency": urgency,
       "urgency_factor": urgency_factor,
       "average_feasible_dist_km": round(avg_feasible_dist, 3),
+      "max_distance_km": (
+        None
+        if max_distance_km is None or float(max_distance_km) <= 0.0
+        else float(max_distance_km)
+      ),
     },
   }

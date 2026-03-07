@@ -29,9 +29,16 @@ def now_iso() -> str:
 
 
 class AllocationState:
-  def __init__(self, input_path: str, *, batch_threshold: int = 3) -> None:
+  def __init__(
+    self,
+    input_path: str,
+    *,
+    batch_threshold: int = 3,
+    max_distance_km: float | None = 100.0,
+  ) -> None:
     self.input_path = input_path
     self.batch_threshold = batch_threshold
+    self.max_distance_km = max_distance_km
 
     self.current_allocation: AllocationNested = {}
     self.teachers: Dict[str, Dict[str, Any]] = {}
@@ -306,6 +313,7 @@ class AllocationState:
       schools=self.schools,
       old_allocation=old_allocation,
       blocked_routes=self.blocked_routes,
+      max_distance_km=self.max_distance_km,
       urgency=effective_urgency,
     )
 

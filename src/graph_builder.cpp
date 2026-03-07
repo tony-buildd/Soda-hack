@@ -3,7 +3,7 @@
 #include <cmath>
 
 FlowGraphBuild BuildFlowGraph(const InputData& input, int alpha, int big_m,
-                              int distance_scale) {
+                              int distance_scale, double max_distance_km) {
   FlowGraphBuild out;
 
   const int teacher_count = static_cast<int>(input.teachers.size());
@@ -63,6 +63,9 @@ FlowGraphBuild BuildFlowGraph(const InputData& input, int alpha, int big_m,
 
       const School& school = input.schools[dn.school_idx];
       const double dist = out.distance_km[t][dn.school_idx];
+      if (max_distance_km > 0.0 && dist > max_distance_km) {
+        continue;
+      }
       const int dist_cost = static_cast<int>(std::round(dist * distance_scale));
       const int cost = dist_cost - alpha * school.priority;
 
