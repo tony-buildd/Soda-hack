@@ -1,0 +1,38 @@
+[
+  {
+    "type": "demand_increase",
+    "school_id": "S6",
+    "subject": "IT",
+    "delta_hours": 3
+  },
+  {
+    "type": "capacity_change",
+    "teacher_id": "T3",
+    "delta_capacity": -4
+  },
+  {
+    "type": "teacher_sick",
+    "teacher_id": "T2",
+    "new_capacity": 4
+  },
+  {
+    "type": "road_blocked",
+    "teacher_id": "T1",
+    "school_id": "S6"
+  },
+  {
+    "type": "priority_change",
+    "school_id": "S7",
+    "new_priority": 5
+  },
+  {
+    "type": "teacher_new",
+    "teacher": {
+      "id": "T11",
+      "name": "Le Thi Dynamic",
+      "capacity": 12,
+      "subjects": ["Math", "IT"],
+      "base": [21.87, 103.63]
+    }
+  }
+]
