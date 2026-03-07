@@ -29,7 +29,8 @@ Optional: set max teacher-school distance (km) for MCMF edges:
 
 Notes:
 - Only arcs with distance `<= max_distance_km` are considered by MCMF.
-- Use a non-positive value (for example `0`) to disable this limit.
+- Coverage-first default is unlimited distance (`0`).
+- Set a positive value (for example `100`) to reduce travel at the cost of coverage.
 
 Generated files:
 - `output/allocation_mcmf.json`
@@ -78,7 +79,7 @@ Run from project root:
 make
 source .venv/bin/activate
 pip install -r dynamic_backend/requirements.txt
-MAX_DISTANCE_KM=100 PORT=5001 python dynamic_backend/app.py
+MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
 ```
 
 Open:

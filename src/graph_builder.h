@@ -34,4 +34,4 @@ struct FlowGraphBuild {
 
 FlowGraphBuild BuildFlowGraph(const InputData& input, int alpha = 40,
                               int big_m = 10000, int distance_scale = 10,
-                              double max_distance_km = 100.0);
+                              double max_distance_km = 0.0);

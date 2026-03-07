@@ -17,15 +17,15 @@ From project root:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r dynamic_backend/requirements.txt
-MAX_DISTANCE_KM=100 python dynamic_backend/app.py
+MAX_DISTANCE_KM=0 python dynamic_backend/app.py
 ```
 
 Default API base URL: `http://localhost:5000`
 
 Distance constraint:
 - `MAX_DISTANCE_KM` controls the max teacher-school arc distance for MCMF.
-- Default is `100` km.
-- Set `MAX_DISTANCE_KM<=0` to disable the distance cap.
+- Default is `0` (unlimited, coverage-first).
+- Set `MAX_DISTANCE_KM=100` (or another positive value) when you want to trade some coverage for lower travel.
 
 ## API
 - `GET /health`
@@ -84,7 +84,7 @@ Run:
 make
 source .venv/bin/activate
 pip install -r dynamic_backend/requirements.txt
-MAX_DISTANCE_KM=100 PORT=5001 python dynamic_backend/app.py
+MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
 ```
 
 Open dashboard:

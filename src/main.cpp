@@ -62,7 +62,9 @@ SolveResult BuildSolveResult(const InputData& input,
 int main(int argc, char** argv) {
   const std::string input_path = (argc >= 2) ? argv[1] : "data/synthetic_input.json";
   const std::string output_dir = (argc >= 3) ? argv[2] : "output";
-  double max_distance_km = 100.0;
+  // Coverage-first default: unlimited distance.
+  // Pass a positive value to enforce a hard distance cap.
+  double max_distance_km = 0.0;
   if (argc >= 4) {
     try {
       max_distance_km = std::stod(argv[3]);

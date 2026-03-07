@@ -34,7 +34,7 @@ class AllocationState:
     input_path: str,
     *,
     batch_threshold: int = 3,
-    max_distance_km: float | None = 100.0,
+    max_distance_km: float | None = None,
   ) -> None:
     self.input_path = input_path
     self.batch_threshold = batch_threshold

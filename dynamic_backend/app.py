@@ -260,7 +260,7 @@ def create_app() -> Flask:
 
   input_path = os.environ.get("INPUT_PATH", str(default_input))
   batch_threshold = int(os.environ.get("BATCH_THRESHOLD", "3"))
-  max_distance_km = float(os.environ.get("MAX_DISTANCE_KM", "100"))
+  max_distance_km = float(os.environ.get("MAX_DISTANCE_KM", "0"))
   state = AllocationState(
     input_path=input_path,
     batch_threshold=batch_threshold,

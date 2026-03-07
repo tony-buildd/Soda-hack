@@ -199,7 +199,7 @@ def run_reoptimizer(
   alpha: int = 40,
   big_m: int = 10000,
   distance_scale: int = 10,
-  max_distance_km: Optional[float] = 100.0,
+  max_distance_km: Optional[float] = None,
   delta_km: Optional[float] = None,
   urgency: str = "medium",
 ) -> Dict[str, Any]:
