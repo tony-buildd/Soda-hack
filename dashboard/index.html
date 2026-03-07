@@ -25,8 +25,41 @@
     <main class="page">
       <header>
         <h1>Teacher Allocation Optimizer</h1>
-        <p>Greedy baseline vs SPFA-based Min-Cost Max-Flow</p>
+        <p>
+          Manual JSON input or CSV upload -> Python converter -> C++ Min-Cost Max-Flow
+        </p>
       </header>
+
+      <section class="input-grid">
+        <article class="card">
+          <h2>Manual JSON Input</h2>
+          <p class="hint">
+            Paste/edit input JSON. On submit, system writes <code>data/web_input.json</code>
+            and reruns C++ allocator.
+          </p>
+          <textarea
+            id="manualJsonInput"
+            spellcheck="false"
+            placeholder='{"teachers":[...], "schools":[...]}'
+          ></textarea>
+          <div class="action-row">
+            <button id="runJsonBtn" type="button">Run From JSON</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>CSV Upload Input</h2>
+          <p class="hint">
+            CSV supports 3 row types: <code>teacher</code>, <code>school</code>,
+            <code>demand</code>.
+          </p>
+          <input id="csvFileInput" type="file" accept=".csv,text/csv" />
+          <div class="action-row">
+            <button id="runCsvBtn" type="button">Upload CSV And Run</button>
+            <a id="csvTemplateLink" href="/api/optimizer/csv-template">Download CSV template</a>
+          </div>
+        </article>
+      </section>
 
       <section class="controls card">
         <label for="algorithmSelect">Algorithm</label>
@@ -52,9 +85,25 @@
         </article>
       </section>
 
-      <section class="card chart-wrap">
-        <h2>KPI Comparison</h2>
-        <canvas id="kpiChart"></canvas>
+      <section class="chart-grid">
+        <article class="card chart-card">
+          <h2>Coverage Comparison (%)</h2>
+          <div class="chart-canvas-wrap">
+            <canvas id="coverageChart"></canvas>
+          </div>
+        </article>
+        <article class="card chart-card">
+          <h2>Total Travel Comparison (km)</h2>
+          <div class="chart-canvas-wrap">
+            <canvas id="travelChart"></canvas>
+          </div>
+        </article>
+        <article class="card chart-card">
+          <h2>Workload Std Comparison</h2>
+          <div class="chart-canvas-wrap">
+            <canvas id="fairnessChart"></canvas>
+          </div>
+        </article>
       </section>
 
       <section class="card">

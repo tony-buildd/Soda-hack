@@ -68,27 +68,43 @@ def plot(rows: List[Dict[str, float]], output_dir: Path) -> None:
   m_runtime = [r["mcmf_runtime_ms"] for r in rows]
   g_runtime = [r["greedy_runtime_ms"] for r in rows]
 
-  fig, axes = plt.subplots(2, 2, figsize=(13, 9))
+  # Use a more compact page-friendly ratio so charts do not overflow horizontally.
+  fig, axes = plt.subplots(2, 2, figsize=(10, 10))
   fig.suptitle("MCMF vs Greedy Benchmark", fontsize=15, fontweight="bold")
 
   box_style = dict(patch_artist=True, medianprops={"color": "#1f2937", "linewidth": 1.5})
 
-  b1 = axes[0, 0].boxplot([m_cov, g_cov], tick_labels=["MCMF", "Greedy"], **box_style)
+  b1 = axes[0, 0].boxplot(
+    [m_cov, g_cov],
+    tick_labels=["MCMF", "Greedy"],
+    vert=False,
+    **box_style,
+  )
   b1["boxes"][0].set(facecolor="#6bbf98")
   b1["boxes"][1].set(facecolor="#f4a261")
-  axes[0, 0].set_title("Coverage (%)")
+  axes[0, 0].set_title("Coverage (%) - Horizontal")
   axes[0, 0].grid(alpha=0.2)
 
-  b2 = axes[0, 1].boxplot([m_travel, g_travel], tick_labels=["MCMF", "Greedy"], **box_style)
+  b2 = axes[0, 1].boxplot(
+    [m_travel, g_travel],
+    tick_labels=["MCMF", "Greedy"],
+    vert=False,
+    **box_style,
+  )
   b2["boxes"][0].set(facecolor="#6bbf98")
   b2["boxes"][1].set(facecolor="#f4a261")
-  axes[0, 1].set_title("Total Travel (km)")
+  axes[0, 1].set_title("Total Travel (km) - Horizontal")
   axes[0, 1].grid(alpha=0.2)
 
-  b3 = axes[1, 0].boxplot([m_std, g_std], tick_labels=["MCMF", "Greedy"], **box_style)
+  b3 = axes[1, 0].boxplot(
+    [m_std, g_std],
+    tick_labels=["MCMF", "Greedy"],
+    vert=False,
+    **box_style,
+  )
   b3["boxes"][0].set(facecolor="#6bbf98")
   b3["boxes"][1].set(facecolor="#f4a261")
-  axes[1, 0].set_title("Workload Std (lower is better)")
+  axes[1, 0].set_title("Workload Std (lower is better) - Horizontal")
   axes[1, 0].grid(alpha=0.2)
 
   axes[1, 1].scatter(g_runtime, m_runtime, alpha=0.6, color="#2a9d8f", edgecolor="none")
@@ -101,10 +117,10 @@ def plot(rows: List[Dict[str, float]], output_dir: Path) -> None:
 
   fig.tight_layout(rect=[0, 0.02, 1, 0.96])
   plot_path = output_dir / "benchmark_comparison.png"
-  fig.savefig(plot_path, dpi=170)
+  fig.savefig(plot_path, dpi=150)
   plt.close(fig)
 
-  fig2, ax = plt.subplots(figsize=(9, 5))
+  fig2, ax = plt.subplots(figsize=(8, 4.8))
   improvements = [r["travel_reduction_pct"] for r in rows]
   ax.hist(improvements, bins=20, color="#457b9d", alpha=0.85)
   ax.set_title("Distribution of Travel Reduction % (Greedy -> MCMF)")
@@ -114,7 +130,7 @@ def plot(rows: List[Dict[str, float]], output_dir: Path) -> None:
 
   hist_path = output_dir / "travel_reduction_hist.png"
   fig2.tight_layout()
-  fig2.savefig(hist_path, dpi=170)
+  fig2.savefig(hist_path, dpi=150)
   plt.close(fig2)
 
   print(f"[ok] Wrote: {plot_path}")

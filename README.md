@@ -55,6 +55,46 @@ python dynamic_backend/app.py
 
 See API and event schema in `dynamic_backend/README.md`.
 
+## Integrated Web Input -> CSV/JSON -> C++ Solve
+You can now run one integrated flow:
+- Input from web (manual JSON or CSV upload)
+- Python converts CSV to JSON
+- C++ solver runs on generated JSON
+- Dashboard updates KPI/map/allocation immediately
+
+Run from project root:
+
+```bash
+make
+source .venv/bin/activate
+pip install -r dynamic_backend/requirements.txt
+PORT=5001 python dynamic_backend/app.py
+```
+
+Open:
+- `http://127.0.0.1:5001/dashboard/`
+
+Generated files for web flow:
+- `data/web_input.json`
+- `output/web_latest/allocation_mcmf.json`
+- `output/web_latest/allocation_greedy.json`
+- `output/web_latest/allocation.json`
+
+### CSV format for upload
+Header:
+
+```csv
+entity,id,name,capacity,subjects,lat,lng,priority,school_id,subject,hours
+```
+
+Supported row types:
+- `teacher`: use `id,name,capacity,subjects,lat,lng` (`subjects` split by `|`, `,`, or `;`)
+- `school`: use `id,name,priority,lat,lng`
+- `demand`: use `school_id,subject,hours`
+
+Download template:
+- `http://127.0.0.1:5001/api/optimizer/csv-template`
+
 ## Benchmark and plots (MCMF vs Greedy)
 Run multi-scenario benchmark and generate comparison charts:
 

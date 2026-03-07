@@ -2,6 +2,10 @@ const INPUT_URL = "../data/synthetic_input.json";
 const MCMF_URL = "../output/allocation_mcmf.json";
 const GREEDY_URL = "../output/allocation_greedy.json";
 
+const API_CURRENT_URL = "/api/optimizer/current";
+const API_RUN_JSON_URL = "/api/optimizer/json";
+const API_RUN_CSV_URL = "/api/optimizer/csv";
+
 const teacherColor = "#277da1";
 const schoolColor = "#e76f51";
 const lineColor = "#2f9d8f";
@@ -11,13 +15,28 @@ const state = {
   results: {},
   map: null,
   linesLayer: null,
-  chart: null,
+  charts: {
+    coverage: null,
+    travel: null,
+    fairness: null,
+  },
   teachersById: {},
   schoolsById: {},
+  backendReady: false,
 };
 
 function byId(id) {
   return document.getElementById(id);
+}
+
+function setStatus(message) {
+  byId("statusText").textContent = message;
+}
+
+function setControlEnabled(enabled) {
+  byId("runJsonBtn").disabled = !enabled;
+  byId("runCsvBtn").disabled = !enabled;
+  byId("csvFileInput").disabled = !enabled;
 }
 
 async function loadJson(url) {
@@ -26,6 +45,28 @@ async function loadJson(url) {
     throw new Error(`Failed to load ${url}: ${res.status}`);
   }
   return res.json();
+}
+
+async function postJson(url, payload) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || `Request failed: ${res.status}`);
+  }
+  return data;
+}
+
+async function postForm(url, formData) {
+  const res = await fetch(url, { method: "POST", body: formData });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || `Request failed: ${res.status}`);
+  }
+  return data;
 }
 
 function indexById(list) {
@@ -37,6 +78,9 @@ function indexById(list) {
 }
 
 function avgCenter(schools) {
+  if (!schools.length) {
+    return [21.02, 105.84];
+  }
   let lat = 0;
   let lng = 0;
   for (const s of schools) {
@@ -46,7 +90,18 @@ function avgCenter(schools) {
   return [lat / schools.length, lng / schools.length];
 }
 
+function setData(bundle) {
+  state.input = bundle.input;
+  state.results = { mcmf: bundle.mcmf, greedy: bundle.greedy };
+  state.teachersById = indexById(state.input.teachers);
+  state.schoolsById = indexById(state.input.schools);
+}
+
 function setupMap() {
+  if (state.map) {
+    state.map.remove();
+  }
+
   const center = avgCenter(state.input.schools);
   state.map = L.map("map").setView(center, 8);
 
@@ -73,9 +128,7 @@ function setupMap() {
       fillColor: schoolColor,
       fillOpacity: 0.9,
     })
-      .bindPopup(
-        `<b>${s.name}</b><br/>${s.id}<br/>Priority: ${s.priority}`
-      )
+      .bindPopup(`<b>${s.name}</b><br/>${s.id}<br/>Priority: ${s.priority}`)
       .addTo(state.map);
   }
 
@@ -114,7 +167,7 @@ function renderAllocTable(allocations) {
 
   if (!allocations.length) {
     const row = document.createElement("tr");
-    row.innerHTML = `<td colspan="4">No allocations</td>`;
+    row.innerHTML = "<td colspan=\"4\">No allocations</td>";
     tbody.appendChild(row);
     return;
   }
@@ -149,33 +202,26 @@ function renderUnmet(unmet) {
   }
 }
 
-function renderChart() {
-  const m = state.results.mcmf.kpi;
-  const g = state.results.greedy.kpi;
-
-  const labels = ["Coverage %", "Travel km", "Workload std"];
-
-  if (state.chart) {
-    state.chart.destroy();
+function destroyComparisonCharts() {
+  for (const key of Object.keys(state.charts)) {
+    if (state.charts[key]) {
+      state.charts[key].destroy();
+      state.charts[key] = null;
+    }
   }
+}
 
-  state.chart = new Chart(byId("kpiChart"), {
+function createComparisonChart(canvasId, axisLabel, mValue, gValue) {
+  return new Chart(byId(canvasId), {
     type: "bar",
     data: {
-      labels,
+      labels: ["MCMF", "Greedy"],
       datasets: [
         {
-          label: "MCMF",
-          data: [m.coverage_pct, m.total_travel_km, m.workload_std],
-          backgroundColor: "rgba(47,157,143,0.7)",
-          borderColor: "rgba(47,157,143,1)",
-          borderWidth: 1,
-        },
-        {
-          label: "Greedy",
-          data: [g.coverage_pct, g.total_travel_km, g.workload_std],
-          backgroundColor: "rgba(214,108,47,0.68)",
-          borderColor: "rgba(214,108,47,1)",
+          label: axisLabel,
+          data: [mValue, gValue],
+          backgroundColor: ["rgba(47,157,143,0.75)", "rgba(214,108,47,0.72)"],
+          borderColor: ["rgba(47,157,143,1)", "rgba(214,108,47,1)"],
           borderWidth: 1,
         },
       ],
@@ -184,15 +230,47 @@ function renderChart() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: "top" },
+        legend: { display: false },
       },
       scales: {
+        x: {
+          grid: { display: false },
+        },
         y: {
           beginAtZero: true,
+          title: {
+            display: true,
+            text: axisLabel,
+          },
         },
       },
     },
   });
+}
+
+function renderCharts() {
+  const m = state.results.mcmf.kpi;
+  const g = state.results.greedy.kpi;
+
+  destroyComparisonCharts();
+  state.charts.coverage = createComparisonChart(
+    "coverageChart",
+    "Coverage (%)",
+    m.coverage_pct,
+    g.coverage_pct
+  );
+  state.charts.travel = createComparisonChart(
+    "travelChart",
+    "Travel (km)",
+    m.total_travel_km,
+    g.total_travel_km
+  );
+  state.charts.fairness = createComparisonChart(
+    "fairnessChart",
+    "Workload Std",
+    m.workload_std,
+    g.workload_std
+  );
 }
 
 function renderSelected(algorithm) {
@@ -205,33 +283,115 @@ function renderSelected(algorithm) {
   renderAllocTable(result.allocations);
   renderUnmet(result.kpi.unmet_demand);
   drawLines(result.allocations);
-  byId("statusText").textContent = `Showing ${algorithm.toUpperCase()}`;
+  setStatus(`Showing ${algorithm.toUpperCase()}`);
+}
+
+function syncManualJsonBox() {
+  byId("manualJsonInput").value = JSON.stringify(state.input, null, 2);
+}
+
+function applyBundle(bundle, sourceText) {
+  setData(bundle);
+  setupMap();
+  renderCharts();
+  syncManualJsonBox();
+  renderSelected(byId("algorithmSelect").value);
+  setStatus(sourceText);
+}
+
+async function runFromJson() {
+  if (!state.backendReady) {
+    setStatus("Backend API is not available. Start Flask app to enable this.");
+    return;
+  }
+
+  const text = byId("manualJsonInput").value.trim();
+  if (!text) {
+    setStatus("JSON input is empty.");
+    return;
+  }
+
+  try {
+    setStatus("Running C++ optimizer from JSON...");
+    const input = JSON.parse(text);
+    const bundle = await postJson(API_RUN_JSON_URL, { input });
+    applyBundle(bundle, "Updated from manual JSON input");
+  } catch (err) {
+    setStatus(`Run failed: ${err.message}`);
+    console.error(err);
+  }
+}
+
+async function runFromCsv() {
+  if (!state.backendReady) {
+    setStatus("Backend API is not available. Start Flask app to enable this.");
+    return;
+  }
+
+  const fileInput = byId("csvFileInput");
+  if (!fileInput.files || !fileInput.files.length) {
+    setStatus("Please select a CSV file first.");
+    return;
+  }
+
+  try {
+    setStatus("Uploading CSV and running C++ optimizer...");
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+    const bundle = await postForm(API_RUN_CSV_URL, formData);
+    applyBundle(bundle, "Updated from CSV input");
+  } catch (err) {
+    setStatus(`Run failed: ${err.message}`);
+    console.error(err);
+  }
+}
+
+function bindEvents() {
+  byId("algorithmSelect").addEventListener("change", (e) => {
+    renderSelected(e.target.value);
+  });
+  byId("runJsonBtn").addEventListener("click", runFromJson);
+  byId("runCsvBtn").addEventListener("click", runFromCsv);
+}
+
+async function loadFromApi() {
+  const res = await fetch(API_CURRENT_URL);
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || `Failed to load API data: ${res.status}`);
+  }
+  return data;
+}
+
+async function loadFromStaticFiles() {
+  const [input, mcmf, greedy] = await Promise.all([
+    loadJson(INPUT_URL),
+    loadJson(MCMF_URL),
+    loadJson(GREEDY_URL),
+  ]);
+  return { input, mcmf, greedy };
 }
 
 async function bootstrap() {
+  bindEvents();
+
   try {
-    const [input, mcmf, greedy] = await Promise.all([
-      loadJson(INPUT_URL),
-      loadJson(MCMF_URL),
-      loadJson(GREEDY_URL),
-    ]);
+    const bundle = await loadFromApi();
+    state.backendReady = true;
+    setControlEnabled(true);
+    applyBundle(bundle, "Loaded from integrated backend");
+    return;
+  } catch (apiErr) {
+    console.warn(apiErr);
+  }
 
-    state.input = input;
-    state.results = { mcmf, greedy };
-    state.teachersById = indexById(input.teachers);
-    state.schoolsById = indexById(input.schools);
-
-    setupMap();
-    renderChart();
-
-    const select = byId("algorithmSelect");
-    select.addEventListener("change", (e) => {
-      renderSelected(e.target.value);
-    });
-
-    renderSelected("mcmf");
+  try {
+    const bundle = await loadFromStaticFiles();
+    state.backendReady = false;
+    setControlEnabled(false);
+    applyBundle(bundle, "Backend not running. Showing static files only.");
   } catch (err) {
-    byId("statusText").textContent = err.message;
+    setStatus(`Failed to load dashboard data: ${err.message}`);
     console.error(err);
   }
 }
