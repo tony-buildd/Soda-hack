@@ -24,6 +24,11 @@ Default API base URL: `http://localhost:5000`
 
 ## API
 - `GET /health`
+- `GET /dashboard/` (serve integrated dashboard)
+- `GET /api/optimizer/current`
+- `POST /api/optimizer/json`
+- `POST /api/optimizer/csv`
+- `GET /api/optimizer/csv-template`
 - `GET /state`
 - `GET /allocation`
 - `GET /events?limit=100`
@@ -66,3 +71,31 @@ python dynamic_backend/replay_events.py --auto-reoptimize
 ```
 
 Sample events file: `data/dynamic_events.json`.
+
+## Integrated flow: CSV/JSON web input -> C++ optimizer
+Run:
+
+```bash
+make
+source .venv/bin/activate
+pip install -r dynamic_backend/requirements.txt
+PORT=5001 python dynamic_backend/app.py
+```
+
+Open dashboard:
+- `http://127.0.0.1:5001/dashboard/`
+
+The dashboard now supports:
+- Manual JSON edit + rerun C++ allocator
+- CSV upload (Python converts CSV -> JSON)
+
+Generated files:
+- `data/web_input.json`
+- `output/web_latest/allocation_mcmf.json`
+- `output/web_latest/allocation_greedy.json`
+- `output/web_latest/allocation.json`
+
+CSV row types:
+- `teacher` rows: `id,name,capacity,subjects,lat,lng`
+- `school` rows: `id,name,priority,lat,lng`
+- `demand` rows: `school_id,subject,hours`
