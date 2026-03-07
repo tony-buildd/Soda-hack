@@ -62,6 +62,15 @@ SolveResult BuildSolveResult(const InputData& input,
 int main(int argc, char** argv) {
   const std::string input_path = (argc >= 2) ? argv[1] : "data/synthetic_input.json";
   const std::string output_dir = (argc >= 3) ? argv[2] : "output";
+  double max_distance_km = 100.0;
+  if (argc >= 4) {
+    try {
+      max_distance_km = std::stod(argv[3]);
+    } catch (const std::exception&) {
+      std::cerr << "[error] Invalid max_distance_km argument: " << argv[3] << '\n';
+      return 1;
+    }
+  }
 
   InputData input;
   std::string error;
@@ -70,7 +79,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  FlowGraphBuild graph = BuildFlowGraph(input);
+  FlowGraphBuild graph = BuildFlowGraph(input, 40, 10000, 10, max_distance_km);
   const auto [flow, min_cost] =
       graph.mcmf.Solve(graph.source, graph.sink, graph.total_demand);
   (void)flow;
@@ -94,6 +103,11 @@ int main(int argc, char** argv) {
 
   std::cout << std::fixed << std::setprecision(2);
   std::cout << "Input: " << input_path << '\n';
+  if (max_distance_km > 0.0) {
+    std::cout << "Max teacher-school distance: " << max_distance_km << " km\n";
+  } else {
+    std::cout << "Max teacher-school distance: unlimited\n";
+  }
   std::cout << "Total demand: " << graph.total_demand << " hours\n";
   std::cout << "MCMF flow sent: " << flow << " hours\n";
   std::cout << "MCMF min-cost (scaled): " << min_cost << '\n';

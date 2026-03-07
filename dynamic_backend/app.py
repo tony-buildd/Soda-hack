@@ -260,7 +260,12 @@ def create_app() -> Flask:
 
   input_path = os.environ.get("INPUT_PATH", str(default_input))
   batch_threshold = int(os.environ.get("BATCH_THRESHOLD", "3"))
-  state = AllocationState(input_path=input_path, batch_threshold=batch_threshold)
+  max_distance_km = float(os.environ.get("MAX_DISTANCE_KM", "100"))
+  state = AllocationState(
+    input_path=input_path,
+    batch_threshold=batch_threshold,
+    max_distance_km=(None if max_distance_km <= 0 else max_distance_km),
+  )
 
   state_lock = threading.Lock()
   optimizer_lock = threading.Lock()
@@ -303,7 +308,12 @@ def create_app() -> Flask:
     web_output_dir.mkdir(parents=True, exist_ok=True)
 
     run = subprocess.run(
-      [str(allocator_binary), str(web_input), str(web_output_dir)],
+      [
+        str(allocator_binary),
+        str(web_input),
+        str(web_output_dir),
+        str(max_distance_km),
+      ],
       cwd=project_root,
       capture_output=True,
       text=True,
@@ -314,7 +324,7 @@ def create_app() -> Flask:
       raise RuntimeError("C++ allocator failed.\n" + "\n".join(error_lines))
 
     out = _load_results_from_disk(input_payload)
-    out["meta"] = {"log": run.stdout}
+    out["meta"] = {"log": run.stdout, "max_distance_km": max_distance_km}
     return out
 
   def _load_or_bootstrap_current() -> Dict[str, Any]:
