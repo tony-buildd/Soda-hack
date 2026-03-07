@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Soda Hackathon - Teacher Allocation Optimizer
 
-## Getting Started
+## Architecture
+Input JSON -> C++ Core Engine (MCMF + Greedy baseline + KPI) -> output JSON -> static dashboard (Leaflet + Chart.js)
 
-First, run the development server:
+## Project structure
+- `src/main.cpp`: app entrypoint
+- `src/mcmf.*`: SPFA-based min-cost max-flow solver
+- `src/graph_builder.*`: flow graph construction with dummy teacher
+- `src/greedy_baseline.*`: nearest-teacher baseline
+- `src/kpi.*`: coverage/travel/fairness metrics
+- `src/io.*`: JSON input/output
+- `data/synthetic_input.json`: sample dataset (10 teachers, 8 schools, 4 subjects)
+- `dashboard/`: static web dashboard
+
+## Build and run
+Prerequisite: C++17 compiler. `nlohmann/json` is vendored at `third_party/nlohmann/json.hpp`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+make
+make run
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Generated files:
+- `output/allocation_mcmf.json`
+- `output/allocation_greedy.json`
+- `output/allocation.json` (alias of MCMF output)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Open dashboard
+From project root:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+python -m http.server 8000
+```
 
-## Learn More
+Then open:
+- `http://localhost:8000/dashboard/`
 
-To learn more about Next.js, take a look at the following resources:
+The dashboard loads:
+- `data/synthetic_input.json`
+- `output/allocation_mcmf.json`
+- `output/allocation_greedy.json`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Dynamic backend (event-driven re-allocation)
+`dynamic_backend/` provides a Python Flask service for dynamic teacher allocation with switching cost.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Quick start:
 
-## Deploy on Vercel
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r dynamic_backend/requirements.txt
+python dynamic_backend/app.py
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+See API and event schema in `dynamic_backend/README.md`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Benchmark and plots (MCMF vs Greedy)
+Run multi-scenario benchmark and generate comparison charts:
+
+```bash
+source .venv/bin/activate
+pip install -r benchmark/requirements.txt
+python benchmark/run_benchmark.py --scenarios 100 --seed 42 --plot
+```
+
+Outputs:
+- `benchmark/results/benchmark_runs.csv`
+- `benchmark/results/benchmark_summary.json`
+- `benchmark/results/benchmark_summary.md`
+- `benchmark/results/benchmark_comparison.png`
+- `benchmark/results/travel_reduction_hist.png`
+
+Notebook report:
+- `benchmark/benchmark_report.ipynb`
+
+## JSON contract
+Input format (simplified):
+
+```json
+{
+  "teachers": [
+    {
+      "id": "T1",
+      "name": "Nguyen Van A",
+      "capacity": 20,
+      "subjects": ["Math", "Physics"],
+      "base": [21.03, 105.85]
+    }
+  ],
+  "schools": [
+    {
+      "id": "S1",
+      "name": "THPT Son La",
+      "priority": 3,
+      "location": [21.32, 103.91],
+      "demand": { "Math": 10, "English": 8 }
+    }
+  ]
+}
+```
+
+Output format:
+
+```json
+{
+  "allocations": [
+    { "teacher": "T1", "school": "S1", "subject": "Math", "hours": 10 }
+  ],
+  "kpi": {
+    "coverage_pct": 87.5,
+    "total_travel_km": 340,
+    "workload_std": 2.3,
+    "unmet_demand": [
+      { "school": "S1", "subject": "English", "missing_hours": 3 }
+    ]
+  }
+}
+```
