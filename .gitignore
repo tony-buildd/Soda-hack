@@ -1,6 +1,17 @@
+node_modules/
+.next/
+out/
+
+.env
+.env.*
+!.env.example
+
 bin/
 output/*.json
 .venv/
+venv/
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
+*.log
 .DS_Store
