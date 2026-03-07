@@ -97,16 +97,69 @@ header p {
   padding: 1px 4px;
 }
 
-#manualJsonInput {
-  width: 100%;
-  min-height: 210px;
+.form-section {
+  margin-bottom: 14px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.section-head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.row-list {
+  display: grid;
+  gap: 10px;
+}
+
+.entry-row {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 10px;
-  resize: vertical;
-  font: 0.83rem/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: #0d2924;
   background: #fbfdfb;
+  display: grid;
+  gap: 8px;
+}
+
+.entry-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.entry-row label {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.entry-row input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  font: inherit;
+  color: #0d2924;
+  background: #ffffff;
+}
+
+.row-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.remove-row-btn {
+  background: #fff5ef;
+  color: #9c3b00;
+  border: 1px solid #f2d1bf;
 }
 
 #csvFileInput {
@@ -298,5 +351,9 @@ th {
   #statusText {
     margin-left: 0;
     width: 100%;
+  }
+
+  .entry-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -37,6 +37,8 @@ function setControlEnabled(enabled) {
   byId("runJsonBtn").disabled = !enabled;
   byId("runCsvBtn").disabled = !enabled;
   byId("csvFileInput").disabled = !enabled;
+  byId("addTeacherBtn").disabled = !enabled;
+  byId("addSchoolBtn").disabled = !enabled;
 }
 
 async function loadJson(url) {
@@ -286,15 +288,213 @@ function renderSelected(algorithm) {
   setStatus(`Showing ${algorithm.toUpperCase()}`);
 }
 
-function syncManualJsonBox() {
-  byId("manualJsonInput").value = JSON.stringify(state.input, null, 2);
+function createField(label, key, value, type = "text", required = false) {
+  return `
+    <label>
+      ${label}
+      <input
+        data-key="${key}"
+        type="${type}"
+        value="${value ?? ""}"
+        ${required ? "required" : ""}
+      />
+    </label>
+  `;
+}
+
+function createTeacherRow(teacher = {}) {
+  const row = document.createElement("div");
+  row.className = "entry-row teacher-row";
+  const subjects = Array.isArray(teacher.subjects) ? teacher.subjects.join(", ") : "";
+  const baseLat = Array.isArray(teacher.base) ? teacher.base[0] : "";
+  const baseLng = Array.isArray(teacher.base) ? teacher.base[1] : "";
+  row.innerHTML = `
+    <div class="entry-grid">
+      ${createField("Teacher ID", "id", teacher.id, "text", true)}
+      ${createField("Name", "name", teacher.name, "text", true)}
+      ${createField("Capacity", "capacity", teacher.capacity, "number", true)}
+      ${createField("Subjects (comma-separated)", "subjects", subjects, "text", true)}
+      ${createField("Base Latitude", "baseLat", baseLat, "number", true)}
+      ${createField("Base Longitude", "baseLng", baseLng, "number", true)}
+    </div>
+    <div class="row-actions">
+      <button class="remove-row-btn" type="button">Remove</button>
+    </div>
+  `;
+  return row;
+}
+
+function demandToString(demand) {
+  if (!demand || typeof demand !== "object") {
+    return "";
+  }
+  return Object.entries(demand)
+    .map(([subject, hours]) => `${subject}:${hours}`)
+    .join(", ");
+}
+
+function createSchoolRow(school = {}) {
+  const row = document.createElement("div");
+  row.className = "entry-row school-row";
+  const lat = Array.isArray(school.location) ? school.location[0] : "";
+  const lng = Array.isArray(school.location) ? school.location[1] : "";
+  row.innerHTML = `
+    <div class="entry-grid">
+      ${createField("School ID", "id", school.id, "text", true)}
+      ${createField("Name", "name", school.name, "text", true)}
+      ${createField("Priority", "priority", school.priority ?? 1, "number", true)}
+      ${createField("Latitude", "lat", lat, "number", true)}
+      ${createField("Longitude", "lng", lng, "number", true)}
+      ${createField(
+        "Demand (Math:12, English:8)",
+        "demand",
+        demandToString(school.demand),
+        "text",
+        true
+      )}
+    </div>
+    <div class="row-actions">
+      <button class="remove-row-btn" type="button">Remove</button>
+    </div>
+  `;
+  return row;
+}
+
+function renderFormFromInput(input) {
+  const teacherRows = byId("teacherRows");
+  const schoolRows = byId("schoolRows");
+  teacherRows.innerHTML = "";
+  schoolRows.innerHTML = "";
+
+  const teachers = input?.teachers || [];
+  const schools = input?.schools || [];
+
+  if (!teachers.length) {
+    teacherRows.appendChild(createTeacherRow());
+  } else {
+    for (const teacher of teachers) {
+      teacherRows.appendChild(createTeacherRow(teacher));
+    }
+  }
+
+  if (!schools.length) {
+    schoolRows.appendChild(createSchoolRow());
+  } else {
+    for (const school of schools) {
+      schoolRows.appendChild(createSchoolRow(school));
+    }
+  }
+}
+
+function mustNumber(value, fieldName) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
+    throw new Error(`${fieldName} must be a valid number.`);
+  }
+  return num;
+}
+
+function mustText(value, fieldName) {
+  const text = String(value ?? "").trim();
+  if (!text) {
+    throw new Error(`${fieldName} is required.`);
+  }
+  return text;
+}
+
+function readRowData(row) {
+  const data = {};
+  for (const input of row.querySelectorAll("input[data-key]")) {
+    data[input.dataset.key] = input.value;
+  }
+  return data;
+}
+
+function parseSubjects(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseDemand(value) {
+  const demand = {};
+  for (const segment of value.split(",")) {
+    const item = segment.trim();
+    if (!item) {
+      continue;
+    }
+    const parts = item.split(":");
+    if (parts.length !== 2) {
+      throw new Error(`Invalid demand item "${item}". Use Subject:Hours.`);
+    }
+    const subject = parts[0].trim();
+    const hoursText = parts[1].trim();
+    if (!subject) {
+      throw new Error(`Invalid demand item "${item}". Subject is missing.`);
+    }
+    const hours = mustNumber(hoursText, `Demand hours for ${subject}`);
+    demand[subject] = hours;
+  }
+  if (!Object.keys(demand).length) {
+    throw new Error("Each school needs at least one demand item.");
+  }
+  return demand;
+}
+
+function buildInputFromForm() {
+  const teacherRows = Array.from(byId("teacherRows").querySelectorAll(".teacher-row"));
+  const schoolRows = Array.from(byId("schoolRows").querySelectorAll(".school-row"));
+
+  if (!teacherRows.length) {
+    throw new Error("At least one teacher is required.");
+  }
+  if (!schoolRows.length) {
+    throw new Error("At least one school is required.");
+  }
+
+  const teachers = teacherRows.map((row, idx) => {
+    const data = readRowData(row);
+    const id = mustText(data.id, `Teacher ${idx + 1} ID`);
+    const name = mustText(data.name, `Teacher ${idx + 1} name`);
+    const subjects = parseSubjects(mustText(data.subjects, `Teacher ${idx + 1} subjects`));
+    if (!subjects.length) {
+      throw new Error(`Teacher ${idx + 1} must have at least one subject.`);
+    }
+    return {
+      id,
+      name,
+      capacity: mustNumber(data.capacity, `Teacher ${idx + 1} capacity`),
+      subjects,
+      base: [
+        mustNumber(data.baseLat, `Teacher ${idx + 1} base latitude`),
+        mustNumber(data.baseLng, `Teacher ${idx + 1} base longitude`),
+      ],
+    };
+  });
+
+  const schools = schoolRows.map((row, idx) => {
+    const data = readRowData(row);
+    return {
+      id: mustText(data.id, `School ${idx + 1} ID`),
+      name: mustText(data.name, `School ${idx + 1} name`),
+      priority: mustNumber(data.priority, `School ${idx + 1} priority`),
+      location: [
+        mustNumber(data.lat, `School ${idx + 1} latitude`),
+        mustNumber(data.lng, `School ${idx + 1} longitude`),
+      ],
+      demand: parseDemand(mustText(data.demand, `School ${idx + 1} demand`)),
+    };
+  });
+
+  return { teachers, schools };
 }
 
 function applyBundle(bundle, sourceText) {
   setData(bundle);
   setupMap();
   renderCharts();
-  syncManualJsonBox();
+  renderFormFromInput(state.input);
   renderSelected(byId("algorithmSelect").value);
   setStatus(sourceText);
 }
@@ -305,17 +505,11 @@ async function runFromJson() {
     return;
   }
 
-  const text = byId("manualJsonInput").value.trim();
-  if (!text) {
-    setStatus("JSON input is empty.");
-    return;
-  }
-
   try {
-    setStatus("Running C++ optimizer from JSON...");
-    const input = JSON.parse(text);
+    setStatus("Running C++ optimizer from form input...");
+    const input = buildInputFromForm();
     const bundle = await postJson(API_RUN_JSON_URL, { input });
-    applyBundle(bundle, "Updated from manual JSON input");
+    applyBundle(bundle, "Updated from manual form input");
   } catch (err) {
     setStatus(`Run failed: ${err.message}`);
     console.error(err);
@@ -352,6 +546,22 @@ function bindEvents() {
   });
   byId("runJsonBtn").addEventListener("click", runFromJson);
   byId("runCsvBtn").addEventListener("click", runFromCsv);
+  byId("addTeacherBtn").addEventListener("click", () => {
+    byId("teacherRows").prepend(createTeacherRow());
+  });
+  byId("addSchoolBtn").addEventListener("click", () => {
+    byId("schoolRows").prepend(createSchoolRow());
+  });
+  byId("teacherRows").addEventListener("click", (event) => {
+    if (event.target.classList.contains("remove-row-btn")) {
+      event.target.closest(".teacher-row")?.remove();
+    }
+  });
+  byId("schoolRows").addEventListener("click", (event) => {
+    if (event.target.classList.contains("remove-row-btn")) {
+      event.target.closest(".school-row")?.remove();
+    }
+  });
 }
 
 async function loadFromApi() {

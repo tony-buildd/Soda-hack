@@ -26,24 +26,36 @@
       <header>
         <h1>Teacher Allocation Optimizer</h1>
         <p>
-          Manual JSON input or CSV upload -> Python converter -> C++ Min-Cost Max-Flow
+          Manual form input or CSV upload -> Python converter -> C++ Min-Cost Max-Flow
         </p>
       </header>
 
       <section class="input-grid">
         <article class="card">
-          <h2>Manual JSON Input</h2>
+          <h2>Manual Input Form</h2>
           <p class="hint">
-            Paste/edit input JSON. On submit, system writes <code>data/web_input.json</code>
-            and reruns C++ allocator.
+            Edit teachers and schools in form fields. On submit, system writes
+            <code>data/web_input.json</code> and reruns C++ allocator.
           </p>
-          <textarea
-            id="manualJsonInput"
-            spellcheck="false"
-            placeholder='{"teachers":[...], "schools":[...]}'
-          ></textarea>
+
+          <div class="form-section">
+            <div class="section-head">
+              <h3>Teachers</h3>
+              <button id="addTeacherBtn" type="button">+ Teacher</button>
+            </div>
+            <div id="teacherRows" class="row-list"></div>
+          </div>
+
+          <div class="form-section">
+            <div class="section-head">
+              <h3>Schools</h3>
+              <button id="addSchoolBtn" type="button">+ School</button>
+            </div>
+            <div id="schoolRows" class="row-list"></div>
+          </div>
+
           <div class="action-row">
-            <button id="runJsonBtn" type="button">Run From JSON</button>
+            <button id="runJsonBtn" type="button">Run From Form</button>
           </div>
         </article>
 
