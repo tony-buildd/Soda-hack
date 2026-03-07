@@ -1,9 +1,29 @@
+# Node / frontend artifacts
+node_modules/
+.next/
+out/
+
+# Local env and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Project generated outputs
 bin/
 output/*.json
 output/web_latest/*.json
 data/web_input.json
 benchmark/results/
+
+# Python artifacts
 .venv/
+venv/
 __pycache__/
 *.pyc
+
+# Notebook artifacts
+.ipynb_checkpoints/
+
+# OS files
 .DS_Store
