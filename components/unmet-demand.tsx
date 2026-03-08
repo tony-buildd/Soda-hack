@@ -32,6 +32,18 @@ export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], 
     if (!bySchool[item.school]) bySchool[item.school] = [];
     bySchool[item.school].push(item);
   }
+  
+  // Group by subject (for summary)
+  const bySubject: Record<string, number> = {};
+  for (const item of items) {
+    if (!bySubject[item.subject]) bySubject[item.subject] = 0;
+    bySubject[item.subject] += item.missing_hours;
+  }
+  
+  const sortedSubjects = Object.entries(bySubject)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5); // Top 5 subjects
+
   const totalMissing = items.reduce((s, i) => s + i.missing_hours, 0);
   const schoolCount = Object.keys(bySchool).length;
   
@@ -76,16 +88,34 @@ export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], 
 
       <CardHeader className="pb-2 pt-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-muted">Specific Gaps by School</h3>
+          <h3 className="text-sm font-semibold text-muted">Hiring Priorities (By Subject)</h3>
+        </div>
+      </CardHeader>
+      
+      <CardContent className="pb-4">
+         <div className="grid grid-cols-2 gap-3 mb-6">
+            {sortedSubjects.map(([subject, hours]) => (
+              <div key={subject} className="bg-red-50 dark:bg-red-950/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
+                <div className="flex justify-between items-center mb-1">
+                   <span className="font-semibold text-sm text-red-900 dark:text-red-200">{subject}</span>
+                   <Badge variant="destructive" className="h-5 px-1.5 text-[10px]">{hours}h needed</Badge>
+                </div>
+                <div className="w-full bg-red-200 dark:bg-red-900/50 h-1.5 rounded-full mt-2">
+                   <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${Math.min((hours / totalMissing) * 100 * 2, 100)}%` }}></div>
+                </div>
+              </div>
+            ))}
+         </div>
+
+         <div className="flex items-center justify-between mb-3 border-t border-line pt-4">
+          <h3 className="text-sm font-semibold text-muted">Impact by School</h3>
           <div className="flex gap-2">
             <Badge variant="secondary" className="rounded-full text-[10px] h-5">
               {schoolCount} schools affected
             </Badge>
           </div>
         </div>
-      </CardHeader>
-      
-      <CardContent>
+
         <div className="space-y-3 max-h-[300px] overflow-auto pr-1">
           {Object.entries(bySchool).map(([school, unmetItems]) => (
             <div
