@@ -58,14 +58,28 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="bg-[#d9efdb] dark:bg-rose-950/10 border-b border-emerald-100/50 dark:border-rose-900/20 p-4">
+      <div 
+        className="p-4 border-b border-emerald-100/50 dark:border-rose-900/20"
+        style={{ backgroundColor: '#d9efdb', color: '#022c22' }}
+      >
         <div className="flex items-center gap-3 mb-4">
-           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/60 dark:bg-rose-900/40 text-[#ea580c] dark:text-rose-400">
+           <div 
+             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+             style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)', color: '#ea580c' }}
+           >
              <WarningCircle size={22} weight="fill" />
            </div>
            <div>
-             <CardTitle className="text-base text-[#022c22] dark:text-rose-100">Systemic Shortage Detected</CardTitle>
-             <CardDescription className="text-xs text-[#065f46] dark:text-rose-300/80 mt-0.5">
+             <CardTitle 
+               className="text-base"
+               style={{ color: '#022c22' }}
+             >
+               Systemic Shortage Detected
+             </CardTitle>
+             <CardDescription 
+               className="text-xs mt-0.5"
+               style={{ color: '#065f46' }}
+             >
                Even with optimal allocation, {percentageMissing}% of demand cannot be met due to lack of teachers.
              </CardDescription>
            </div>
@@ -73,19 +87,19 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
         
         {totalDemand && (
           <div className="space-y-1.5 mb-1">
-            <div className="h-2.5 w-full bg-white/50 dark:bg-rose-900/30 rounded-full overflow-hidden flex">
+            <div className="h-2.5 w-full bg-white/50 rounded-full overflow-hidden flex">
               <div 
                 className="h-full bg-emerald-500" 
                 style={{ width: `${percentageMet}%` }}
               />
               <div 
-                className="h-full bg-[#ff4500] dark:bg-rose-400" 
-                style={{ width: `${percentageMissing}%` }} 
+                className="h-full" 
+                style={{ width: `${percentageMissing}%`, backgroundColor: '#ff4500' }} 
               />
             </div>
             <div className="flex justify-between text-xs font-medium px-0.5">
-              <span className="text-[#064e3b] dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
-              <span className="text-[#c2410c] dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
+              <span style={{ color: '#064e3b' }}>Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
+              <span style={{ color: '#c2410c' }}>Unmet: {totalMissing}h ({percentageMissing}%)</span>
             </div>
           </div>
         )}
@@ -149,7 +163,8 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
                     return (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-300 border border-rose-100 dark:border-rose-900/30"
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium border"
+                        style={{ backgroundColor: '#fff7ed', color: '#c2410c', borderColor: '#fed7aa' }}
                         title={demand > 0 ? `${item.missing_hours}h missing out of ${demand}h required (${percentMissing}%)` : undefined}
                       >
                         {item.subject}
@@ -163,7 +178,11 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
               </div>
               
               <div className="shrink-0 text-right">
-                <Badge variant="outline" className="rounded-md border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 font-mono text-[11px]">
+                <Badge 
+                  variant="outline" 
+                  className="rounded-md font-mono text-[11px]"
+                  style={{ backgroundColor: '#fef2f2', color: '#b91c1c', borderColor: '#fecaca' }}
+                >
                   -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
                 </Badge>
               </div>
