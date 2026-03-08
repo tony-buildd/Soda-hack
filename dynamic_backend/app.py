@@ -214,6 +214,7 @@ def _detect_and_convert_csv(text: str) -> str:
     w.writerow(["entity","id","name","capacity","subjects","lat","lng",
                 "priority","school_id","subject","hours"])
     for row in csv.DictReader(io.StringIO(text), delimiter=delimiter):
+      normalized_row = {(key or "").strip().lower(): value for key, value in row.items()}
       name = row.get("school_name") or row.get("name") or row["school_id"]
       lat = row.get("lat") or ""
       lng = row.get("lng") or ""
@@ -221,7 +222,7 @@ def _detect_and_convert_csv(text: str) -> str:
       w.writerow(["school", row["school_id"], name, "", "",
                   lat, lng, priority, "", "", ""])
       for subj in demand_subjects:
-        raw = row.get(f"demand_{subj}") or row.get(f"demand_{subj.lower()}") or "0"
+        raw = normalized_row.get(f"demand_{subj}", "") or "0"
         hours = int(raw) if raw.strip().lstrip("-").isdigit() else 0
         if hours > 0:
           w.writerow(["demand", "", "", "", "", "", "", "",
