@@ -36,16 +36,18 @@ export function CsvUpload({ files, onUpload, onRemove, onClear, disabled }: CsvU
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  const handleFiles = useCallback((files: FileList | File[] | null | undefined) => {
-    if (!files) return;
-    const nextFiles = Array.from(files).filter((file) => file.name.toLowerCase().endsWith(".csv"));
+  const handleFiles = useCallback((selectedFiles: FileList | File[] | null | undefined) => {
+    if (!selectedFiles) return;
+    const nextFiles = Array.from(selectedFiles).filter((file) =>
+      file.name.toLowerCase().endsWith(".csv")
+    );
     if (nextFiles.length === 0) return;
     const mergedFiles = new Map(files.map((file) => [file.name, file]));
     for (const file of nextFiles) {
       mergedFiles.set(file.name, file);
     }
     onUpload(Array.from(mergedFiles.values()));
-  }, [onUpload]);
+  }, [files, onUpload]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
