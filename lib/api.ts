@@ -38,5 +38,8 @@ export async function runOptimizerCsv(files: File[]): Promise<ResultBundle> {
   for (const file of files) {
     formData.append("files", file);
   }
+  if (files[0]) {
+    formData.append("file", files[0]);
+  }
   return postForm<ResultBundle>(API_URLS.runCsv, formData);
 }
