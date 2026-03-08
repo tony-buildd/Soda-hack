@@ -47,7 +47,6 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
     .slice(0, 5); // Top 5 subjects
 
   const totalMissing = items.reduce((s, i) => s + i.missing_hours, 0);
-  const schoolCount = Object.keys(bySchool).length;
   
   // Create a lookup map for schools if available
   const schoolMap = schools ? schools.reduce((acc, s) => ({ ...acc, [s.name]: s }), {} as Record<string, School>) : {};
