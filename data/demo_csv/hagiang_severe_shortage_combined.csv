@@ -1,0 +1,354 @@
+entity,id,name,capacity,subjects,lat,lng,priority,school_id,subject,hours
+teacher,HG001,Nguyen Thi Mai,7,Math,23.2741,105.3678,,,,
+teacher,HG002,Vang A Pao,8,Math|Physics,23.1583,105.4021,,,,
+teacher,HG003,Ly Thi Hoa,6,English,23.1152,105.1547,,,,
+teacher,HG004,Giang Seo Phu,8,IT,23.0619,104.9872,,,,
+teacher,HG005,Tran Van Hung,7,Math|Biology,22.8234,104.9213,,,,
+teacher,HG006,Sung Thi Cho,6,Biology,22.7341,104.6789,,,,
+teacher,HG007,Pham Thi Lan,8,English|IT,22.6914,104.4523,,,,
+teacher,HG008,Lu Van Chien,7,Physics|Math,22.7823,105.3412,,,,
+teacher,HG009,Nong Thi Thu,6,Biology|English,22.5134,104.8901,,,,
+teacher,HG010,Hau A Lu,8,Math|Physics|IT,23.2613,105.3512,,,,
+teacher,HG011,Dinh Thi Xuan,8,English,22.8236,104.9837,,,,
+teacher,HG012,Cu Thi Pang,6,Biology,23.1437,105.3891,,,,
+teacher,HG013,Nguyen Van Binh,7,IT|Math,22.7901,104.9561,,,,
+teacher,HG014,Thao Thi My,6,Physics,23.1298,105.1734,,,,
+teacher,HG015,Le Van Duc,8,Math|English,23.0723,104.9634,,,,
+teacher,HG016,Mua Thi Dinh,7,Math|English,23.2891,105.3234,,,,
+teacher,HG017,Vang Thi Chua,6,Biology,23.1712,105.4189,,,,
+teacher,HG018,Ly A Tua,8,Physics|IT,23.1034,105.1823,,,,
+teacher,HG019,Hoang Van Nam,7,Math,23.0512,104.9723,,,,
+teacher,HG020,Sung A De,8,English|Biology,22.8123,104.9345,,,,
+teacher,HG021,Tran Thi Nga,8,IT,22.7512,104.6934,,,,
+teacher,HG022,Chao Thi May,6,Math|Physics,22.7012,104.4712,,,,
+teacher,HG023,Nguyen Thi Phuong,7,English,22.8012,105.3234,,,,
+teacher,HG024,Lu Van Pao,6,Biology|Math,22.5289,104.8712,,,,
+teacher,HG025,Giang Thi Sua,8,Physics,23.2512,105.3789,,,,
+teacher,HG026,Pham Van Long,8,IT|English,22.8345,104.9712,,,,
+teacher,HG027,Thao A Cho,7,Math,23.1623,105.3967,,,,
+teacher,HG028,Vu Thi Linh,8,Biology|Physics,22.7812,104.9423,,,,
+teacher,HG029,Cu A Lau,6,Math|IT,23.1189,105.1612,,,,
+teacher,HG030,Le Thi Huong,7,English,23.0634,104.9512,,,,
+teacher,HG031,Dinh Van Tu,8,Physics|Biology,22.7423,104.7012,,,,
+teacher,HG032,Nong Van Hai,6,Math,22.7912,105.3589,,,,
+teacher,HG033,Hau Thi Cho,8,English|Math,22.6812,104.4634,,,,
+teacher,HG034,Ly Thi My,7,IT,22.5412,104.8823,,,,
+teacher,HG035,Vang A Chu,7,Biology|Physics,23.2634,105.3456,,,,
+teacher,HG036,Sung Thi Gia,8,Math,23.1512,105.4078,,,,
+teacher,HG037,Tran Van Thang,6,English|IT,22.8189,104.9623,,,,
+teacher,HG038,Giang A Minh,8,Physics,22.8067,104.9289,,,,
+teacher,HG039,Pham Thi Dung,8,Math|Biology,23.1356,105.1489,,,,
+teacher,HG040,Dang Thi Thao,8,Math,22.8412,104.9789,,,,
+teacher,HG041,Vang A The,8,Math,23.2789,105.3345,,,,
+teacher,HG042,Lo Thi Chien,7,Physics|English,23.1678,105.3812,,,,
+teacher,HG043,Hoang Thi Yen,8,IT,23.1423,105.1923,,,,
+teacher,HG044,Giang Seo Minh,6,Math|Biology,23.0834,104.9789,,,,
+teacher,HG045,Nong Thi Phuong,7,English,22.8289,104.9134,,,,
+teacher,HG046,Thao Van Lu,8,Physics,22.7234,104.7134,,,,
+teacher,HG047,Pham Thi Tuyet,6,Math|IT,22.7123,104.4489,,,,
+teacher,HG048,Ly Thi Chan,8,Biology,22.7734,105.3289,,,,
+teacher,HG049,Sung A Co,7,English|Physics,22.5067,104.8634,,,,
+teacher,HG050,Cu A Pao,7,Biology|IT,23.1512,105.1356,,,,
+teacher,HG051,Sung Van Minh,7,Math|English,23.2823,105.3712,,,,
+teacher,HG052,Ma Thi Pao,6,Biology,23.2456,105.3923,,,,
+teacher,HG053,Vang Seo Lua,8,Physics|Math,23.3034,105.3156,,,,
+teacher,HG054,Giang A Gia,6,IT,23.2167,105.4089,,,,
+teacher,HG055,Cu Thi Xo,7,English,23.2934,105.3489,,,,
+teacher,HG056,Ly A Vang,7,Math,23.1289,105.3734,,,,
+teacher,HG057,Thao Thi Su,8,English|Biology,23.1834,105.4256,,,,
+teacher,HG058,Giang Thi Cang,6,Physics,23.1056,105.3956,,,,
+teacher,HG059,Sung A Pao,8,Math|IT,23.1967,105.3623,,,,
+teacher,HG060,Ma Van Cu,6,Biology,23.1378,105.4134,,,,
+teacher,HG061,Nguyen Thi Lan,8,Math|English,23.0934,105.1412,,,,
+teacher,HG062,Thao A Sung,7,Physics|Biology,23.1512,105.2034,,,,
+teacher,HG063,Ly Thi Pao,6,IT,23.0756,105.1689,,,,
+teacher,HG064,Giang Van Cu,7,Math,23.1623,105.1289,,,,
+teacher,HG065,Pham Van Thanh,8,English,23.1089,105.1945,,,,
+teacher,HG066,Sung Thi Vang,6,Math|Biology,23.0423,104.9456,,,,
+teacher,HG067,Nong Van Duc,8,Physics,23.0912,104.9912,,,,
+teacher,HG068,Ly Thi Sua,7,English|IT,23.0289,104.9634,,,,
+teacher,HG069,Giang Seo Pao,8,Math,23.0756,104.9289,,,,
+teacher,HG070,Hau Thi May,6,Biology,23.0534,105.0056,,,,
+teacher,HG071,Tran Thi Hoa,7,Math|Physics,22.7534,104.9678,,,,
+teacher,HG072,Le Van Khanh,8,English,22.8423,104.9023,,,,
+teacher,HG073,Nong Thi Lan,6,IT|Biology,22.7689,104.9812,,,,
+teacher,HG074,Giang A Sinh,8,Math,22.8156,104.9456,,,,
+teacher,HG075,Dinh Van Phu,7,Physics|English,22.7823,104.9134,,,,
+teacher,HG076,Sung Thi Hoa,6,Math,22.7156,104.6612,,,,
+teacher,HG077,Chao Van Minh,8,Biology|IT,22.7634,104.7256,,,,
+teacher,HG078,Lo Thi Xuan,7,English,22.6934,104.6934,,,,
+teacher,HG079,Ly Van Tuyen,6,Math|Physics,22.7489,104.6489,,,,
+teacher,HG080,Mua Thi Cho,8,Biology,22.7312,104.7089,,,,
+teacher,HG081,Giang Thi Lua,7,Math,22.6723,104.4812,,,,
+teacher,HG082,Sung A Minh,8,English|Physics,22.7234,104.4356,,,,
+teacher,HG083,Nong Thi Xuan,6,IT,22.6589,104.5089,,,,
+teacher,HG084,Lo Van Duc,7,Math|Biology,22.7089,104.4623,,,,
+teacher,HG085,Ly Thi Thanh,6,English,22.6845,104.4489,,,,
+teacher,HG086,Hau Van Son,8,Math|Physics,22.8134,105.3156,,,,
+teacher,HG087,Giang Thi My,7,English,22.7589,105.3712,,,,
+teacher,HG088,Sung A Lua,6,Biology|Math,22.7423,105.3456,,,,
+teacher,HG089,Cu Van Minh,8,IT,22.8256,105.3289,,,,
+teacher,HG090,Ly Thi Vang,7,Physics,22.7712,105.3834,,,,
+teacher,HG091,Tran Van Duc,8,Math|English,22.4923,104.8756,,,,
+teacher,HG092,Nong Van Phu,6,Biology,22.5567,104.8489,,,,
+teacher,HG093,Lo Thi Hoa,8,IT|Math,22.5312,104.9034,,,,
+teacher,HG094,Giang Thi Bich,7,English,22.4756,104.8923,,,,
+teacher,HG095,Sung Van Kien,6,Physics|Biology,22.5689,104.8312,,,,
+teacher,HG096,Nguyen Thi Bich,8,Math|Physics,22.8467,104.9923,,,,
+teacher,HG097,Le Thi Thu,8,English|IT,22.8123,104.9512,,,,
+teacher,HG098,Pham Van Quang,7,Biology,22.8289,104.9678,,,,
+teacher,HG099,Dang Thi Nga,8,Math|English,22.8356,104.9834,,,,
+teacher,HG100,Tran Van Minh,7,IT|Physics,22.8201,104.9601,,,,
+school,HG-S01,THPT Dong Van,,,23.2712,105.3601,5,,,
+demand,,,,,,,,HG-S01,Math,12
+demand,,,,,,,,HG-S01,English,10
+demand,,,,,,,,HG-S01,Physics,10
+demand,,,,,,,,HG-S01,IT,6
+school,HG-S02,THCS Thi Tran Dong Van,,,23.2689,105.3578,5,,,
+demand,,,,,,,,HG-S02,Math,10
+demand,,,,,,,,HG-S02,English,8
+demand,,,,,,,,HG-S02,Biology,8
+school,HG-S03,THCS Ma Le,,,23.3012,105.3234,5,,,
+demand,,,,,,,,HG-S03,Math,8
+demand,,,,,,,,HG-S03,English,6
+demand,,,,,,,,HG-S03,Biology,7
+school,HG-S04,THCS Lung Cu,,,23.3312,105.3089,5,,,
+demand,,,,,,,,HG-S04,Math,7
+demand,,,,,,,,HG-S04,English,5
+demand,,,,,,,,HG-S04,Biology,6
+school,HG-S05,THCS Pho Bang,,,23.2456,105.3812,5,,,
+demand,,,,,,,,HG-S05,Math,8
+demand,,,,,,,,HG-S05,English,6
+demand,,,,,,,,HG-S05,Biology,7
+school,HG-S06,THCS Sang Tung,,,23.2134,105.4012,5,,,
+demand,,,,,,,,HG-S06,Math,6
+demand,,,,,,,,HG-S06,English,5
+demand,,,,,,,,HG-S06,Biology,5
+school,HG-S07,THPT Meo Vac,,,23.1534,105.3967,5,,,
+demand,,,,,,,,HG-S07,Math,12
+demand,,,,,,,,HG-S07,English,10
+demand,,,,,,,,HG-S07,Physics,10
+demand,,,,,,,,HG-S07,IT,6
+school,HG-S08,THCS Thi Tran Meo Vac,,,23.1512,105.3945,5,,,
+demand,,,,,,,,HG-S08,Math,10
+demand,,,,,,,,HG-S08,English,8
+demand,,,,,,,,HG-S08,Biology,8
+school,HG-S09,THCS Giang Chu Phin,,,23.1823,105.4134,5,,,
+demand,,,,,,,,HG-S09,Math,7
+demand,,,,,,,,HG-S09,English,6
+demand,,,,,,,,HG-S09,Biology,6
+school,HG-S10,THCS Khau Vai,,,23.1234,105.4289,5,,,
+demand,,,,,,,,HG-S10,Math,8
+demand,,,,,,,,HG-S10,English,6
+demand,,,,,,,,HG-S10,Biology,7
+school,HG-S11,THCS Lung PU,,,23.1689,105.3712,5,,,
+demand,,,,,,,,HG-S11,Math,6
+demand,,,,,,,,HG-S11,English,5
+demand,,,,,,,,HG-S11,Biology,5
+school,HG-S12,THCS Thai An,,,23.1345,105.3589,5,,,
+demand,,,,,,,,HG-S12,Math,7
+demand,,,,,,,,HG-S12,English,5
+demand,,,,,,,,HG-S12,Biology,6
+school,HG-S13,THPT Yen Minh,,,23.1189,105.1623,4,,,
+demand,,,,,,,,HG-S13,Math,12
+demand,,,,,,,,HG-S13,English,10
+demand,,,,,,,,HG-S13,Physics,10
+demand,,,,,,,,HG-S13,IT,6
+school,HG-S14,THCS Thi Tran Yen Minh,,,23.1156,105.1601,4,,,
+demand,,,,,,,,HG-S14,Math,10
+demand,,,,,,,,HG-S14,English,8
+demand,,,,,,,,HG-S14,Biology,8
+school,HG-S15,THCS Du Gia,,,23.0812,105.2134,4,,,
+demand,,,,,,,,HG-S15,Math,8
+demand,,,,,,,,HG-S15,English,7
+demand,,,,,,,,HG-S15,Biology,7
+school,HG-S16,THCS Na Khe,,,23.1423,105.1345,4,,,
+demand,,,,,,,,HG-S16,Math,7
+demand,,,,,,,,HG-S16,English,6
+demand,,,,,,,,HG-S16,Biology,6
+school,HG-S17,THCS Bac Me Yen Minh,,,23.0956,105.1789,4,,,
+demand,,,,,,,,HG-S17,Math,8
+demand,,,,,,,,HG-S17,English,6
+demand,,,,,,,,HG-S17,Biology,7
+school,HG-S18,THCS Mau Due,,,23.1534,105.1012,4,,,
+demand,,,,,,,,HG-S18,Math,7
+demand,,,,,,,,HG-S18,English,5
+demand,,,,,,,,HG-S18,Biology,6
+school,HG-S19,THPT Quan Ba,,,23.0645,104.9801,4,,,
+demand,,,,,,,,HG-S19,Math,12
+demand,,,,,,,,HG-S19,English,10
+demand,,,,,,,,HG-S19,Physics,10
+school,HG-S20,THCS Thi Tran Tam Son,,,23.0623,104.9778,4,,,
+demand,,,,,,,,HG-S20,Math,10
+demand,,,,,,,,HG-S20,English,8
+demand,,,,,,,,HG-S20,Biology,8
+school,HG-S21,THCS Quan Ba,,,23.0789,104.9623,4,,,
+demand,,,,,,,,HG-S21,Math,8
+demand,,,,,,,,HG-S21,English,7
+demand,,,,,,,,HG-S21,Biology,7
+school,HG-S22,THCS Bat Dai Son,,,23.0345,105.0134,4,,,
+demand,,,,,,,,HG-S22,Math,7
+demand,,,,,,,,HG-S22,English,6
+demand,,,,,,,,HG-S22,Biology,6
+school,HG-S23,THCS Ngam La,,,23.0912,104.9345,4,,,
+demand,,,,,,,,HG-S23,Math,8
+demand,,,,,,,,HG-S23,English,6
+demand,,,,,,,,HG-S23,Biology,7
+school,HG-S24,THCS Tung Vai,,,23.0512,104.9512,4,,,
+demand,,,,,,,,HG-S24,Math,6
+demand,,,,,,,,HG-S24,English,5
+demand,,,,,,,,HG-S24,Biology,5
+school,HG-S25,THPT Vi Xuyen So 1,,,22.8189,104.9589,3,,,
+demand,,,,,,,,HG-S25,Math,14
+demand,,,,,,,,HG-S25,English,12
+demand,,,,,,,,HG-S25,Physics,12
+demand,,,,,,,,HG-S25,IT,8
+school,HG-S26,THPT Vi Xuyen So 2,,,22.7956,104.9412,3,,,
+demand,,,,,,,,HG-S26,Math,12
+demand,,,,,,,,HG-S26,English,10
+demand,,,,,,,,HG-S26,Physics,10
+demand,,,,,,,,HG-S26,IT,6
+school,HG-S27,THCS Thi Tran Vi Xuyen,,,22.8234,104.9567,3,,,
+demand,,,,,,,,HG-S27,Math,10
+demand,,,,,,,,HG-S27,English,8
+demand,,,,,,,,HG-S27,Biology,8
+school,HG-S28,THCS Trung Thanh,,,22.7812,104.9234,3,,,
+demand,,,,,,,,HG-S28,Math,9
+demand,,,,,,,,HG-S28,English,7
+demand,,,,,,,,HG-S28,Biology,8
+school,HG-S29,THCS Cao Bo,,,22.8512,104.9789,3,,,
+demand,,,,,,,,HG-S29,Math,8
+demand,,,,,,,,HG-S29,English,7
+demand,,,,,,,,HG-S29,Biology,7
+school,HG-S30,THCS Minh Tan,,,22.7634,104.9456,3,,,
+demand,,,,,,,,HG-S30,Math,8
+demand,,,,,,,,HG-S30,English,6
+demand,,,,,,,,HG-S30,Biology,6
+school,HG-S31,THCS Thuong Son,,,22.8789,104.9134,3,,,
+demand,,,,,,,,HG-S31,Math,7
+demand,,,,,,,,HG-S31,English,6
+demand,,,,,,,,HG-S31,Biology,6
+school,HG-S32,THPT Hoang Su Phi,,,22.7312,104.6823,4,,,
+demand,,,,,,,,HG-S32,Math,12
+demand,,,,,,,,HG-S32,English,10
+demand,,,,,,,,HG-S32,Physics,10
+school,HG-S33,THCS Thi Tran Viet Lam,,,22.7289,104.6801,4,,,
+demand,,,,,,,,HG-S33,Math,10
+demand,,,,,,,,HG-S33,English,8
+demand,,,,,,,,HG-S33,Biology,8
+school,HG-S34,THCS Ban Phung,,,22.7589,104.6512,4,,,
+demand,,,,,,,,HG-S34,Math,8
+demand,,,,,,,,HG-S34,English,6
+demand,,,,,,,,HG-S34,Biology,7
+school,HG-S35,THCS Ho Thau,,,22.7012,104.7089,4,,,
+demand,,,,,,,,HG-S35,Math,7
+demand,,,,,,,,HG-S35,English,5
+demand,,,,,,,,HG-S35,Biology,6
+school,HG-S36,THCS Nam Ty,,,22.6823,104.6634,4,,,
+demand,,,,,,,,HG-S36,Math,7
+demand,,,,,,,,HG-S36,English,5
+demand,,,,,,,,HG-S36,Biology,6
+school,HG-S37,THCS Pho Lu,,,22.7734,104.6234,4,,,
+demand,,,,,,,,HG-S37,Math,6
+demand,,,,,,,,HG-S37,English,5
+demand,,,,,,,,HG-S37,Biology,5
+school,HG-S38,THPT Xin Man,,,22.6867,104.4589,4,,,
+demand,,,,,,,,HG-S38,Math,10
+demand,,,,,,,,HG-S38,English,10
+demand,,,,,,,,HG-S38,Physics,8
+school,HG-S39,THCS Thi Tran Coc Pai,,,22.6845,104.4567,4,,,
+demand,,,,,,,,HG-S39,Math,9
+demand,,,,,,,,HG-S39,English,8
+demand,,,,,,,,HG-S39,Biology,7
+school,HG-S40,THCS Chung Chai,,,22.7156,104.4312,4,,,
+demand,,,,,,,,HG-S40,Math,7
+demand,,,,,,,,HG-S40,English,6
+demand,,,,,,,,HG-S40,Biology,6
+school,HG-S41,THCS Quang Nguyen,,,22.6612,104.4789,4,,,
+demand,,,,,,,,HG-S41,Math,7
+demand,,,,,,,,HG-S41,English,5
+demand,,,,,,,,HG-S41,Biology,6
+school,HG-S42,THCS Nam Dich,,,22.6423,104.5012,4,,,
+demand,,,,,,,,HG-S42,Math,6
+demand,,,,,,,,HG-S42,English,5
+demand,,,,,,,,HG-S42,Biology,5
+school,HG-S43,THPT Bac Me,,,22.7867,105.3456,4,,,
+demand,,,,,,,,HG-S43,Math,10
+demand,,,,,,,,HG-S43,English,8
+demand,,,,,,,,HG-S43,Physics,8
+school,HG-S44,THCS Yen Phu,,,22.7845,105.3434,4,,,
+demand,,,,,,,,HG-S44,Math,9
+demand,,,,,,,,HG-S44,English,7
+demand,,,,,,,,HG-S44,Biology,8
+school,HG-S45,THCS Yen Dinh,,,22.8123,105.3234,4,,,
+demand,,,,,,,,HG-S45,Math,8
+demand,,,,,,,,HG-S45,English,6
+demand,,,,,,,,HG-S45,Biology,7
+school,HG-S46,THCS Phu Nam,,,22.7612,105.3678,4,,,
+demand,,,,,,,,HG-S46,Math,7
+demand,,,,,,,,HG-S46,English,5
+demand,,,,,,,,HG-S46,Biology,6
+school,HG-S47,THCS Minh Nguyet,,,22.7389,105.3123,4,,,
+demand,,,,,,,,HG-S47,Math,7
+demand,,,,,,,,HG-S47,English,6
+demand,,,,,,,,HG-S47,Biology,6
+school,HG-S48,THPT Quang Binh,,,22.5189,104.8867,3,,,
+demand,,,,,,,,HG-S48,Math,10
+demand,,,,,,,,HG-S48,English,8
+demand,,,,,,,,HG-S48,Physics,8
+school,HG-S49,THCS Thi Tran Yen Binh,,,22.5167,104.8845,3,,,
+demand,,,,,,,,HG-S49,Math,9
+demand,,,,,,,,HG-S49,English,8
+demand,,,,,,,,HG-S49,Biology,8
+school,HG-S50,THCS Xuan Minh,,,22.5423,104.8612,3,,,
+demand,,,,,,,,HG-S50,Math,8
+demand,,,,,,,,HG-S50,English,7
+demand,,,,,,,,HG-S50,Biology,7
+school,HG-S51,THCS Tien Nguyen,,,22.4967,104.9012,3,,,
+demand,,,,,,,,HG-S51,Math,8
+demand,,,,,,,,HG-S51,English,6
+demand,,,,,,,,HG-S51,Biology,6
+school,HG-S52,THCS Yen Thanh,,,22.5634,104.8345,3,,,
+demand,,,,,,,,HG-S52,Math,7
+demand,,,,,,,,HG-S52,English,5
+demand,,,,,,,,HG-S52,Biology,6
+school,HG-S53,THPT So 1 Ha Giang,,,22.8289,104.9845,2,,,
+demand,,,,,,,,HG-S53,Math,14
+demand,,,,,,,,HG-S53,English,12
+demand,,,,,,,,HG-S53,Physics,14
+demand,,,,,,,,HG-S53,IT,10
+school,HG-S54,THPT Chuyen Ha Giang,,,22.8156,104.9712,1,,,
+demand,,,,,,,,HG-S54,Math,14
+demand,,,,,,,,HG-S54,English,14
+demand,,,,,,,,HG-S54,Physics,14
+demand,,,,,,,,HG-S54,IT,12
+school,HG-S55,THPT So 2 Ha Giang,,,22.8389,104.9634,2,,,
+demand,,,,,,,,HG-S55,Math,12
+demand,,,,,,,,HG-S55,English,12
+demand,,,,,,,,HG-S55,Physics,12
+demand,,,,,,,,HG-S55,IT,8
+school,HG-S56,THCS Le Quy Don,,,22.8312,104.9789,2,,,
+demand,,,,,,,,HG-S56,Math,10
+demand,,,,,,,,HG-S56,English,10
+demand,,,,,,,,HG-S56,IT,8
+demand,,,,,,,,HG-S56,Biology,8
+school,HG-S57,THCS Yen Bien,,,22.8234,104.9678,2,,,
+demand,,,,,,,,HG-S57,Math,10
+demand,,,,,,,,HG-S57,English,9
+demand,,,,,,,,HG-S57,IT,7
+demand,,,,,,,,HG-S57,Biology,8
+school,HG-S58,THCS Nguyen Trai,,,22.8178,104.9823,2,,,
+demand,,,,,,,,HG-S58,Math,10
+demand,,,,,,,,HG-S58,English,9
+demand,,,,,,,,HG-S58,IT,7
+demand,,,,,,,,HG-S58,Biology,8
+school,HG-S59,THCS Minh Khai,,,22.8089,104.9567,2,,,
+demand,,,,,,,,HG-S59,Math,9
+demand,,,,,,,,HG-S59,English,9
+demand,,,,,,,,HG-S59,IT,6
+demand,,,,,,,,HG-S59,Biology,7
+school,HG-S60,THCS Phuong Thien,,,22.8023,104.9456,2,,,
+demand,,,,,,,,HG-S60,Math,9
+demand,,,,,,,,HG-S60,English,8
+demand,,,,,,,,HG-S60,IT,6
+demand,,,,,,,,HG-S60,Biology,7
