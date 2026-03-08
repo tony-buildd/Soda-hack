@@ -16,6 +16,20 @@ Web UI (Next.js) -> Flask API -> C++ Core Engine (MCMF + Greedy baseline + KPI) 
 - `lib/`: TypeScript API client, types, and utilities
 - `dynamic_backend/`: Python Flask API server
 
+## Git LFS Setup (Required)
+This project uses Git Large File Storage (LFS) for media assets. You must install Git LFS and pull the actual files before running the app.
+
+1.  **Install Git LFS**:
+    ```bash
+    brew install git-lfs
+    git lfs install
+    ```
+
+2.  **Pull LFS files**:
+    ```bash
+    git lfs pull
+    ```
+
 ## Running the app
 Prerequisites: C++17 compiler, Node.js, Python 3.
 
