@@ -11,8 +11,6 @@ export function VideoBackground() {
   const darkRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
 
-  // Start playing both videos on mount so they're always buffered.
-  // We toggle visibility via opacity — no reload flicker.
   useEffect(() => {
     const playBoth = async () => {
       try {
@@ -26,8 +24,8 @@ export function VideoBackground() {
     playBoth();
   }, []);
 
-  const baseClasses =
-    "fixed inset-0 -z-10 h-full w-full object-cover transition-opacity duration-700 ease-in-out";
+  const videoClasses =
+    "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out";
 
   return (
     <div className="fixed inset-0 -z-10" aria-hidden="true">
@@ -38,10 +36,10 @@ export function VideoBackground() {
         loop
         autoPlay
         playsInline
-        className={baseClasses}
-        style={{ opacity: ready && !isDark ? 0.4 : 0 }}
+        className={videoClasses}
+        style={{ opacity: ready && !isDark ? 0.35 : 0 }}
       >
-        <source src="/light_background.mp4" type="video/mp4" />
+        <source src="/vietnam_background.mp4" type="video/mp4" />
       </video>
 
       {/* Dark video */}
@@ -51,11 +49,21 @@ export function VideoBackground() {
         loop
         autoPlay
         playsInline
-        className={baseClasses}
-        style={{ opacity: ready && isDark ? 0.4 : 0 }}
+        className={videoClasses}
+        style={{ opacity: ready && isDark ? 0.35 : 0 }}
       >
-        <source src="/dark_background.mp4" type="video/mp4" />
+        <source src="/vietnam_background.mp4" type="video/mp4" />
       </video>
+
+      {/* Thin tint — just enough to help text, not hide the video */}
+      <div
+        className="absolute inset-0 transition-colors duration-700"
+        style={{
+          backgroundColor: isDark
+            ? "rgba(9, 14, 12, 0.3)"
+            : "rgba(249, 250, 245, 0.25)",
+        }}
+      />
     </div>
   );
 }
