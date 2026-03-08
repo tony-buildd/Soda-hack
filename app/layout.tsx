@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <ThemeScript />
       </head>
-      <body className="font-sans antialiased pb-24">
+      <body className="font-sans antialiased pb-24 text-lg">
         <ThemeProvider>
           <VideoBackground />
           <main className="relative z-1">
