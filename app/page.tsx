@@ -101,7 +101,7 @@ export default function LandingPage() {
             className="mt-6 max-w-2xl mx-auto text-center text-[15px] md:text-base leading-relaxed text-muted"
           >
             62,877 teachers short. 5,091 misallocated. 26,000+ satellite schools where
-            mandatory subjects go untaught. This tool helps Sở GD&amp;ĐT officers
+            mandatory subjects go untaught. This tool helps Department of Education and Training officers
             generate optimized assignment plans in minutes — not weeks.
           </motion.p>
 
