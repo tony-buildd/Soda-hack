@@ -803,28 +803,171 @@ def create_app() -> Flask:
       "workload_std": mcmf.get("kpi", {}).get("workload_std", 0),
     }
 
+  def _school_unmet_hours(bundle: Dict[str, Any]) -> Dict[str, int]:
+    school_unmet: Dict[str, int] = {}
+    for item in bundle.get("mcmf", {}).get("kpi", {}).get("unmet_demand", []):
+      school_id = str(item.get("school", "")).strip()
+      if not school_id:
+        continue
+      school_unmet[school_id] = school_unmet.get(school_id, 0) + int(item.get("missing_hours", 0))
+    return school_unmet
+
+  def _decision_summary_needs_refresh(summary: Any) -> bool:
+    if not isinstance(summary, dict):
+      return True
+    required_keys = {
+      "available",
+      "category",
+      "headline",
+      "body",
+      "coverage_delta_pct",
+      "unmet_hours_delta",
+      "travel_delta_km",
+      "worsened_school_count",
+      "school_section_title",
+      "school_section_empty_text",
+      "worsened_schools",
+    }
+    return not required_keys.issubset(summary.keys())
+
+  def _build_decision_summary(
+    current_bundle: Dict[str, Any],
+    previous_bundle: Dict[str, Any] | None,
+  ) -> Dict[str, Any]:
+    if previous_bundle is None:
+      return {
+        "available": False,
+        "category": "first_run",
+        "headline": "First saved run.",
+        "body": "Run the optimizer again after a data change to see which schools became easier or harder to staff.",
+        "coverage_delta_pct": 0.0,
+        "unmet_hours_delta": 0,
+        "travel_delta_km": 0.0,
+        "worsened_school_count": 0,
+        "school_section_title": "Pressure across schools",
+        "school_section_empty_text": "There is no earlier run to compare yet.",
+        "worsened_schools": [],
+      }
+
+    current_kpi = current_bundle.get("mcmf", {}).get("kpi", {})
+    previous_kpi = previous_bundle.get("mcmf", {}).get("kpi", {})
+    coverage_delta = round(
+      float(current_kpi.get("coverage_pct", 0)) - float(previous_kpi.get("coverage_pct", 0)),
+      2,
+    )
+    current_unmet = sum(int(item.get("missing_hours", 0)) for item in current_kpi.get("unmet_demand", []))
+    previous_unmet = sum(int(item.get("missing_hours", 0)) for item in previous_kpi.get("unmet_demand", []))
+    unmet_delta = current_unmet - previous_unmet
+    travel_delta = round(
+      float(current_kpi.get("total_travel_km", 0)) - float(previous_kpi.get("total_travel_km", 0)),
+      2,
+    )
+
+    school_names = {
+      str(school.get("id", "")): str(school.get("name", school.get("id", "")))
+      for school in current_bundle.get("input", {}).get("schools", [])
+    }
+    current_school_unmet = _school_unmet_hours(current_bundle)
+    previous_school_unmet = _school_unmet_hours(previous_bundle)
+    worsened_schools = []
+    for school_id in sorted(set(current_school_unmet) | set(previous_school_unmet)):
+      delta = current_school_unmet.get(school_id, 0) - previous_school_unmet.get(school_id, 0)
+      if delta > 0:
+        worsened_schools.append(
+          {
+            "school_id": school_id,
+            "school_name": school_names.get(school_id, school_id),
+            "unmet_delta_hours": delta,
+            "current_unmet_hours": current_school_unmet.get(school_id, 0),
+          }
+        )
+    worsened_schools.sort(
+      key=lambda item: (-item["unmet_delta_hours"], -item["current_unmet_hours"], item["school_name"])
+    )
+    worsened_school_count = len(worsened_schools)
+    worsened_schools = worsened_schools[:5]
+    current_school_count = max(1, len(current_bundle.get("input", {}).get("schools", [])))
+    full_coverage = float(current_kpi.get("coverage_pct", 0)) >= 99.995 and current_unmet == 0
+    worsened_is_broad = (
+      worsened_school_count >= 3 or worsened_school_count / current_school_count >= 0.15
+    )
+
+    if full_coverage:
+      category = "full_coverage"
+      headline = "This run fully covers the schools' teaching needs."
+      body = "Right now, no school is left missing teacher hours. You can use this as a fully covered staffing plan."
+      school_section_title = "Pressure across schools"
+      school_section_empty_text = "No school is currently missing teacher coverage in this run."
+    elif coverage_delta > 0.1 or unmet_delta < 0:
+      category = "improved_with_gaps"
+      headline = "This run leaves fewer classes without teachers than the last one."
+      body = "The staffing picture improved, but some schools still have teacher gaps. Focus support on the remaining shortage schools."
+      school_section_title = "Schools still under pressure"
+      school_section_empty_text = "No school got harder to staff than in the previous run."
+    elif coverage_delta < -0.1 or unmet_delta > 0:
+      if worsened_is_broad:
+        category = "worsened_broad"
+        headline = "Teacher shortages are spreading across more schools."
+        body = "The latest run shows broader staffing pressure across the district, so more than a few schools may need support."
+      else:
+        category = "worsened_local"
+        headline = "Teacher shortages are getting worse in a few schools."
+        body = "Most of the new staffing pressure is concentrated in a small number of schools, so review those schools first."
+      school_section_title = "Schools needing help now"
+      school_section_empty_text = "The district has more uncovered teacher hours overall, even if one school does not stand out yet."
+    else:
+      category = "stable"
+      headline = "This run looks broadly similar to the last one."
+      body = "The overall staffing picture did not shift much, so focus on the same schools and constraints as before."
+      school_section_title = "Pressure across schools"
+      school_section_empty_text = "The latest run did not make any school harder to staff."
+
+    return {
+      "available": True,
+      "category": category,
+      "headline": headline,
+      "body": body,
+      "coverage_delta_pct": coverage_delta,
+      "unmet_hours_delta": unmet_delta,
+      "travel_delta_km": travel_delta,
+      "worsened_school_count": worsened_school_count,
+      "school_section_title": school_section_title,
+      "school_section_empty_text": school_section_empty_text,
+      "worsened_schools": worsened_schools,
+    }
+
   def _record_run_snapshot(bundle: Dict[str, Any], trigger: str) -> Dict[str, Any]:
     history_dir.mkdir(parents=True, exist_ok=True)
     run_id = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     summary = _build_history_summary(run_id, bundle, trigger)
+    history_file = history_dir / f"{run_id}.json"
 
     snapshot_bundle = json.loads(json.dumps(bundle))
     snapshot_meta = snapshot_bundle.setdefault("meta", {})
     snapshot_meta["run_snapshot"] = summary
-
-    history_file = history_dir / f"{run_id}.json"
-    _write_json(history_file, snapshot_bundle)
 
     history_index: List[Dict[str, Any]] = []
     if history_index_path.exists():
       raw_index = _read_json(history_index_path)
       history_index = list(raw_index.get("runs", []))
 
+    previous_bundle = None
+    if history_index:
+      try:
+        previous_bundle = _load_history_run(str(history_index[0].get("id", "")))
+      except FileNotFoundError:
+        previous_bundle = None
+
+    decision_summary = _build_decision_summary(bundle, previous_bundle)
+    snapshot_meta["decision_summary"] = decision_summary
+    _write_json(history_file, snapshot_bundle)
+
     history_index = [summary, *[item for item in history_index if item.get("id") != run_id]][:100]
     _write_json(history_index_path, {"runs": history_index})
 
     bundle_meta = bundle.setdefault("meta", {})
     bundle_meta["run_snapshot"] = summary
+    bundle_meta["decision_summary"] = decision_summary
     return bundle
 
   def _load_run_history(limit: int = 20) -> List[Dict[str, Any]]:
@@ -833,12 +976,39 @@ def create_app() -> Flask:
     raw_index = _read_json(history_index_path)
     return list(raw_index.get("runs", []))[:limit]
 
-  def _load_history_run(run_id: str) -> Dict[str, Any]:
+  def _load_history_run_raw(run_id: str) -> Dict[str, Any]:
     safe_run_id = Path(run_id).name
     history_file = history_dir / f"{safe_run_id}.json"
     if not history_file.exists():
       raise FileNotFoundError(f"Run snapshot not found: {run_id}")
     return _read_json(history_file)
+
+  def _load_previous_history_run(run_id: str) -> Dict[str, Any] | None:
+    history_runs = _load_run_history(limit=100)
+    run_ids = [str(item.get("id", "")) for item in history_runs]
+    try:
+      current_index = run_ids.index(run_id)
+    except ValueError:
+      return None
+    previous_index = current_index + 1
+    if previous_index >= len(run_ids):
+      return None
+    previous_run_id = run_ids[previous_index]
+    if not previous_run_id:
+      return None
+    try:
+      return _load_history_run(previous_run_id)
+    except FileNotFoundError:
+      return None
+
+  def _load_history_run(run_id: str) -> Dict[str, Any]:
+    bundle = _load_history_run_raw(run_id)
+    bundle_meta = bundle.setdefault("meta", {})
+    if _decision_summary_needs_refresh(bundle_meta.get("decision_summary")):
+      previous_bundle = _load_previous_history_run(str(run_id))
+      bundle_meta["decision_summary"] = _build_decision_summary(bundle, previous_bundle)
+      _write_json(history_dir / f"{Path(run_id).name}.json", bundle)
+    return bundle
 
   def _ensure_allocator_binary() -> None:
     if allocator_binary.exists():
@@ -948,7 +1118,20 @@ def create_app() -> Flask:
   def _load_or_bootstrap_current() -> Dict[str, Any]:
     with state_lock:
       input_payload = _state_to_input_payload(state)
-      return _build_result_bundle(input_payload=input_payload)
+      bundle = _build_result_bundle(input_payload=input_payload)
+      latest_runs = _load_run_history(limit=1)
+      if latest_runs:
+        try:
+          latest_snapshot = _load_history_run(str(latest_runs[0].get("id", "")))
+          latest_meta = latest_snapshot.get("meta", {})
+          bundle_meta = bundle.setdefault("meta", {})
+          if "run_snapshot" in latest_meta:
+            bundle_meta["run_snapshot"] = latest_meta["run_snapshot"]
+          if "decision_summary" in latest_meta:
+            bundle_meta["decision_summary"] = latest_meta["decision_summary"]
+        except FileNotFoundError:
+          pass
+      return bundle
 
   @app.get("/")
   def home() -> Any:

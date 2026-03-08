@@ -69,9 +69,7 @@ function ComparisonBar({ label, mcmf, greedy, unit }: { label: string; mcmf: num
             margin={{ left: 50, right: 10, top: 10, bottom: 30 }}
             borderRadius={6}
             grid={{ horizontal: true }}
-            slotProps={{
-              legend: { hidden: true }
-            }}
+            hideLegend
           />
         </MuiThemeProvider>
       </CardContent>

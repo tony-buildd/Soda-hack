@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { fetchCurrentResults, fetchHistoryRun, fetchRunHistory } from "@/lib/api";
-import type { ResultBundle, RunSnapshotSummary } from "@/lib/types";
+import type { DecisionSummary, ResultBundle, RunSnapshotSummary } from "@/lib/types";
 
 const AllocationMap = dynamic(
   () => import("@/components/allocation-map").then((m) => m.AllocationMap),
@@ -33,6 +33,27 @@ const AllocationMap = dynamic(
 );
 
 type Algorithm = "mcmf" | "greedy";
+
+function formatSignedPoints(value: number): string {
+  if (value === 0) {
+    return "No change";
+  }
+  return `${value > 0 ? "+" : ""}${value.toFixed(2)} points`;
+}
+
+function formatShortageHours(value: number): string {
+  if (value === 0) {
+    return "No change";
+  }
+  return `${Math.abs(value)} ${value < 0 ? "fewer" : "more"} hours left uncovered`;
+}
+
+function formatTravelDelta(value: number): string {
+  if (value === 0) {
+    return "No change";
+  }
+  return `${Math.abs(value).toFixed(1)} km ${value < 0 ? "less" : "more"} travel`;
+}
 
 export default function StatisticsPage() {
   const [currentBundle, setCurrentBundle] = useState<ResultBundle | null>(null);
@@ -93,6 +114,7 @@ export default function StatisticsPage() {
   const activeRun = selectedRunId
     ? historyRuns.find((run) => run.id === selectedRunId) ?? bundle.meta?.run_snapshot
     : bundle.meta?.run_snapshot ?? historyRuns[0];
+  const decisionSummary = bundle.meta?.decision_summary as DecisionSummary | undefined;
   
   // Calculate total demand from input data
   const totalDemand = bundle.input.schools.reduce((sum, school) => {
@@ -162,6 +184,78 @@ export default function StatisticsPage() {
         </div>
 
         <div className="space-y-6">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle>What changed since last time?</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="rounded-lg border border-line/50 bg-mint/10 px-4 py-3">
+                <p className="text-sm font-semibold text-ink">
+                  {decisionSummary?.headline ?? "First saved run."}
+                </p>
+                <p className="mt-1 text-sm text-muted">
+                  {decisionSummary?.body ??
+                    "Run the optimizer again after a data change to see which schools became easier or harder to staff."}
+                </p>
+              </div>
+              {decisionSummary?.available ? (
+                <>
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                    <div className="rounded-lg border border-line/50 bg-card px-3 py-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">
+                        Teaching need covered
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-ink">
+                        {formatSignedPoints(decisionSummary.coverage_delta_pct)}
+                      </p>
+                    </div>
+                    <div className="rounded-lg border border-line/50 bg-card px-3 py-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">
+                        Uncovered teaching time
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-ink">
+                        {formatShortageHours(decisionSummary.unmet_hours_delta)}
+                      </p>
+                    </div>
+                    <div className="rounded-lg border border-line/50 bg-card px-3 py-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">
+                        Teacher travel needed
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-ink">
+                        {formatTravelDelta(decisionSummary.travel_delta_km)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+                      {decisionSummary.school_section_title}
+                    </p>
+                    {decisionSummary.worsened_schools.length === 0 ? (
+                      <p className="text-sm text-muted">{decisionSummary.school_section_empty_text}</p>
+                    ) : (
+                      decisionSummary.worsened_schools.map((school) => (
+                        <div
+                          key={school.school_id}
+                          className="rounded-lg border border-line/50 bg-card px-3 py-2"
+                        >
+                          <p className="text-sm font-medium text-ink">{school.school_name}</p>
+                          <p className="mt-1 text-xs text-muted">
+                            This school now has {school.current_unmet_hours} hours still uncovered, which is{" "}
+                            {school.unmet_delta_hours} more than in the previous run.
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm text-muted">
+                  This is the first saved run, so there is no earlier snapshot to compare yet.
+                </p>
+              )}
+            </CardContent>
+          </Card>
+
           {/* 1. KPIs — quick summary at top */}
           <KpiCards kpi={result.kpi} />
 

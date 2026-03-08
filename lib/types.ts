@@ -56,8 +56,30 @@ export interface RunSnapshotSummary {
   workload_std: number;
 }
 
+export interface DecisionSummarySchoolImpact {
+  school_id: string;
+  school_name: string;
+  unmet_delta_hours: number;
+  current_unmet_hours: number;
+}
+
+export interface DecisionSummary {
+  available: boolean;
+  category: string;
+  headline: string;
+  body: string;
+  coverage_delta_pct: number;
+  unmet_hours_delta: number;
+  travel_delta_km: number;
+  worsened_school_count: number;
+  school_section_title: string;
+  school_section_empty_text: string;
+  worsened_schools: DecisionSummarySchoolImpact[];
+}
+
 export interface ResultBundleMeta {
   run_snapshot?: RunSnapshotSummary;
+  decision_summary?: DecisionSummary;
   [key: string]: unknown;
 }
 
