@@ -58,14 +58,14 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="bg-destructive/10 border-b border-destructive/20 p-4">
+      <div className="bg-rose-50 dark:bg-rose-950/20 border-b border-rose-100 dark:border-rose-900/30 p-4">
         <div className="flex items-center gap-3 mb-3">
-           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-destructive/20 text-destructive">
+           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400">
              <WarningCircle size={22} weight="fill" />
            </div>
            <div>
-             <CardTitle className="text-base text-destructive">Systemic Shortage Detected</CardTitle>
-             <CardDescription className="text-xs text-destructive/80 mt-0.5">
+             <CardTitle className="text-base text-rose-700 dark:text-rose-300">Systemic Shortage Detected</CardTitle>
+             <CardDescription className="text-xs text-rose-600/80 dark:text-rose-400/80 mt-0.5">
                Even with optimal allocation, {percentageMissing}% of demand cannot be met due to lack of teachers.
              </CardDescription>
            </div>
@@ -74,16 +74,16 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
         {totalDemand && (
           <div className="space-y-2 mb-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-emerald-700">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
-              <span className="text-destructive">Unmet: {totalMissing}h ({percentageMissing}%)</span>
+              <span className="text-emerald-700 dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
+              <span className="text-rose-600 dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
             </div>
-            <div className="h-2.5 w-full bg-destructive/20 rounded-full overflow-hidden flex">
+            <div className="h-2.5 w-full bg-rose-100 dark:bg-rose-900/30 rounded-full overflow-hidden flex">
               <div 
                 className="h-full bg-emerald-500" 
                 style={{ width: `${percentageMet}%` }}
               />
               <div 
-                className="h-full bg-destructive" 
+                className="h-full bg-rose-400" 
                 style={{ width: `${percentageMissing}%` }} 
               />
             </div>
@@ -100,21 +100,21 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
       <CardContent className="pb-4">
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             {sortedSubjects.map(([subject, hours]) => (
-              <Card key={subject} className="p-4 flex flex-col justify-between shadow-sm">
+              <Card key={subject} className="p-4 flex flex-col justify-between shadow-sm border-rose-100 dark:border-rose-900/20">
                 <div className="flex justify-between items-start mb-2">
                    <div>
                      <span className="text-muted-foreground text-xs font-medium uppercase tracking-wider">Gap</span>
                      <h3 className="font-bold text-lg">{subject}</h3>
                    </div>
                    <div className="text-right">
-                     <span className="text-2xl font-bold text-destructive block leading-none">{hours}</span>
+                     <span className="text-2xl font-bold text-rose-500 dark:text-rose-400 block leading-none">{hours}</span>
                      <span className="text-xs text-muted-foreground">hours needed</span>
                    </div>
                 </div>
                 
                 <div className="w-full bg-secondary h-2 rounded-full overflow-hidden mt-2">
                    <div 
-                     className="bg-destructive h-full rounded-full" 
+                     className="bg-rose-400 dark:bg-rose-500 h-full rounded-full" 
                      style={{ width: `${Math.min((hours / totalMissing) * 100 * 2.5, 100)}%` }}
                    />
                 </div>
@@ -149,7 +149,7 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
                     return (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive border border-destructive/20"
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-300 border border-rose-100 dark:border-rose-900/30"
                         title={demand > 0 ? `${item.missing_hours}h missing out of ${demand}h required (${percentMissing}%)` : undefined}
                       >
                         {item.subject}
@@ -163,7 +163,7 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
               </div>
               
               <div className="shrink-0 text-right">
-                <Badge variant="outline" className="rounded-md border-destructive/20 bg-destructive/5 text-destructive font-mono text-[11px]">
+                <Badge variant="outline" className="rounded-md border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 font-mono text-[11px]">
                   -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
                 </Badge>
               </div>
