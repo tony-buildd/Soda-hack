@@ -78,7 +78,7 @@ export default function LandingPage() {
               className="mb-6 rounded-full px-4 py-1.5 text-xs font-medium border border-emerald/15 bg-mint/50 text-emerald"
             >
               <Sparkle size={14} weight="fill" className="mr-1" />
-              SodaHacks 2026 &middot; Hà Giang + Lai Châu Pilot
+              SodaHacks 2026 
             </Badge>
           </motion.div>
 
