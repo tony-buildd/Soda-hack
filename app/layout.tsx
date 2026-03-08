@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
-import { BackgroundBlobs } from "@/components/background-blobs";
+import { Geist } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeScript } from "@/components/theme-script";
 import { GlassNav } from "@/components/glass-nav";
+import { VideoBackground } from "@/components/video-background";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -16,13 +18,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
-      <body className="font-sans antialiased">
-        <BackgroundBlobs />
-        <GlassNav />
-        <main className="relative z-1">
-          {children}
-        </main>
+    <html lang="en" className={geist.variable} suppressHydrationWarning>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+          rel="stylesheet"
+        />
+        <ThemeScript />
+      </head>
+      <body className="font-sans antialiased pb-24">
+        <ThemeProvider>
+          <VideoBackground />
+          <main className="relative z-1">
+            {children}
+          </main>
+          <GlassNav />
+        </ThemeProvider>
       </body>
     </html>
   );

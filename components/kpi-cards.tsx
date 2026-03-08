@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { GlassCard } from "./glass-card";
+import { Card, CardContent } from "@/components/ui/card";
+import { TrendUp, Path, Scales } from "@phosphor-icons/react";
 import type { KPI } from "@/lib/types";
 
 function AnimatedNumber({ value, suffix = "", decimals = 2 }: { value: number; suffix?: string; decimals?: number }) {
@@ -32,9 +33,9 @@ interface KpiCardsProps {
 
 export function KpiCards({ kpi }: KpiCardsProps) {
   const cards = [
-    { label: "Coverage", value: kpi.coverage_pct, suffix: "%", decimals: 2 },
-    { label: "Total Travel", value: kpi.total_travel_km, suffix: " km", decimals: 1 },
-    { label: "Workload Std", value: kpi.workload_std, suffix: "", decimals: 2 },
+    { label: "Coverage", value: kpi.coverage_pct, suffix: "%", decimals: 2, icon: TrendUp, color: "text-emerald", bg: "bg-mint/50" },
+    { label: "Total Travel", value: kpi.total_travel_km, suffix: " km", decimals: 1, icon: Path, color: "text-gold", bg: "bg-amber/10" },
+    { label: "Workload Std", value: kpi.workload_std, suffix: "", decimals: 2, icon: Scales, color: "text-sage", bg: "bg-mint/30" },
   ];
 
   return (
@@ -46,12 +47,19 @@ export function KpiCards({ kpi }: KpiCardsProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1, duration: 0.4 }}
         >
-          <GlassCard className="p-6">
-            <h2 className="text-sm text-muted font-medium">{c.label}</h2>
-            <p className="text-3xl font-bold mt-3 tracking-tight">
-              <AnimatedNumber value={c.value} suffix={c.suffix} decimals={c.decimals} />
-            </p>
-          </GlassCard>
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm text-muted font-medium">{c.label}</span>
+                <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${c.bg}`}>
+                  <c.icon size={18} weight="duotone" className={c.color} />
+                </div>
+              </div>
+              <p className="text-3xl font-bold tracking-tight text-ink">
+                <AnimatedNumber value={c.value} suffix={c.suffix} decimals={c.decimals} />
+              </p>
+            </CardContent>
+          </Card>
         </motion.div>
       ))}
     </div>

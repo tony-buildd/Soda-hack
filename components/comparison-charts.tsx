@@ -1,40 +1,60 @@
 "use client";
 
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js";
-import { GlassCard } from "./glass-card";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { Card, CardContent } from "@/components/ui/card";
+import { useTheme } from "@/components/theme-provider";
 import type { KPI } from "@/lib/types";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-
 function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; greedy: number }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const emerald = isDark ? "#34d399" : "#10b981";
+  const gold = isDark ? "#fbbf24" : "#f59e0b";
+  const axisColor = isDark ? "#475569" : "#cbd5e1";
+  const labelColor = isDark ? "#e2e8f0" : "#334155";
+  const gridColor = isDark ? "#334155" : "#e2e8f0";
+
   return (
-    <GlassCard className="p-6">
-      <h2 className="text-sm font-semibold mb-3">{label}</h2>
-      <div className="h-64">
-        <Bar
-          data={{
-            labels: ["MCMF", "Greedy"],
-            datasets: [{
-              label,
-              data: [mcmf, greedy],
-              backgroundColor: ["rgba(47,157,143,0.75)", "rgba(214,108,47,0.72)"],
-              borderColor: ["rgba(47,157,143,1)", "rgba(214,108,47,1)"],
-              borderWidth: 1,
-            }],
-          }}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false } },
-              y: { beginAtZero: true, title: { display: true, text: label } },
+    <Card>
+      <CardContent className="p-6">
+        <h2 className="text-sm font-semibold mb-2">{label}</h2>
+        <BarChart
+          xAxis={[{
+            data: ["Comparison"],
+            scaleType: "band" as const,
+          }]}
+          series={[
+            {
+              data: [mcmf],
+              label: "MCMF",
+              color: emerald,
+              valueFormatter: (v: number | null) => v?.toFixed(2) ?? "",
             },
+            {
+              data: [greedy],
+              label: "Greedy",
+              color: gold,
+              valueFormatter: (v: number | null) => v?.toFixed(2) ?? "",
+            },
+          ]}
+          height={240}
+          margin={{ left: 55, right: 16, top: 20, bottom: 24 }}
+          borderRadius={6}
+          grid={{ horizontal: true }}
+          yAxis={[{ label }]}
+          sx={{
+            "& .MuiChartsAxis-line": { stroke: axisColor },
+            "& .MuiChartsAxis-tick": { stroke: axisColor },
+            "& .MuiChartsAxis-tickLabel": { fill: labelColor, fontSize: 11 },
+            "& .MuiChartsAxis-label": { fill: labelColor, fontSize: 11 },
+            "& .MuiChartsGrid-line": { stroke: gridColor, strokeDasharray: "3 3" },
+            "& .MuiChartsLegend-label": { fill: labelColor, fontSize: 11 },
+            "& .MuiChartsLegend-root text": { fill: labelColor, fontSize: 11 },
           }}
         />
-      </div>
-    </GlassCard>
+      </CardContent>
+    </Card>
   );
 }
 

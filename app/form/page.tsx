@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
-import { GlassCard } from "@/components/glass-card";
 import { PageTransition } from "@/components/page-transition";
 import { TeacherForm } from "@/components/teacher-form";
 import { SchoolForm } from "@/components/school-form";
 import { CsvUpload } from "@/components/csv-upload";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { runOptimizerJson, runOptimizerCsv } from "@/lib/api";
-import { Loader2 } from "lucide-react";
+import { CircleNotch } from "@phosphor-icons/react";
 import type { InputData } from "@/lib/types";
 
 interface TeacherRow {
@@ -110,52 +112,62 @@ export default function FormPage() {
       <div className="max-w-screen-2xl mx-auto px-8 py-10">
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight">Input Data</h1>
-          <p className="text-muted mt-1">Configure teachers, schools, and run the allocation optimizer.</p>
+          <p className="text-muted mt-1 text-[15px]">Configure teachers, schools, and run the allocation optimizer.</p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_380px] gap-6">
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
-              <GlassCard hover={false} className="p-6">
-                <div className="flex items-center justify-between mb-5">
-                  <div>
-                    <h2 className="text-lg font-bold">Manual Input Form</h2>
-                    <p className="text-sm text-muted mt-0.5">
-                      Edit teachers and schools below. On submit, the system reruns the C++ allocator.
-                    </p>
-                  </div>
-                </div>
-                <div className="space-y-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Manual Input Form</CardTitle>
+                  <CardDescription>
+                    Edit teachers and schools below. On submit, the system reruns the C++ allocator.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8">
                   <TeacherForm />
-                  <div className="h-px bg-line" />
+                  <div className="h-px bg-line/50" />
                   <SchoolForm />
-                </div>
-                <div className="flex items-center gap-4 mt-6 pt-5 border-t border-line">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="inline-flex items-center gap-2 rounded-2xl bg-accent-2 px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-accent-2/20 disabled:bg-[#c5cfcb] disabled:cursor-not-allowed disabled:shadow-none"
-                  >
-                    {loading && <Loader2 size={16} className="animate-spin" />}
-                    {loading ? "Running..." : "Run From Form"}
-                  </button>
-                  {status && <span className="text-sm text-muted">{status}</span>}
-                </div>
-              </GlassCard>
+                  <div className="flex items-center gap-4 pt-4 border-t border-line/50">
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      size="lg"
+                      className="rounded-full px-7 bg-emerald hover:bg-forest shadow-md shadow-emerald/10"
+                    >
+                      {loading && <CircleNotch size={16} weight="bold" className="animate-spin" />}
+                      {loading ? "Running..." : "Run From Form"}
+                    </Button>
+                    {status && <span className="text-sm text-muted">{status}</span>}
+                  </div>
+                </CardContent>
+              </Card>
             </form>
           </FormProvider>
 
           <div className="space-y-5">
             <CsvUpload onUpload={handleCsvUpload} disabled={loading} />
 
-            <GlassCard hover={false} className="p-5">
-              <label className="text-sm font-semibold text-ink block mb-2">Algorithm</label>
-              <select className="w-full rounded-xl border border-line bg-white/60 px-4 py-2.5 text-sm transition-colors hover:bg-white/80">
-                <option value="mcmf">Min-Cost Max-Flow</option>
-                <option value="greedy">Greedy Baseline</option>
-              </select>
-              <p className="text-xs text-muted mt-2">MCMF finds globally optimal allocation. Greedy is faster but approximate.</p>
-            </GlassCard>
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">Algorithm</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Select defaultValue="mcmf">
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="mcmf">Min-Cost Max-Flow</SelectItem>
+                    <SelectItem value="greedy">Greedy Baseline</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted mt-2.5 leading-relaxed">
+                  MCMF finds the globally optimal allocation. Greedy is faster but approximate.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>

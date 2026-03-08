@@ -7,6 +7,8 @@ import { KpiCards } from "@/components/kpi-cards";
 import { ComparisonCharts } from "@/components/comparison-charts";
 import { AllocationTable } from "@/components/allocation-table";
 import { UnmetDemand } from "@/components/unmet-demand";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { fetchCurrentResults } from "@/lib/api";
 import type { ResultBundle } from "@/lib/types";
 
@@ -50,10 +52,6 @@ export default function StatisticsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => <div key={i} className="glass-card glass-shimmer h-28 rounded-2xl" />)}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[1, 2, 3].map((i) => <div key={i} className="glass-card glass-shimmer h-72 rounded-2xl" />)}
-          </div>
-          <div className="glass-card glass-shimmer h-[560px] rounded-2xl" />
         </div>
       </PageTransition>
     );
@@ -67,18 +65,21 @@ export default function StatisticsPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Statistics</h1>
-            <p className="text-muted mt-1">Allocation results and performance comparison.</p>
+            <p className="text-muted mt-1 text-[15px]">Allocation results and performance comparison.</p>
           </div>
           <div className="flex items-center gap-3">
-            <label className="text-sm font-semibold">Algorithm</label>
-            <select
-              value={algorithm}
-              onChange={(e) => setAlgorithm(e.target.value as Algorithm)}
-              className="rounded-xl border border-line bg-white/60 px-4 py-2 text-sm transition-colors hover:bg-white/80"
-            >
-              <option value="mcmf">Min-Cost Max-Flow</option>
-              <option value="greedy">Greedy Baseline</option>
-            </select>
+            <Badge variant="secondary" className="rounded-full text-xs">
+              {algorithm === "mcmf" ? "Min-Cost Max-Flow" : "Greedy"}
+            </Badge>
+            <Select value={algorithm} onValueChange={(v) => setAlgorithm(v as Algorithm)}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="mcmf">Min-Cost Max-Flow</SelectItem>
+                <SelectItem value="greedy">Greedy Baseline</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup, Tooltip, useMap } from "react-leaflet";
-import { GlassCard } from "./glass-card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { COLORS } from "@/lib/constants";
 import type { InputData, Allocation } from "@/lib/types";
 import "leaflet/dist/leaflet.css";
@@ -48,43 +48,47 @@ export function AllocationMap({ input, allocations }: AllocationMapProps) {
     : [21.02, 105.84];
 
   return (
-    <GlassCard hover={false} className="overflow-hidden p-6">
-      <h2 className="text-lg font-bold mb-3">Allocation Map</h2>
-      <div className="h-[560px] rounded-xl overflow-hidden border border-line">
-        <MapContainer center={center} zoom={8} className="h-full w-full" scrollWheelZoom>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          />
-          <FitBounds positions={allPositions} />
+    <Card>
+      <CardHeader>
+        <CardTitle>Allocation Map</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[560px] rounded-xl overflow-hidden border border-line/50">
+          <MapContainer center={center} zoom={8} className="h-full w-full" scrollWheelZoom>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            />
+            <FitBounds positions={allPositions} />
 
-          {input.teachers.map((t) => (
-            <CircleMarker key={t.id} center={t.base} radius={6}
-              pathOptions={{ color: COLORS.teacher, fillColor: COLORS.teacher, fillOpacity: 0.85 }}>
-              <Popup><b>{t.name}</b><br />{t.id}<br />Capacity: {t.capacity}</Popup>
-            </CircleMarker>
-          ))}
+            {input.teachers.map((t) => (
+              <CircleMarker key={t.id} center={t.base} radius={6}
+                pathOptions={{ color: COLORS.teacher, fillColor: COLORS.teacher, fillOpacity: 0.85 }}>
+                <Popup><b>{t.name}</b><br />{t.id}<br />Capacity: {t.capacity}</Popup>
+              </CircleMarker>
+            ))}
 
-          {input.schools.map((s) => (
-            <CircleMarker key={s.id} center={s.location} radius={8}
-              pathOptions={{ color: COLORS.school, fillColor: COLORS.school, fillOpacity: 0.9 }}>
-              <Popup><b>{s.name}</b><br />{s.id}<br />Priority: {s.priority}</Popup>
-            </CircleMarker>
-          ))}
+            {input.schools.map((s) => (
+              <CircleMarker key={s.id} center={s.location} radius={8}
+                pathOptions={{ color: COLORS.school, fillColor: COLORS.school, fillOpacity: 0.9 }}>
+                <Popup><b>{s.name}</b><br />{s.id}<br />Priority: {s.priority}</Popup>
+              </CircleMarker>
+            ))}
 
-          {allocations.filter(a => a.hours > 0).map((alloc, i) => {
-            const teacher = teachersById[alloc.teacher];
-            const school = schoolsById[alloc.school];
-            if (!teacher || !school) return null;
-            return (
-              <Polyline key={i} positions={[teacher.base, school.location]}
-                pathOptions={{ color: COLORS.accent2, weight: 1 + Math.min(alloc.hours, 12) / 3, opacity: 0.75 }}>
-                <Tooltip>{alloc.teacher} &rarr; {alloc.school} ({alloc.subject}: {alloc.hours}h)</Tooltip>
-              </Polyline>
-            );
-          })}
-        </MapContainer>
-      </div>
-    </GlassCard>
+            {allocations.filter(a => a.hours > 0).map((alloc, i) => {
+              const teacher = teachersById[alloc.teacher];
+              const school = schoolsById[alloc.school];
+              if (!teacher || !school) return null;
+              return (
+                <Polyline key={i} positions={[teacher.base, school.location]}
+                  pathOptions={{ color: "#1a6b4a", weight: 1 + Math.min(alloc.hours, 12) / 3, opacity: 0.65 }}>
+                  <Tooltip>{alloc.teacher} &rarr; {alloc.school} ({alloc.subject}: {alloc.hours}h)</Tooltip>
+                </Polyline>
+              );
+            })}
+          </MapContainer>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

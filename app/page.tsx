@@ -2,143 +2,149 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { GlassCard } from "@/components/glass-card";
+import { ArrowRight, Cpu, MapPin, ChartBar, Sparkle, ClipboardText } from "@phosphor-icons/react";
 import { PageTransition } from "@/components/page-transition";
-import { ClipboardList, Cpu, BarChart3, ArrowRight, Zap, Globe, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.05 } },
+};
+
+const fadeSlideUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+};
 
 const features = [
   {
-    icon: ClipboardList,
+    icon: ClipboardText,
     title: "Input Data",
-    description: "Add teachers and schools through an intuitive form interface, or bulk-import via CSV upload with automatic validation.",
+    desc: "Add teachers and schools through forms or CSV bulk import with validation.",
     href: "/form",
-    color: "text-teacher",
-    bgColor: "bg-teacher/8",
   },
   {
     icon: Cpu,
     title: "Optimize",
-    description: "Run Min-Cost Max-Flow for optimal allocation, or compare against a Greedy baseline to validate results.",
+    desc: "Run C++ Min-Cost Max-Flow for optimal allocation, or compare against Greedy baseline.",
     href: "/form",
-    color: "text-accent-2",
-    bgColor: "bg-accent-2/8",
   },
   {
-    icon: BarChart3,
-    title: "Visualize Results",
-    description: "Interactive maps with teacher-school connections, comparison charts, KPI dashboards, and detailed allocation tables.",
+    icon: ChartBar,
+    title: "Visualize",
+    desc: "Interactive maps, comparison charts, KPI dashboards, and detailed allocation tables.",
     href: "/statistics",
-    color: "text-accent",
-    bgColor: "bg-accent/8",
   },
 ];
-
-const stats = [
-  { icon: Zap, label: "Algorithms", value: "2" },
-  { icon: Globe, label: "Map Viz", value: "Live" },
-  { icon: Shield, label: "Optimization", value: "C++" },
-];
-
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
-};
 
 export default function LandingPage() {
   return (
     <PageTransition>
-      {/* Hero — full width, tall */}
-      <section className="flex flex-col items-center justify-center min-h-[calc(100vh-60px)] px-8 py-16">
-        <div className="max-w-screen-2xl mx-auto w-full">
-          <motion.div
-            className="text-center max-w-3xl mx-auto mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" as const }}
-          >
-            <div className="inline-flex items-center gap-2 pill bg-accent-2/10 text-accent-2 mb-6">
-              <Zap size={12} />
+      <section className="relative min-h-screen w-full overflow-hidden">
+        {/* Gradient accent strip at top */}
+        <div className="absolute top-0 left-0 right-0 h-[480px] z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald/[0.04] via-sage/[0.03] to-gold/[0.05] dark:from-emerald/[0.06] dark:via-sage/[0.04] dark:to-gold/[0.03]" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ivory to-transparent" />
+        </div>
+
+        {/* Content */}
+        <motion.div
+          className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center px-6 pt-[200px] pb-24"
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+        >
+          {/* Badge */}
+          <motion.div variants={fadeSlideUp}>
+            <Badge variant="secondary" className="mb-6 rounded-full px-4 py-1.5 text-xs font-medium border border-emerald/10 bg-mint/50 text-emerald">
+              <Sparkle size={14} weight="fill" className="mr-1" />
               Powered by Min-Cost Max-Flow
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5">
-              Teacher Allocation
-              <span className="block text-accent-2">Optimizer</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted max-w-xl mx-auto leading-relaxed">
-              Assign the right teachers to the right schools. Input data, run optimization, visualize results — all in one place.
-            </p>
-            <div className="flex gap-4 justify-center mt-10">
-              <Link
-                href="/form"
-                className="group inline-flex items-center gap-2 rounded-2xl bg-accent-2 px-7 py-3.5 text-base font-semibold text-white no-underline transition-all hover:shadow-lg hover:shadow-accent-2/20 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Get Started
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href="/statistics"
-                className="inline-flex items-center gap-2 rounded-2xl border border-line bg-white/50 px-7 py-3.5 text-base font-semibold text-ink no-underline transition-all hover:bg-white/80 hover:shadow-md"
-              >
-                View Results
-              </Link>
-            </div>
+            </Badge>
           </motion.div>
 
-          {/* Stat pills */}
-          <motion.div
-            className="flex justify-center gap-6 mb-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+          {/* Heading */}
+          <motion.h1
+            variants={fadeSlideUp}
+            className="text-center font-medium tracking-[-0.035em] leading-[1.08]"
           >
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-center gap-2.5 glass-card px-5 py-3">
-                <s.icon size={18} className="text-accent-2" />
-                <div>
-                  <p className="text-xs text-muted leading-none">{s.label}</p>
-                  <p className="text-sm font-bold leading-tight mt-0.5">{s.value}</p>
-                </div>
+            <span className="block text-[clamp(40px,5.5vw,76px)] text-ink">
+              Optimal{" "}
+              <span
+                className="inline-block italic gradient-text"
+                style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.25em" }}
+              >
+                allocation
+              </span>
+            </span>
+            <span className="block text-[clamp(40px,5.5vw,76px)] text-ink">
+              for every classroom
+            </span>
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            variants={fadeSlideUp}
+            className="mt-6 max-w-[520px] text-center text-[17px] leading-relaxed text-muted"
+          >
+            Assign the right teachers to the right schools. Input your data,
+            run C++ powered optimization, and visualize results on an interactive map.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div variants={fadeSlideUp} className="mt-10 flex items-center gap-3">
+            <Button size="lg" asChild className="rounded-full px-7 h-12 text-[15px] bg-emerald hover:bg-forest shadow-lg shadow-emerald/15">
+              <Link href="/form">
+                Start Allocating
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild className="rounded-full px-7 h-12 text-[15px] border-line hover:bg-white dark:hover:bg-white/10">
+              <Link href="/statistics">
+                View Results
+              </Link>
+            </Button>
+          </motion.div>
+
+          {/* Feature pills */}
+          <motion.div variants={fadeSlideUp} className="mt-8 flex items-center gap-2">
+            {[
+              { icon: Cpu, label: "Min-Cost Max-Flow" },
+              { icon: MapPin, label: "Geo-Aware" },
+              { icon: ChartBar, label: "Live Analytics" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center gap-1.5 rounded-full border border-line/60 bg-white/60 dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-muted"
+              >
+                <item.icon size={14} weight="bold" className="text-sage" />
+                {item.label}
               </div>
             ))}
           </motion.div>
 
-          {/* Feature cards — wide grid */}
+          {/* Feature cards */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
-            variants={stagger}
-            initial="hidden"
-            animate="show"
+            variants={fadeSlideUp}
+            className="mt-24 grid w-full grid-cols-1 md:grid-cols-3 gap-5"
           >
             {features.map((f) => (
-              <motion.div key={f.title} variants={fadeUp}>
-                <Link href={f.href} className="no-underline block h-full group">
-                  <GlassCard className="h-full flex flex-col gap-4 px-7 py-8 transition-all group-hover:shadow-xl group-hover:shadow-ink/5">
-                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center", f.bgColor)}>
-                      <f.icon size={22} className={f.color} />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-bold text-ink mb-1.5">{f.title}</h2>
-                      <p className="text-sm text-muted leading-relaxed">{f.description}</p>
-                    </div>
-                    <div className="mt-auto pt-3 flex items-center gap-1 text-sm font-semibold text-accent-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Explore <ArrowRight size={14} />
-                    </div>
-                  </GlassCard>
-                </Link>
-              </motion.div>
+              <Link key={f.title} href={f.href} className="group no-underline">
+                <div className="glass-card gradient-border rounded-2xl p-6 h-full transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald/5 group-hover:-translate-y-0.5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-mint text-emerald mb-4">
+                    <f.icon size={22} weight="duotone" />
+                  </div>
+                  <h3 className="text-base font-semibold text-ink mb-1.5">{f.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-emerald opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Learn more <ArrowRight size={12} />
+                  </div>
+                </div>
+              </Link>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
       </section>
     </PageTransition>
   );
-}
-
-function cn(...classes: (string | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
 }
