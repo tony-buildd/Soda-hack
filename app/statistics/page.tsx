@@ -127,7 +127,11 @@ export default function StatisticsPage() {
 
           {/* 2. Unmet demand — prominent if any exist */}
           {unmetCount > 0 && (
-            <UnmetDemand items={result.kpi.unmet_demand} totalDemand={totalDemand} />
+            <UnmetDemand 
+              items={result.kpi.unmet_demand} 
+              totalDemand={totalDemand} 
+              schools={bundle.input.schools} 
+            />
           )}
 
           {/* 3. Gap matrix — the key decision view */}
@@ -152,7 +156,11 @@ export default function StatisticsPage() {
               />
               {/* Show unmet demand in sidebar if none shown above */}
               {unmetCount === 0 && (
-                <UnmetDemand items={result.kpi.unmet_demand} totalDemand={totalDemand} />
+                <UnmetDemand 
+                  items={result.kpi.unmet_demand} 
+                  totalDemand={totalDemand}
+                  schools={bundle.input.schools}
+                />
               )}
             </div>
           </div>

@@ -3,13 +3,15 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { WarningCircle, CheckCircle, MapPin } from "@phosphor-icons/react";
-import type { UnmetDemandItem } from "@/lib/types";
+import type { UnmetDemandItem, School } from "@/lib/types";
 
 interface UnmetDemandProps {
   items: UnmetDemandItem[];
+  totalDemand?: number;
+  schools?: School[];
 }
 
-export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], totalDemand?: number }) {
+export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
   if (items.length === 0) {
     return (
       <Card>
@@ -45,6 +47,10 @@ export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], 
     .slice(0, 5); // Top 5 subjects
 
   const totalMissing = items.reduce((s, i) => s + i.missing_hours, 0);
+  const schoolCount = Object.keys(bySchool).length;
+  
+  // Create a lookup map for schools if available
+  const schoolMap = schools ? schools.reduce((acc, s) => ({ ...acc, [s.name]: s }), {} as Record<string, School>) : {};
   const schoolCount = Object.keys(bySchool).length;
   
   // Calculate percentages if totalDemand is provided
@@ -132,17 +138,26 @@ export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], 
                 </Badge>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {unmetItems.map((item, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium bg-red-50 text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-300 dark:border-red-900/30"
-                  >
-                    {item.subject}
-                    <span className="opacity-70 text-[10px] font-normal">
-                      -{item.missing_hours}h
+                {unmetItems.map((item, i) => {
+                  // Calculate context if available
+                  const schoolData = schoolMap[item.school];
+                  const demand = schoolData?.demand[item.subject] || 0;
+                  const percentMissing = demand > 0 ? Math.round((item.missing_hours / demand) * 100) : 0;
+                  
+                  return (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium bg-red-50 text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-300 dark:border-red-900/30"
+                      title={demand > 0 ? `${item.missing_hours}h missing out of ${demand}h required (${percentMissing}%)` : undefined}
+                    >
+                      {item.subject}
+                      <span className="opacity-70 text-[10px] font-normal flex items-center gap-1">
+                        -{item.missing_hours}h
+                        {demand > 0 && <span className="opacity-60 text-[9px]">({percentMissing}%)</span>}
+                      </span>
                     </span>
-                  </span>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}
