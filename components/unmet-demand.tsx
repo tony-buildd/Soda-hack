@@ -97,17 +97,20 @@ export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], 
                   <MapPin size={14} weight="fill" className="text-muted" />
                   <span className="text-sm font-semibold text-ink">{school}</span>
                 </div>
-                <Badge variant="outline" className="rounded-full text-[10px] h-5 border-destructive/30 text-destructive bg-destructive/5">
-                  -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
+                <Badge variant="outline" className="rounded-full text-[11px] h-6 border-destructive/20 text-destructive bg-destructive/5 px-2.5">
+                  Total: -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
                 </Badge>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {unmetItems.map((item, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive-foreground/80"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium bg-red-50 text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-300 dark:border-red-900/30"
                   >
                     {item.subject}
+                    <span className="opacity-70 text-[10px] font-normal">
+                      -{item.missing_hours}h
+                    </span>
                   </span>
                 ))}
               </div>
