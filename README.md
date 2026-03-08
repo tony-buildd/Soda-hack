@@ -29,6 +29,8 @@ This project uses Git Large File Storage (LFS) for media assets. You must instal
     ```bash
     git lfs pull
     ```
+    
+    > **Note**: If the background video on the landing page is not loading (or shows a small file size), verify that you have pulled the LFS files correctly. The file `public/vietnam_background.mp4` should be approximately 127MB.
 
 ## Running the app
 Prerequisites: C++17 compiler, Node.js, Python 3.
