@@ -10,9 +10,6 @@ function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; g
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const emerald = isDark ? "#34d399" : "#10b981";
-  const gold = isDark ? "#fbbf24" : "#f59e0b";
-
   const muiTheme = createTheme({
     palette: {
       mode: isDark ? "dark" : "light",
@@ -31,26 +28,19 @@ function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; g
         <MuiThemeProvider theme={muiTheme}>
           <BarChart
             xAxis={[{
+              id: "algorithms",
               data: ["MCMF", "Greedy"],
-              scaleType: "band" as const,
+              scaleType: "band",
             }]}
-            series={[
-              {
-                data: [mcmf, 0],
-                label: "MCMF",
-                color: emerald,
-              },
-              {
-                data: [0, greedy],
-                label: "Greedy",
-                color: gold,
-              },
-            ]}
+            series={[{
+              data: [mcmf, greedy],
+              color: isDark ? "#34d399" : "#10b981",
+            }]}
+            width={undefined}
             height={220}
-            margin={{ left: 60, right: 16, top: 16, bottom: 30 }}
+            margin={{ left: 60, right: 20, top: 20, bottom: 30 }}
             borderRadius={8}
             grid={{ horizontal: true }}
-            yAxis={[{ label }]}
           />
         </MuiThemeProvider>
       </CardContent>
