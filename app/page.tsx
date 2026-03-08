@@ -42,12 +42,6 @@ export default function LandingPage() {
   return (
     <PageTransition>
       <section className="relative min-h-screen w-full overflow-hidden">
-        {/* Gradient accent strip at top */}
-        <div className="absolute top-0 left-0 right-0 h-[480px] z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald/[0.04] via-sage/[0.03] to-gold/[0.05] dark:from-emerald/[0.06] dark:via-sage/[0.04] dark:to-gold/[0.03]" />
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ivory to-transparent" />
-        </div>
-
         {/* Content */}
         <motion.div
           className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center px-6 pt-[200px] pb-24"
@@ -57,7 +51,7 @@ export default function LandingPage() {
         >
           {/* Badge */}
           <motion.div variants={fadeSlideUp}>
-            <Badge variant="secondary" className="mb-6 rounded-full px-4 py-1.5 text-xs font-medium border border-emerald/10 bg-mint/50 text-emerald">
+            <Badge variant="secondary" className="mb-6 rounded-full px-4 py-1.5 text-xs font-medium border border-emerald/15 bg-mint/50 text-emerald">
               <Sparkle size={14} weight="fill" className="mr-1" />
               Powered by Min-Cost Max-Flow
             </Badge>
@@ -99,7 +93,7 @@ export default function LandingPage() {
                 <ArrowRight size={16} />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild className="rounded-full px-7 h-12 text-[15px] border-line hover:bg-white dark:hover:bg-white/10">
+            <Button variant="outline" size="lg" asChild className="rounded-full px-7 h-12 text-[15px] border-line text-ink hover:bg-white/80 dark:hover:bg-white/10">
               <Link href="/statistics">
                 View Results
               </Link>
@@ -107,7 +101,7 @@ export default function LandingPage() {
           </motion.div>
 
           {/* Feature pills */}
-          <motion.div variants={fadeSlideUp} className="mt-8 flex items-center gap-2">
+          <motion.div variants={fadeSlideUp} className="mt-8 flex items-center gap-2 flex-wrap justify-center">
             {[
               { icon: Cpu, label: "Min-Cost Max-Flow" },
               { icon: MapPin, label: "Geo-Aware" },
@@ -115,7 +109,7 @@ export default function LandingPage() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-1.5 rounded-full border border-line/60 bg-white/60 dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-muted"
+                className="flex items-center gap-1.5 rounded-full border border-line/60 bg-white/60 dark:bg-white/8 px-3 py-1.5 text-xs font-medium text-muted"
               >
                 <item.icon size={14} weight="bold" className="text-sage" />
                 {item.label}
