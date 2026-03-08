@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 import { KpiCards } from "@/components/kpi-cards";
 import { ComparisonCharts } from "@/components/comparison-charts";
@@ -9,6 +10,7 @@ import { GapMatrix } from "@/components/gap-matrix";
 import { AllocationTable } from "@/components/allocation-table";
 import { UnmetDemand } from "@/components/unmet-demand";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -100,6 +102,9 @@ export default function StatisticsPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <Button asChild variant="outline" className="rounded-full">
+              <Link href="/form">Back to Input</Link>
+            </Button>
             <Badge
               variant="secondary"
               className="rounded-full text-xs"
