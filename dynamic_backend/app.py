@@ -248,6 +248,233 @@ def _parse_csv_input(csv_text: str) -> Dict[str, Any]:
   return _normalize_input_payload(payload)
 
 
+def _event_urgency(event_type: str) -> str:
+  if event_type in {"teacher_quit", "school_close", "road_blocked"}:
+    return "high"
+  if event_type in {"teacher_sick", "demand_increase", "priority_change"}:
+    return "medium"
+  return "low"
+
+
+def _index_by_id(items: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+  return {str(item["id"]): item for item in items if "id" in item}
+
+
+def _demand_map(school: Dict[str, Any]) -> Dict[str, int]:
+  out: Dict[str, int] = {}
+  for subject, hours in school.get("demand", {}).items():
+    key = str(subject).strip()
+    if not key:
+      continue
+    out[key] = max(0, int(hours))
+  return out
+
+
+def _compute_change_metrics(
+  old_input: Dict[str, Any], new_input: Dict[str, Any]
+) -> Dict[str, Any]:
+  old_teachers = _index_by_id(old_input.get("teachers", []))
+  new_teachers = _index_by_id(new_input.get("teachers", []))
+  old_schools = _index_by_id(old_input.get("schools", []))
+  new_schools = _index_by_id(new_input.get("schools", []))
+
+  teacher_ids = set(old_teachers.keys()) | set(new_teachers.keys())
+  school_ids = set(old_schools.keys()) | set(new_schools.keys())
+
+  capacity_loss_hours = 0
+  capacity_gain_hours = 0
+  for tid in teacher_ids:
+    old_cap = int(old_teachers.get(tid, {}).get("capacity", 0))
+    new_cap = int(new_teachers.get(tid, {}).get("capacity", 0))
+    if new_cap < old_cap:
+      capacity_loss_hours += old_cap - new_cap
+    elif new_cap > old_cap:
+      capacity_gain_hours += new_cap - old_cap
+
+  demand_increase_hours = 0
+  demand_decrease_hours = 0
+  old_total_demand = 0
+  new_total_demand = 0
+  for sid in school_ids:
+    old_demand = _demand_map(old_schools.get(sid, {}))
+    new_demand = _demand_map(new_schools.get(sid, {}))
+    old_total_demand += sum(old_demand.values())
+    new_total_demand += sum(new_demand.values())
+    for subject in set(old_demand.keys()) | set(new_demand.keys()):
+      old_hours = old_demand.get(subject, 0)
+      new_hours = new_demand.get(subject, 0)
+      if new_hours > old_hours:
+        demand_increase_hours += new_hours - old_hours
+      elif new_hours < old_hours:
+        demand_decrease_hours += old_hours - new_hours
+
+  old_total_capacity = sum(int(t.get("capacity", 0)) for t in old_teachers.values())
+  new_total_capacity = sum(int(t.get("capacity", 0)) for t in new_teachers.values())
+
+  return {
+    "old_total_capacity": old_total_capacity,
+    "new_total_capacity": new_total_capacity,
+    "old_total_demand": old_total_demand,
+    "new_total_demand": new_total_demand,
+    "capacity_loss_hours": capacity_loss_hours,
+    "capacity_gain_hours": capacity_gain_hours,
+    "demand_increase_hours": demand_increase_hours,
+    "demand_decrease_hours": demand_decrease_hours,
+  }
+
+
+def _diff_inputs(old_input: Dict[str, Any], new_input: Dict[str, Any]) -> List[Dict[str, Any]]:
+  events: List[Dict[str, Any]] = []
+
+  old_teachers = _index_by_id(old_input.get("teachers", []))
+  new_teachers = _index_by_id(new_input.get("teachers", []))
+  old_schools = _index_by_id(old_input.get("schools", []))
+  new_schools = _index_by_id(new_input.get("schools", []))
+
+  old_teacher_ids = set(old_teachers.keys())
+  new_teacher_ids = set(new_teachers.keys())
+  old_school_ids = set(old_schools.keys())
+  new_school_ids = set(new_schools.keys())
+
+  for tid in sorted(old_teacher_ids - new_teacher_ids):
+    events.append({"type": "teacher_quit", "teacher_id": tid})
+
+  for tid in sorted(new_teacher_ids - old_teacher_ids):
+    events.append({"type": "teacher_new", "teacher": new_teachers[tid]})
+
+  for tid in sorted(old_teacher_ids & new_teacher_ids):
+    old_capacity = int(old_teachers[tid].get("capacity", 0))
+    new_capacity = int(new_teachers[tid].get("capacity", 0))
+    if old_capacity != new_capacity:
+      events.append(
+        {
+          "type": "capacity_change",
+          "teacher_id": tid,
+          "new_capacity": new_capacity,
+        }
+      )
+
+  for sid in sorted(old_school_ids - new_school_ids):
+    events.append({"type": "school_close", "school_id": sid})
+
+  for sid in sorted(new_school_ids - old_school_ids):
+    events.append({"type": "school_new", "school": new_schools[sid]})
+
+  for sid in sorted(old_school_ids & new_school_ids):
+    old_priority = int(old_schools[sid].get("priority", 1))
+    new_priority = int(new_schools[sid].get("priority", 1))
+    if old_priority != new_priority:
+      events.append(
+        {
+          "type": "priority_change",
+          "school_id": sid,
+          "new_priority": new_priority,
+        }
+      )
+
+    old_demand = _demand_map(old_schools[sid])
+    new_demand = _demand_map(new_schools[sid])
+    all_subjects = sorted(set(old_demand.keys()) | set(new_demand.keys()))
+    for subject in all_subjects:
+      old_hours = old_demand.get(subject, 0)
+      new_hours = new_demand.get(subject, 0)
+      delta = new_hours - old_hours
+      if delta > 0:
+        events.append(
+          {
+            "type": "demand_increase",
+            "school_id": sid,
+            "subject": subject,
+            "delta_hours": delta,
+          }
+        )
+      elif delta < 0:
+        events.append(
+          {
+            "type": "demand_decrease",
+            "school_id": sid,
+            "subject": subject,
+            "delta_hours": abs(delta),
+          }
+        )
+
+  return events
+
+
+def _summarize_diff(
+  old_input: Dict[str, Any],
+  new_input: Dict[str, Any],
+  events: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+  metrics = _compute_change_metrics(old_input, new_input)
+  urgency_counts = {"high": 0, "medium": 0, "low": 0}
+  type_counts: Dict[str, int] = {}
+
+  for event in events:
+    event_type = str(event.get("type", ""))
+    if not event_type:
+      continue
+    type_counts[event_type] = type_counts.get(event_type, 0) + 1
+    urgency = _event_urgency(event_type)
+    urgency_counts[urgency] += 1
+
+  impact_hours = (
+    int(metrics["demand_increase_hours"]) + int(metrics["capacity_loss_hours"])
+  )
+  relief_hours = (
+    int(metrics["demand_decrease_hours"]) + int(metrics["capacity_gain_hours"])
+  )
+  net_pressure_hours = impact_hours - relief_hours
+  demand_base = max(1, int(metrics["old_total_demand"]))
+  impact_ratio = impact_hours / demand_base
+  net_pressure_ratio = net_pressure_hours / demand_base
+
+  thresholds = {
+    "high_impact_ratio": 0.12,
+    "high_net_pressure_ratio": 0.08,
+    "medium_impact_ratio": 0.03,
+    "medium_net_pressure_ratio": 0.01,
+    "medium_event_count": 5,
+  }
+
+  effective_urgency = "none"
+  urgency_reason = "no_change"
+  if events:
+    if (
+      impact_ratio >= thresholds["high_impact_ratio"]
+      or net_pressure_ratio >= thresholds["high_net_pressure_ratio"]
+    ):
+      effective_urgency = "high"
+      urgency_reason = "large_capacity_or_demand_shock"
+    elif (
+      impact_ratio >= thresholds["medium_impact_ratio"]
+      or net_pressure_ratio >= thresholds["medium_net_pressure_ratio"]
+      or len(events) >= thresholds["medium_event_count"]
+    ):
+      effective_urgency = "medium"
+      urgency_reason = "moderate_capacity_or_demand_shift"
+    else:
+      effective_urgency = "low"
+      urgency_reason = "small_or_compensated_shift"
+
+  return {
+    "effective_urgency": effective_urgency,
+    "urgency_reason": urgency_reason,
+    "urgency_counts": urgency_counts,
+    "type_counts": type_counts,
+    "total_events": len(events),
+    "impact": {
+      "impact_hours": impact_hours,
+      "relief_hours": relief_hours,
+      "net_pressure_hours": net_pressure_hours,
+      "impact_ratio": round(impact_ratio, 4),
+      "net_pressure_ratio": round(net_pressure_ratio, 4),
+      **metrics,
+    },
+    "thresholds": thresholds,
+  }
+
+
 def create_app() -> Flask:
   app = Flask(__name__)
 
@@ -327,6 +554,27 @@ def create_app() -> Flask:
     out["meta"] = {"log": run.stdout, "max_distance_km": max_distance_km}
     return out
 
+  def _load_previous_input() -> Dict[str, Any]:
+    if web_input.exists():
+      try:
+        return _normalize_input_payload(_read_json(web_input))
+      except Exception:
+        pass
+    return _normalize_input_payload(_read_json(default_input))
+
+  def _run_allocator_with_diff(input_payload: Dict[str, Any]) -> Dict[str, Any]:
+    previous_payload = _load_previous_input()
+    inferred_events = _diff_inputs(previous_payload, input_payload)
+    diff_summary = _summarize_diff(previous_payload, input_payload, inferred_events)
+
+    out = _run_allocator(input_payload)
+    meta = out.setdefault("meta", {})
+    meta["input_diff"] = {
+      "summary": diff_summary,
+      "events": inferred_events,
+    }
+    return out
+
   def _load_or_bootstrap_current() -> Dict[str, Any]:
     if web_input.exists():
       input_payload = _normalize_input_payload(_read_json(web_input))
@@ -379,7 +627,7 @@ def create_app() -> Flask:
     try:
       input_payload = _normalize_input_payload(raw_input)
       with optimizer_lock:
-        return jsonify(_run_allocator(input_payload))
+        return jsonify(_run_allocator_with_diff(input_payload))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:
@@ -399,7 +647,7 @@ def create_app() -> Flask:
     try:
       input_payload = _parse_csv_input(csv_text)
       with optimizer_lock:
-        return jsonify(_run_allocator(input_payload))
+        return jsonify(_run_allocator_with_diff(input_payload))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:

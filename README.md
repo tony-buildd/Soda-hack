@@ -44,7 +44,7 @@ make
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r dynamic_backend/requirements.txt
+pip install -r requirements.txt
 MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
 ```
 
@@ -71,6 +71,22 @@ Optional: set max teacher-school distance (km) for MCMF edges:
 ./bin/allocator data/synthetic_input.json output 100
 ```
 
+## Integrated Web Input -> CSV/JSON -> C++ Solve
+You can now run one integrated flow:
+- Input from web (manual JSON or CSV upload)
+- Python converts CSV to JSON
+- C++ solver runs on generated JSON
+- Dashboard updates KPI/map/allocation immediately
+
+Run from project root:
+
+```bash
+make
+source .venv/bin/activate
+pip install -r requirements.txt
+MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
+```
+
 Notes:
 - Only arcs with distance `<= max_distance_km` are considered by MCMF.
 - Coverage-first default is unlimited distance (`0`).
@@ -80,6 +96,19 @@ Generated files:
 - `output/web_latest/allocation_mcmf.json`
 - `output/web_latest/allocation_greedy.json`
 - `output/web_latest/allocation.json`
+
+When calling:
+- `POST /api/optimizer/json`
+- `POST /api/optimizer/csv`
+
+the response now also includes `meta.input_diff`:
+- `summary`: inferred change counts + `effective_urgency`
+  (calculated from demand/capacity impact magnitude, not only event type)
+- `events`: auto-detected events from previous input -> new input
+
+Important:
+- For `POST /api/optimizer/json` and `POST /api/optimizer/csv`, `effective_urgency` is metadata for monitoring/UI and does not change C++ optimizer objective.
+- Urgency affects optimization only in event-driven re-optimization (`/events`, `/reoptimize`) via switching-penalty logic in Python reoptimizer.
 
 ### CSV format for upload
 Header:
