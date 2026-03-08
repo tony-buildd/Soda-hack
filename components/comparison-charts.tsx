@@ -55,7 +55,7 @@ interface ComparisonChartsProps {
 
 export function ComparisonCharts({ mcmfKpi, greedyKpi }: ComparisonChartsProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <ComparisonBar label="Coverage (%)" mcmf={mcmfKpi.coverage_pct} greedy={greedyKpi.coverage_pct} />
       <ComparisonBar label="Travel (km)" mcmf={mcmfKpi.total_travel_km} greedy={greedyKpi.total_travel_km} />
       <ComparisonBar label="Workload Std" mcmf={mcmfKpi.workload_std} greedy={greedyKpi.workload_std} />

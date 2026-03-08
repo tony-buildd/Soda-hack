@@ -91,7 +91,7 @@ export function AllocationTable({ allocations }: AllocationTableProps) {
           />
         </div>
 
-        <div className="overflow-auto max-h-[500px]">
+        <div className="overflow-auto max-h-[800px]">
           {grouped.length === 0 ? (
             <p className="text-sm text-muted text-center py-8">No assignments found.</p>
           ) : (
