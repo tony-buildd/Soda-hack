@@ -60,12 +60,12 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
     <Card className="overflow-hidden">
       <div className="bg-[#d9efdb] dark:bg-rose-950/10 border-b border-emerald-100/50 dark:border-rose-900/20 p-4">
         <div className="flex items-center gap-3 mb-4">
-           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/60 dark:bg-rose-900/40 text-orange-600 dark:text-rose-400">
+           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/60 dark:bg-rose-900/40 text-[#ea580c] dark:text-rose-400">
              <WarningCircle size={22} weight="fill" />
            </div>
            <div>
-             <CardTitle className="text-base text-emerald-950 dark:text-rose-100">Systemic Shortage Detected</CardTitle>
-             <CardDescription className="text-xs text-emerald-800/80 dark:text-rose-300/80 mt-0.5">
+             <CardTitle className="text-base text-[#022c22] dark:text-rose-100">Systemic Shortage Detected</CardTitle>
+             <CardDescription className="text-xs text-[#065f46] dark:text-rose-300/80 mt-0.5">
                Even with optimal allocation, {percentageMissing}% of demand cannot be met due to lack of teachers.
              </CardDescription>
            </div>
@@ -79,13 +79,13 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
                 style={{ width: `${percentageMet}%` }}
               />
               <div 
-                className="h-full bg-orange-500 dark:bg-rose-400" 
+                className="h-full bg-[#ff4500] dark:bg-rose-400" 
                 style={{ width: `${percentageMissing}%` }} 
               />
             </div>
             <div className="flex justify-between text-xs font-medium px-0.5">
-              <span className="text-emerald-800 dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
-              <span className="text-orange-700 dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
+              <span className="text-[#064e3b] dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
+              <span className="text-[#c2410c] dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
             </div>
           </div>
         )}
