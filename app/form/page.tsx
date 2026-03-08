@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/page-transition";
 import { TeacherForm } from "@/components/teacher-form";
 import { SchoolForm } from "@/components/school-form";
 import { CsvUpload } from "@/components/csv-upload";
+import type { CsvSelectionStatus } from "@/components/csv-upload";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -99,6 +100,14 @@ export default function FormPage() {
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<"csv" | "manual">("csv");
   const [csvFiles, setCsvFiles] = useState<File[]>([]);
+  const [csvSelectionStatus, setCsvSelectionStatus] = useState<CsvSelectionStatus>({
+    files: [],
+    hasTeacher: false,
+    hasSchool: false,
+    hasCombined: false,
+    isReady: false,
+    message: "Upload a combined CSV or both a teacher file and a school file.",
+  });
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -208,6 +217,7 @@ export default function FormPage() {
                 onUpload={handleCsvSelection}
                 onRemove={handleCsvRemove}
                 onClear={handleCsvClear}
+                onStatusChange={setCsvSelectionStatus}
                 disabled={loading}
               />
 
@@ -232,10 +242,13 @@ export default function FormPage() {
                       optimizer will merge supported district exports, parse the
                       data, and generate an assignment plan using Min-Cost Max-Flow.
                     </p>
+                    <div className="mb-4 rounded-lg border border-line/50 bg-mint/10 px-3 py-2 text-xs text-ink">
+                      {csvSelectionStatus.message}
+                    </div>
                     <div className="flex items-center gap-3">
                       <Button
                         onClick={handleCsvRun}
-                        disabled={loading}
+                        disabled={loading || !csvSelectionStatus.isReady}
                         className="rounded-full bg-emerald hover:bg-forest shadow-md shadow-emerald/10"
                       >
                         {loading && (

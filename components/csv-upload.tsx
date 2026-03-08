@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { UploadSimple, FileText, Lightning, X } from "@phosphor-icons/react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,17 +24,54 @@ const DEMO_DATASETS = [
   },
 ] as const;
 
+export type CsvEntityType = "teacher" | "school" | "combined" | "unknown";
+
+export interface CsvFileStatus {
+  name: string;
+  entityType: CsvEntityType;
+}
+
+export interface CsvSelectionStatus {
+  files: CsvFileStatus[];
+  hasTeacher: boolean;
+  hasSchool: boolean;
+  hasCombined: boolean;
+  isReady: boolean;
+  message: string;
+}
+
+function classifyCsvHeader(headerLine: string): CsvEntityType {
+  const headers = headerLine
+    .split(",")
+    .map((header) => header.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (headers.includes("entity")) return "combined";
+  if (headers.includes("teacher_id")) return "teacher";
+  if (headers.includes("school_id")) return "school";
+  return "unknown";
+}
+
 interface CsvUploadProps {
   files: File[];
   onUpload: (files: File[]) => void;
   onRemove: (fileName: string) => void;
   onClear: () => void;
+  onStatusChange: (status: CsvSelectionStatus) => void;
   disabled?: boolean;
 }
 
-export function CsvUpload({ files, onUpload, onRemove, onClear, disabled }: CsvUploadProps) {
+export function CsvUpload({
+  files,
+  onUpload,
+  onRemove,
+  onClear,
+  onStatusChange,
+  disabled,
+}: CsvUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
+  const [fileStatuses, setFileStatuses] = useState<CsvFileStatus[]>([]);
 
   const handleFiles = useCallback((selectedFiles: FileList | File[] | null | undefined) => {
     if (!selectedFiles) return;
@@ -48,6 +85,84 @@ export function CsvUpload({ files, onUpload, onRemove, onClear, disabled }: CsvU
     }
     onUpload(Array.from(mergedFiles.values()));
   }, [files, onUpload]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const inspectFiles = async () => {
+      if (files.length === 0) {
+        const emptyStatus: CsvSelectionStatus = {
+          files: [],
+          hasTeacher: false,
+          hasSchool: false,
+          hasCombined: false,
+          isReady: false,
+          message: "Upload a combined CSV or both a teacher file and a school file.",
+        };
+        setFileStatuses([]);
+        onStatusChange(emptyStatus);
+        return;
+      }
+
+      const statuses = await Promise.all(
+        files.map(async (file) => {
+          const text = await file.text();
+          const [headerLine = ""] = text.split(/\r?\n/, 1);
+          return {
+            name: file.name,
+            entityType: classifyCsvHeader(headerLine),
+          } satisfies CsvFileStatus;
+        })
+      );
+
+      if (cancelled) return;
+
+      const hasTeacher = statuses.some((file) => file.entityType === "teacher");
+      const hasSchool = statuses.some((file) => file.entityType === "school");
+      const hasCombined = statuses.some((file) => file.entityType === "combined");
+      const hasUnknown = statuses.some((file) => file.entityType === "unknown");
+
+      let message = "Ready to run.";
+      let isReady = false;
+
+      if (hasUnknown) {
+        message = "One or more files could not be identified. Use a teacher, school, or combined CSV format.";
+      } else if (hasCombined) {
+        isReady = true;
+        message = "Ready to run with a combined CSV.";
+      } else if (hasTeacher && hasSchool) {
+        isReady = true;
+        message = "Ready to run with teacher and school files.";
+      } else if (hasTeacher) {
+        message = "Missing school file.";
+      } else if (hasSchool) {
+        message = "Missing teacher file.";
+      }
+
+      setFileStatuses(statuses);
+      onStatusChange({
+        files: statuses,
+        hasTeacher,
+        hasSchool,
+        hasCombined,
+        isReady,
+        message,
+      });
+    };
+
+    void inspectFiles();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [files, onStatusChange]);
+
+  const badgeLabel: Record<CsvEntityType, string> = {
+    teacher: "Teacher",
+    school: "School",
+    combined: "Combined",
+    unknown: "Unknown",
+  };
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -157,23 +272,30 @@ export function CsvUpload({ files, onUpload, onRemove, onClear, disabled }: CsvU
               </Button>
             </div>
             <div className="space-y-2">
-              {files.map((file) => (
+              {fileStatuses.map((file) => (
                 <div
                   key={file.name}
                   className="flex items-center justify-between gap-3 rounded-md bg-white/80 px-3 py-2 text-sm"
                 >
-                  <span className="truncate text-ink">{file.name}</span>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    disabled={disabled}
-                    onClick={() => onRemove(file.name)}
-                    className="h-7 w-7 rounded-full"
-                    aria-label={`Remove ${file.name}`}
-                  >
-                    <X size={14} />
-                  </Button>
+                  <div className="flex min-w-0 items-center gap-2">
+                    <span className="truncate text-ink">{file.name}</span>
+                    <Badge variant="secondary" className="rounded-full text-[10px]">
+                      {badgeLabel[file.entityType]}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      disabled={disabled}
+                      onClick={() => onRemove(file.name)}
+                      className="h-7 w-7 rounded-full"
+                      aria-label={`Remove ${file.name}`}
+                    >
+                      <X size={14} />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
