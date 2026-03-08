@@ -141,6 +141,21 @@ export default function FormPage() {
     }
   };
 
+  const handleCsvSelection = (files: File[]) => {
+    setCsvFiles(files);
+    setStatus("");
+  };
+
+  const handleCsvRemove = (fileName: string) => {
+    setCsvFiles((current) => current.filter((file) => file.name !== fileName));
+    setStatus("");
+  };
+
+  const handleCsvClear = () => {
+    setCsvFiles([]);
+    setStatus("");
+  };
+
   return (
     <PageTransition>
       <div className="max-w-screen-xl mx-auto px-6 md:px-8 py-10">
@@ -189,10 +204,10 @@ export default function FormPage() {
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6">
             <div className="space-y-5">
               <CsvUpload
-                onUpload={(files) => {
-                  setCsvFiles(files);
-                  setStatus("");
-                }}
+                files={csvFiles}
+                onUpload={handleCsvSelection}
+                onRemove={handleCsvRemove}
+                onClear={handleCsvClear}
                 disabled={loading}
               />
 

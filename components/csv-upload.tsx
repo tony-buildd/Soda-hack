@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { UploadSimple, FileText, Lightning } from "@phosphor-icons/react";
+import { UploadSimple, FileText, Lightning, X } from "@phosphor-icons/react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,22 +25,26 @@ const DEMO_DATASETS = [
 ] as const;
 
 interface CsvUploadProps {
+  files: File[];
   onUpload: (files: File[]) => void;
+  onRemove: (fileName: string) => void;
+  onClear: () => void;
   disabled?: boolean;
 }
 
-export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
+export function CsvUpload({ files, onUpload, onRemove, onClear, disabled }: CsvUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [fileNames, setFileNames] = useState<string[]>([]);
   const [dragging, setDragging] = useState(false);
 
   const handleFiles = useCallback((files: FileList | File[] | null | undefined) => {
     if (!files) return;
     const nextFiles = Array.from(files).filter((file) => file.name.toLowerCase().endsWith(".csv"));
     if (nextFiles.length === 0) return;
-
-    setFileNames(nextFiles.map((file) => file.name));
-    onUpload(nextFiles);
+    const mergedFiles = new Map(files.map((file) => [file.name, file]));
+    for (const file of nextFiles) {
+      mergedFiles.set(file.name, file);
+    }
+    onUpload(Array.from(mergedFiles.values()));
   }, [onUpload]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -54,7 +58,6 @@ export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
     const text = await res.text();
     const blob = new Blob([text], { type: "text/csv" });
     const file = new File([blob], `${label.toLowerCase().replace(" ", "_")}_combined.csv`, { type: "text/csv" });
-    setFileNames([file.name]);
     onUpload([file]);
   }, [onUpload]);
 
@@ -106,14 +109,14 @@ export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
             dragging ? "border-emerald bg-mint/30" : "border-line/60 bg-white/30 hover:border-sage/40 hover:bg-mint/10"
           }`}
         >
-          {fileNames.length > 0 ? (
+          {files.length > 0 ? (
             <>
               <FileText size={22} weight="duotone" className="text-emerald" />
               <p className="text-sm font-medium text-ink">
-                {fileNames.length === 1 ? fileNames[0] : `${fileNames.length} CSV files selected`}
+                {files.length === 1 ? files[0].name : `${files.length} CSV files selected`}
               </p>
               <p className="text-xs text-muted truncate max-w-full text-center">
-                {fileNames.join(", ")}
+                {files.map((file) => file.name).join(", ")}
               </p>
             </>
           ) : (
@@ -130,9 +133,50 @@ export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
             accept=".csv,text/csv"
             className="hidden"
             disabled={disabled}
-            onChange={(e) => handleFiles(e.target.files)}
+            onChange={(e) => {
+              handleFiles(e.target.files);
+              e.currentTarget.value = "";
+            }}
           />
         </div>
+        {files.length > 0 && (
+          <div className="space-y-2 rounded-lg border border-line/50 bg-mint/10 p-3">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs font-semibold text-ink">Selected files</p>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                disabled={disabled}
+                onClick={onClear}
+                className="h-7 rounded-full px-2 text-xs"
+              >
+                Clear all
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {files.map((file) => (
+                <div
+                  key={file.name}
+                  className="flex items-center justify-between gap-3 rounded-md bg-white/80 px-3 py-2 text-sm"
+                >
+                  <span className="truncate text-ink">{file.name}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    disabled={disabled}
+                    onClick={() => onRemove(file.name)}
+                    className="h-7 w-7 rounded-full"
+                    aria-label={`Remove ${file.name}`}
+                  >
+                    <X size={14} />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <a href={API_URLS.csvTemplate} className="text-xs font-semibold text-emerald no-underline hover:underline">
           Download combined CSV template
         </a>
