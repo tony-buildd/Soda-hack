@@ -58,14 +58,14 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="bg-rose-50/50 dark:bg-rose-950/10 border-b border-rose-100 dark:border-rose-900/20 p-4">
+      <div className="bg-[#d9efdb] dark:bg-rose-950/10 border-b border-emerald-100/50 dark:border-rose-900/20 p-4">
         <div className="flex items-center gap-3 mb-4">
-           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400">
+           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/60 dark:bg-rose-900/40 text-orange-600 dark:text-rose-400">
              <WarningCircle size={22} weight="fill" />
            </div>
            <div>
-             <CardTitle className="text-base text-rose-900 dark:text-rose-100">Systemic Shortage Detected</CardTitle>
-             <CardDescription className="text-xs text-rose-700/80 dark:text-rose-300/80 mt-0.5">
+             <CardTitle className="text-base text-emerald-950 dark:text-rose-100">Systemic Shortage Detected</CardTitle>
+             <CardDescription className="text-xs text-emerald-800/80 dark:text-rose-300/80 mt-0.5">
                Even with optimal allocation, {percentageMissing}% of demand cannot be met due to lack of teachers.
              </CardDescription>
            </div>
@@ -73,19 +73,19 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
         
         {totalDemand && (
           <div className="space-y-1.5 mb-1">
-            <div className="h-2.5 w-full bg-rose-100 dark:bg-rose-900/30 rounded-full overflow-hidden flex">
+            <div className="h-2.5 w-full bg-white/50 dark:bg-rose-900/30 rounded-full overflow-hidden flex">
               <div 
                 className="h-full bg-emerald-500" 
                 style={{ width: `${percentageMet}%` }}
               />
               <div 
-                className="h-full bg-rose-400" 
+                className="h-full bg-orange-500 dark:bg-rose-400" 
                 style={{ width: `${percentageMissing}%` }} 
               />
             </div>
             <div className="flex justify-between text-xs font-medium px-0.5">
-              <span className="text-emerald-700 dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
-              <span className="text-rose-600 dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
+              <span className="text-emerald-800 dark:text-emerald-400">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
+              <span className="text-orange-700 dark:text-rose-400">Unmet: {totalMissing}h ({percentageMissing}%)</span>
             </div>
           </div>
         )}
