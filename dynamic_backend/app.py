@@ -57,6 +57,13 @@ def _split_subjects(raw: str | List[str]) -> List[str]:
   return [part.strip() for part in re.split(r"[|;,]", value) if part.strip()]
 
 
+def _normalize_subject_name(subject: str) -> str:
+  normalized = str(subject).strip().lower()
+  if not normalized:
+    raise ValueError("Subject name cannot be empty")
+  return normalized
+
+
 def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
   if not isinstance(payload, dict):
     raise ValueError("Input payload must be a JSON object")
@@ -84,7 +91,7 @@ def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         "id": teacher_id,
         "name": str(teacher.get("name", teacher_id)).strip() or teacher_id,
         "capacity": _parse_int(str(teacher.get("capacity", "")), f"teachers[{idx}].capacity"),
-        "subjects": _split_subjects(teacher.get("subjects", [])),
+        "subjects": [_normalize_subject_name(subject) for subject in _split_subjects(teacher.get("subjects", []))],
         "base": [
           _parse_float(str(base[0]), f"teachers[{idx}].base[0]"),
           _parse_float(str(base[1]), f"teachers[{idx}].base[1]"),
@@ -111,7 +118,8 @@ def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
       subject_name = str(subject).strip()
       if not subject_name:
         continue
-      demand[subject_name] = _parse_int(str(hours), f"schools[{idx}].demand.{subject_name}")
+      normalized_subject = _normalize_subject_name(subject_name)
+      demand[normalized_subject] = _parse_int(str(hours), f"schools[{idx}].demand.{subject_name}")
 
     normalized_schools.append(
       {
@@ -296,7 +304,10 @@ def _parse_csv_input(csv_text: str, require_complete: bool = True) -> Dict[str, 
         "id": teacher_id,
         "name": normalized_row.get("name") or teacher_id,
         "capacity": _parse_int(normalized_row.get("capacity", ""), "capacity"),
-        "subjects": _split_subjects(normalized_row.get("subjects", "")),
+        "subjects": [
+          _normalize_subject_name(subject)
+          for subject in _split_subjects(normalized_row.get("subjects", ""))
+        ],
         "base": [_parse_float(lat, "lat"), _parse_float(lng, "lng")],
       }
       continue
@@ -326,7 +337,7 @@ def _parse_csv_input(csv_text: str, require_complete: bool = True) -> Dict[str, 
       for key, value in normalized_row.items():
         if not key.startswith("demand_") or not value:
           continue
-        subject = key[len("demand_") :].strip()
+        subject = _normalize_subject_name(key[len("demand_") :])
         if subject:
           school["demand"][subject] = _parse_int(value, key)
 
@@ -346,6 +357,7 @@ def _parse_csv_input(csv_text: str, require_complete: bool = True) -> Dict[str, 
       subject = normalized_row.get("subject", "")
       if not subject:
         raise ValueError(f"CSV row {row_no}: demand row missing 'subject'")
+      subject = _normalize_subject_name(subject)
       hours = _parse_int(normalized_row.get("hours", ""), "hours")
 
       schools[school_id]["demand"][subject] = (
