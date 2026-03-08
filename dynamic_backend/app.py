@@ -17,6 +17,11 @@ try:
 except ImportError:
   from state_manager import AllocationState
 
+try:
+  from .reoptimizer import compute_kpi, haversine_km
+except ImportError:
+  from reoptimizer import compute_kpi, haversine_km
+
 
 CSV_TEMPLATE = """entity,id,name,capacity,subjects,lat,lng,priority,school_id,subject,hours
 teacher,T1,Nguyen Van A,20,Math|Physics,21.03,105.85,,,,
@@ -470,8 +475,23 @@ def _diff_inputs(old_input: Dict[str, Any], new_input: Dict[str, Any]) -> List[D
     events.append({"type": "teacher_new", "teacher": new_teachers[tid]})
 
   for tid in sorted(old_teacher_ids & new_teacher_ids):
-    old_capacity = int(old_teachers[tid].get("capacity", 0))
-    new_capacity = int(new_teachers[tid].get("capacity", 0))
+    old_teacher = old_teachers[tid]
+    new_teacher = new_teachers[tid]
+    old_subjects = sorted(str(s) for s in old_teacher.get("subjects", []))
+    new_subjects = sorted(str(s) for s in new_teacher.get("subjects", []))
+    old_base = [float(old_teacher.get("base", [0.0, 0.0])[0]), float(old_teacher.get("base", [0.0, 0.0])[1])]
+    new_base = [float(new_teacher.get("base", [0.0, 0.0])[0]), float(new_teacher.get("base", [0.0, 0.0])[1])]
+    old_name = str(old_teacher.get("name", tid))
+    new_name = str(new_teacher.get("name", tid))
+
+    profile_changed = old_name != new_name or old_subjects != new_subjects or old_base != new_base
+    if profile_changed:
+      events.append({"type": "teacher_quit", "teacher_id": tid})
+      events.append({"type": "teacher_new", "teacher": new_teacher})
+      continue
+
+    old_capacity = int(old_teacher.get("capacity", 0))
+    new_capacity = int(new_teacher.get("capacity", 0))
     if old_capacity != new_capacity:
       events.append(
         {
@@ -488,8 +508,25 @@ def _diff_inputs(old_input: Dict[str, Any], new_input: Dict[str, Any]) -> List[D
     events.append({"type": "school_new", "school": new_schools[sid]})
 
   for sid in sorted(old_school_ids & new_school_ids):
-    old_priority = int(old_schools[sid].get("priority", 1))
-    new_priority = int(new_schools[sid].get("priority", 1))
+    old_school = old_schools[sid]
+    new_school = new_schools[sid]
+    old_name = str(old_school.get("name", sid))
+    new_name = str(new_school.get("name", sid))
+    old_location = [
+      float(old_school.get("location", [0.0, 0.0])[0]),
+      float(old_school.get("location", [0.0, 0.0])[1]),
+    ]
+    new_location = [
+      float(new_school.get("location", [0.0, 0.0])[0]),
+      float(new_school.get("location", [0.0, 0.0])[1]),
+    ]
+    if old_name != new_name or old_location != new_location:
+      events.append({"type": "school_close", "school_id": sid})
+      events.append({"type": "school_new", "school": new_school})
+      continue
+
+    old_priority = int(old_school.get("priority", 1))
+    new_priority = int(new_school.get("priority", 1))
     if old_priority != new_priority:
       events.append(
         {
@@ -499,8 +536,8 @@ def _diff_inputs(old_input: Dict[str, Any], new_input: Dict[str, Any]) -> List[D
         }
       )
 
-    old_demand = _demand_map(old_schools[sid])
-    new_demand = _demand_map(new_schools[sid])
+    old_demand = _demand_map(old_school)
+    new_demand = _demand_map(new_school)
     all_subjects = sorted(set(old_demand.keys()) | set(new_demand.keys()))
     for subject in all_subjects:
       old_hours = old_demand.get(subject, 0)
@@ -602,6 +639,116 @@ def _summarize_diff(
   }
 
 
+def _state_to_input_payload(state: AllocationState) -> Dict[str, Any]:
+  teachers = []
+  schools = []
+
+  for teacher in state.teachers.values():
+    teachers.append(
+      {
+        "id": str(teacher["id"]),
+        "name": str(teacher.get("name", teacher["id"])),
+        "capacity": int(teacher.get("capacity", 0)),
+        "subjects": [str(s) for s in teacher.get("subjects", [])],
+        "base": [
+          float(teacher.get("base", [0.0, 0.0])[0]),
+          float(teacher.get("base", [0.0, 0.0])[1]),
+        ],
+      }
+    )
+
+  for school in state.schools.values():
+    schools.append(
+      {
+        "id": str(school["id"]),
+        "name": str(school.get("name", school["id"])),
+        "priority": int(school.get("priority", 1)),
+        "location": [
+          float(school.get("location", [0.0, 0.0])[0]),
+          float(school.get("location", [0.0, 0.0])[1]),
+        ],
+        "demand": {
+          str(subject): max(0, int(hours))
+          for subject, hours in school.get("demand", {}).items()
+        },
+      }
+    )
+
+  teachers.sort(key=lambda x: x["id"])
+  schools.sort(key=lambda x: x["id"])
+  return {"teachers": teachers, "schools": schools}
+
+
+def _run_greedy_baseline(
+  teachers: Dict[str, Dict[str, Any]],
+  schools: Dict[str, Dict[str, Any]],
+  blocked_routes: set[tuple[str, str]],
+) -> List[Dict[str, Any]]:
+  demand_items: List[Dict[str, Any]] = []
+  for sid, school in schools.items():
+    if not bool(school.get("active", True)):
+      continue
+    for subject, hours in school.get("demand", {}).items():
+      demand_hours = max(0, int(hours))
+      if demand_hours <= 0:
+        continue
+      demand_items.append(
+        {
+          "school_id": sid,
+          "subject": str(subject),
+          "demand": demand_hours,
+          "priority": int(school.get("priority", 1)),
+        }
+      )
+
+  demand_items.sort(key=lambda x: (-x["priority"], -x["demand"], x["school_id"], x["subject"]))
+
+  remaining = {
+    tid: max(0, int(teacher.get("capacity", 0)))
+    for tid, teacher in teachers.items()
+    if bool(teacher.get("active", True))
+  }
+
+  allocations: List[Dict[str, Any]] = []
+  for item in demand_items:
+    sid = item["school_id"]
+    subject = item["subject"]
+    needed = int(item["demand"])
+
+    candidates: List[tuple[float, str]] = []
+    for tid, teacher in teachers.items():
+      if tid not in remaining or remaining[tid] <= 0:
+        continue
+      if subject not in set(str(s) for s in teacher.get("subjects", [])):
+        continue
+      if (tid, sid) in blocked_routes:
+        continue
+      dist = haversine_km(teacher["base"], schools[sid]["location"])
+      candidates.append((dist, tid))
+
+    candidates.sort(key=lambda x: (x[0], x[1]))
+
+    for _, tid in candidates:
+      if needed <= 0:
+        break
+      assign = min(needed, remaining[tid])
+      if assign <= 0:
+        continue
+      allocations.append(
+        {
+          "teacher": tid,
+          "school": sid,
+          "subject": subject,
+          "hours": int(assign),
+        }
+      )
+      remaining[tid] -= int(assign)
+      needed -= int(assign)
+
+  allocations.sort(key=lambda x: (x["teacher"], x["school"], x["subject"]))
+  return allocations
+
+
 def create_app() -> Flask:
   app = Flask(__name__)
 
@@ -612,7 +759,10 @@ def create_app() -> Flask:
   web_output_dir = project_root / "output" / "web_latest"
   allocator_binary = project_root / "bin" / "allocator"
 
-  input_path = os.environ.get("INPUT_PATH", str(default_input))
+  input_path = os.environ.get(
+    "INPUT_PATH",
+    str(web_input if web_input.exists() else default_input),
+  )
   batch_threshold = int(os.environ.get("BATCH_THRESHOLD", "3"))
   max_distance_km = float(os.environ.get("MAX_DISTANCE_KM", "0"))
   state = AllocationState(
@@ -681,38 +831,65 @@ def create_app() -> Flask:
     out["meta"] = {"log": run.stdout, "max_distance_km": max_distance_km}
     return out
 
-  def _load_previous_input() -> Dict[str, Any]:
-    if web_input.exists():
-      try:
-        return _normalize_input_payload(_read_json(web_input))
-      except Exception:
-        pass
-    return _normalize_input_payload(_read_json(default_input))
+  def _build_result_bundle(
+    *,
+    input_payload: Dict[str, Any],
+    meta: Dict[str, Any] | None = None,
+  ) -> Dict[str, Any]:
+    mcmf_allocations = state.allocation_list()
+    mcmf_kpi = compute_kpi(state.teachers, state.schools, mcmf_allocations)
 
-  def _run_allocator_with_diff(input_payload: Dict[str, Any]) -> Dict[str, Any]:
-    previous_payload = _load_previous_input()
+    greedy_allocations = _run_greedy_baseline(
+      state.teachers, state.schools, state.blocked_routes
+    )
+    greedy_kpi = compute_kpi(state.teachers, state.schools, greedy_allocations)
+
+    bundle: Dict[str, Any] = {
+      "input": input_payload,
+      "mcmf": {"allocations": mcmf_allocations, "kpi": mcmf_kpi},
+      "greedy": {"allocations": greedy_allocations, "kpi": greedy_kpi},
+    }
+    if meta:
+      bundle["meta"] = meta
+    return bundle
+
+  def _apply_input_through_state(input_payload: Dict[str, Any]) -> Dict[str, Any]:
+    previous_payload = _state_to_input_payload(state)
     inferred_events = _diff_inputs(previous_payload, input_payload)
     diff_summary = _summarize_diff(previous_payload, input_payload, inferred_events)
 
-    out = _run_allocator(input_payload)
-    meta = out.setdefault("meta", {})
-    meta["input_diff"] = {
-      "summary": diff_summary,
-      "events": inferred_events,
-    }
-    return out
+    applied_events: List[Dict[str, Any]] = []
+    for event in inferred_events:
+      applied = state.ingest_event(event, auto_reoptimize=False)
+      applied_events.append(applied["event"])
+
+    effective_urgency = diff_summary.get("effective_urgency")
+    if effective_urgency == "none":
+      effective_urgency = None
+
+    reopt_result = state.reoptimize(trigger="manual_input", urgency=effective_urgency)
+    _write_json(web_input, input_payload)
+
+    return _build_result_bundle(
+      input_payload=input_payload,
+      meta={
+        "source": "python_reoptimizer",
+        "reoptimize": {
+          "history_id": reopt_result.get("history_id"),
+          "trigger": reopt_result.get("trigger"),
+          "urgency": reopt_result.get("urgency"),
+          "solver": reopt_result.get("solver"),
+          "changes": reopt_result.get("changes"),
+        },
+        "input_diff": {"summary": diff_summary, "events": inferred_events},
+        "applied_events": applied_events,
+      },
+    )
 
   def _load_or_bootstrap_current() -> Dict[str, Any]:
-    if web_input.exists():
-      input_payload = _normalize_input_payload(_read_json(web_input))
-    else:
-      input_payload = _normalize_input_payload(_read_json(default_input))
-      _write_json(web_input, input_payload)
-
-    try:
-      return _load_results_from_disk(input_payload)
-    except FileNotFoundError:
-      return _run_allocator(input_payload)
+    with state_lock:
+      input_payload = _state_to_input_payload(state)
+      return _build_result_bundle(input_payload=input_payload)
 
   @app.get("/")
   def home() -> Any:
@@ -754,7 +931,8 @@ def create_app() -> Flask:
     try:
       input_payload = _normalize_input_payload(raw_input)
       with optimizer_lock:
-        return jsonify(_run_allocator_with_diff(input_payload))
+        with state_lock:
+          return jsonify(_apply_input_through_state(input_payload))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:
@@ -789,7 +967,8 @@ def create_app() -> Flask:
           input_payload = _parse_csv_input(str(csv_value))
 
       with optimizer_lock:
-        return jsonify(_run_allocator_with_diff(input_payload))
+        with state_lock:
+          return jsonify(_apply_input_through_state(input_payload))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:
