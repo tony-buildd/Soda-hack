@@ -31,26 +31,24 @@ function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; g
         <MuiThemeProvider theme={muiTheme}>
           <BarChart
             xAxis={[{
-              data: ["Comparison"],
+              data: ["MCMF", "Greedy"],
               scaleType: "band" as const,
             }]}
             series={[
               {
-                data: [mcmf],
+                data: [mcmf, 0],
                 label: "MCMF",
                 color: emerald,
-                valueFormatter: (v: number | null) => v?.toFixed(2) ?? "",
               },
               {
-                data: [greedy],
+                data: [0, greedy],
                 label: "Greedy",
                 color: gold,
-                valueFormatter: (v: number | null) => v?.toFixed(2) ?? "",
               },
             ]}
-            height={240}
-            margin={{ left: 55, right: 16, top: 20, bottom: 24 }}
-            borderRadius={6}
+            height={220}
+            margin={{ left: 60, right: 16, top: 16, bottom: 30 }}
+            borderRadius={8}
             grid={{ horizontal: true }}
             yAxis={[{ label }]}
           />

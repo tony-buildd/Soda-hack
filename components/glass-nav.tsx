@@ -10,8 +10,8 @@ import { useTheme } from "@/components/theme-provider";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: House },
-  { href: "/form", label: "Form", icon: ClipboardText },
-  { href: "/statistics", label: "Statistics", icon: ChartBar },
+  { href: "/form", label: "Input", icon: ClipboardText },
+  { href: "/statistics", label: "Results", icon: ChartBar },
 ] as const;
 
 export function GlassNav() {
