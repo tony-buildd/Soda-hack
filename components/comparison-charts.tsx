@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "@/components/theme-provider";
 import type { KPI } from "@/lib/types";
 
-function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; greedy: number }) {
+function ComparisonBar({ label, mcmf, greedy, unit }: { label: string; mcmf: number; greedy: number; unit?: string }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -19,28 +19,59 @@ function ComparisonBar({ label, mcmf, greedy }: { label: string; mcmf: number; g
       },
       divider: isDark ? "#263832" : "#d5e0d8",
     },
+    components: {
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
+          }
+        }
+      }
+    }
   });
 
   return (
     <Card>
       <CardContent className="p-6">
-        <h2 className="text-sm font-semibold mb-2">{label}</h2>
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-sm font-semibold">{label}</h2>
+          <div className="flex gap-4 text-xs">
+            <div className="flex items-center gap-1.5">
+              <span className={`w-2.5 h-2.5 rounded-full ${isDark ? "bg-[#34d399]" : "bg-[#1a6b4a]"}`}></span>
+              <span className="text-muted">MCMF</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+              <span className="text-muted">Greedy</span>
+            </div>
+          </div>
+        </div>
         <MuiThemeProvider theme={muiTheme}>
           <BarChart
             xAxis={[{
-              id: "algorithms",
-              data: ["MCMF", "Greedy"],
               scaleType: "band",
+              data: ["Result"],
             }]}
-            series={[{
-              data: [mcmf, greedy],
-              color: isDark ? "#34d399" : "#10b981",
-            }]}
-            width={undefined}
+            series={[
+              {
+                data: [mcmf],
+                label: "MCMF",
+                color: isDark ? "#34d399" : "#1a6b4a",
+              },
+              {
+                data: [greedy],
+                label: "Greedy",
+                color: "#94a3b8", // Slate 400
+              }
+            ]}
             height={220}
-            margin={{ left: 60, right: 20, top: 20, bottom: 30 }}
-            borderRadius={8}
+            margin={{ left: 50, right: 10, top: 10, bottom: 30 }}
+            borderRadius={6}
             grid={{ horizontal: true }}
+            slotProps={{
+              legend: { hidden: true }
+            }}
           />
         </MuiThemeProvider>
       </CardContent>
