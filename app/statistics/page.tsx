@@ -80,6 +80,11 @@ export default function StatisticsPage() {
 
   const result = bundle[algorithm];
   const unmetCount = result.kpi.unmet_demand.length;
+  
+  // Calculate total demand from input data
+  const totalDemand = bundle.input.schools.reduce((sum, school) => {
+    return sum + Object.values(school.demand).reduce((a, b) => a + b, 0);
+  }, 0);
 
   return (
     <PageTransition>
@@ -122,7 +127,7 @@ export default function StatisticsPage() {
 
           {/* 2. Unmet demand — prominent if any exist */}
           {unmetCount > 0 && (
-            <UnmetDemand items={result.kpi.unmet_demand} />
+            <UnmetDemand items={result.kpi.unmet_demand} totalDemand={totalDemand} />
           )}
 
           {/* 3. Gap matrix — the key decision view */}
@@ -147,7 +152,7 @@ export default function StatisticsPage() {
               />
               {/* Show unmet demand in sidebar if none shown above */}
               {unmetCount === 0 && (
-                <UnmetDemand items={result.kpi.unmet_demand} />
+                <UnmetDemand items={result.kpi.unmet_demand} totalDemand={totalDemand} />
               )}
             </div>
           </div>

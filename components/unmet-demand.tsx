@@ -9,7 +9,7 @@ interface UnmetDemandProps {
   items: UnmetDemandItem[];
 }
 
-export function UnmetDemand({ items }: UnmetDemandProps) {
+export function UnmetDemand({ items, totalDemand }: { items: UnmetDemandItem[], totalDemand?: number }) {
   if (items.length === 0) {
     return (
       <Card>
@@ -32,64 +32,88 @@ export function UnmetDemand({ items }: UnmetDemandProps) {
     if (!bySchool[item.school]) bySchool[item.school] = [];
     bySchool[item.school].push(item);
   }
-  const totalHours = items.reduce((s, i) => s + i.missing_hours, 0);
+  const totalMissing = items.reduce((s, i) => s + i.missing_hours, 0);
   const schoolCount = Object.keys(bySchool).length;
+  
+  // Calculate percentages if totalDemand is provided
+  const percentageMissing = totalDemand ? Math.round((totalMissing / totalDemand) * 100) : 0;
+  const percentageMet = 100 - percentageMissing;
 
   return (
-    <Card className="border-destructive/20">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-destructive/10 text-destructive">
-              <WarningCircle size={22} weight="fill" />
+    <Card className="border-destructive/20 overflow-hidden">
+      <div className="bg-destructive/5 border-b border-destructive/10 p-4">
+        <div className="flex items-center gap-3 mb-3">
+           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-destructive/10 text-destructive">
+             <WarningCircle size={22} weight="fill" />
+           </div>
+           <div>
+             <CardTitle className="text-base text-destructive">Systemic Shortage Detected</CardTitle>
+             <CardDescription className="text-xs text-destructive/80 mt-0.5">
+               Even with optimal allocation, {percentageMissing}% of demand cannot be met due to lack of teachers.
+             </CardDescription>
+           </div>
+        </div>
+        
+        {totalDemand && (
+          <div className="space-y-2 mb-1">
+            <div className="flex justify-between text-xs font-medium">
+              <span className="text-emerald-700">Met Demand: {totalDemand - totalMissing}h ({percentageMet}%)</span>
+              <span className="text-destructive">Unmet: {totalMissing}h ({percentageMissing}%)</span>
             </div>
-            <div>
-              <CardTitle>Unmet Demand</CardTitle>
-              <CardDescription className="mt-0.5">
-                Schools the optimizer could not fully cover
-              </CardDescription>
+            <div className="h-2.5 w-full bg-destructive/20 rounded-full overflow-hidden flex">
+              <div 
+                className="h-full bg-emerald-500" 
+                style={{ width: `${percentageMet}%` }}
+              />
+              <div 
+                className="h-full bg-destructive" 
+                style={{ width: `${percentageMissing}%` }} 
+              />
             </div>
           </div>
+        )}
+      </div>
+
+      <CardHeader className="pb-2 pt-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-muted">Specific Gaps by School</h3>
           <div className="flex gap-2">
-            <Badge variant="destructive" className="rounded-full">
-              {schoolCount} {schoolCount === 1 ? "school" : "schools"}
-            </Badge>
-            <Badge variant="secondary" className="rounded-full">
-              {totalHours}h missing
+            <Badge variant="secondary" className="rounded-full text-[10px] h-5">
+              {schoolCount} schools affected
             </Badge>
           </div>
         </div>
       </CardHeader>
+      
       <CardContent>
-        <div className="space-y-3">
+        <div className="space-y-3 max-h-[300px] overflow-auto pr-1">
           {Object.entries(bySchool).map(([school, unmetItems]) => (
             <div
               key={school}
-              className="rounded-xl border border-destructive/15 bg-destructive/5 p-4"
+              className="rounded-lg border border-line p-3 bg-card hover:bg-muted/5 transition-colors"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin size={14} weight="fill" className="text-destructive" />
-                <span className="text-sm font-semibold text-ink">{school}</span>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <MapPin size={14} weight="fill" className="text-muted" />
+                  <span className="text-sm font-semibold text-ink">{school}</span>
+                </div>
+                <Badge variant="outline" className="rounded-full text-[10px] h-5 border-destructive/30 text-destructive bg-destructive/5">
+                  -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
+                </Badge>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {unmetItems.map((item, i) => (
-                  <Badge
+                  <span
                     key={i}
-                    variant="outline"
-                    className="rounded-full text-xs border-destructive/20 text-destructive"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive-foreground/80"
                   >
-                    {item.subject}: {item.missing_hours}h missing
-                  </Badge>
+                    {item.subject}
+                  </span>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <p className="text-xs text-muted mt-4 leading-relaxed">
-          These gaps typically occur when no qualified teacher exists within feasible travel
-          distance, or all available teachers have exhausted their capacity. Consider hiring
-          for these specific subject-school combinations.
-        </p>
       </CardContent>
     </Card>
   );
