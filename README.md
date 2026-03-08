@@ -1,7 +1,7 @@
 # Soda Hackathon - Teacher Allocation Optimizer
 
 ## Architecture
-Input JSON -> C++ Core Engine (MCMF + Greedy baseline + KPI) -> output JSON -> static dashboard (Leaflet + Chart.js)
+Web UI (Next.js) -> Flask API -> C++ Core Engine (MCMF + Greedy baseline + KPI) -> JSON results -> Next.js statistics dashboard
 
 ## Project structure
 - `src/main.cpp`: app entrypoint
@@ -11,16 +11,44 @@ Input JSON -> C++ Core Engine (MCMF + Greedy baseline + KPI) -> output JSON -> s
 - `src/kpi.*`: coverage/travel/fairness metrics
 - `src/io.*`: JSON input/output
 - `data/synthetic_input.json`: sample dataset (10 teachers, 8 schools, 4 subjects)
-- `dashboard/`: static web dashboard
+- `app/`: Next.js frontend pages (`/` landing, `/form` input, `/statistics` results)
+- `components/`: React UI components (map, charts, KPI cards, forms)
+- `lib/`: TypeScript API client, types, and utilities
+- `dynamic_backend/`: Python Flask API server
 
-## Build and run
-Prerequisite: C++17 compiler. `nlohmann/json` is vendored at `third_party/nlohmann/json.hpp`.
+## Running the app
+Prerequisites: C++17 compiler, Node.js, Python 3.
 
+### Step 1 — Build the C++ solver
 ```bash
 make
-make run
 ```
 
+### Step 2 — Start the Flask backend (port 5001)
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r dynamic_backend/requirements.txt
+MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
+```
+
+### Step 3 — Start the Next.js frontend (port 3000)
+In a separate terminal:
+```bash
+npm install
+npm run dev
+```
+
+Open: **`http://localhost:3000`**
+
+The Next.js app proxies all `/api/*` requests to the Flask backend on port 5001.
+
+### Pages
+- `/` — Landing page
+- `/form` — Input teachers & schools (manual form or CSV upload), then run the optimizer
+- `/statistics` — View KPI cards, comparison charts, allocation map, and allocation table
+
+## C++ solver options
 Optional: set max teacher-school distance (km) for MCMF edges:
 
 ```bash
@@ -33,60 +61,6 @@ Notes:
 - Set a positive value (for example `100`) to reduce travel at the cost of coverage.
 
 Generated files:
-- `output/allocation_mcmf.json`
-- `output/allocation_greedy.json`
-- `output/allocation.json` (alias of MCMF output)
-
-## Open dashboard
-From project root:
-
-```bash
-python -m http.server 8000
-```
-
-Then open:
-- `http://localhost:8000/dashboard/`
-
-The dashboard loads:
-- `data/synthetic_input.json`
-- `output/allocation_mcmf.json`
-- `output/allocation_greedy.json`
-
-## Dynamic backend (event-driven re-allocation)
-`dynamic_backend/` provides a Python Flask service for dynamic teacher allocation with switching cost.
-
-Quick start:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r dynamic_backend/requirements.txt
-python dynamic_backend/app.py
-```
-
-See API and event schema in `dynamic_backend/README.md`.
-
-## Integrated Web Input -> CSV/JSON -> C++ Solve
-You can now run one integrated flow:
-- Input from web (manual JSON or CSV upload)
-- Python converts CSV to JSON
-- C++ solver runs on generated JSON
-- Dashboard updates KPI/map/allocation immediately
-
-Run from project root:
-
-```bash
-make
-source .venv/bin/activate
-pip install -r dynamic_backend/requirements.txt
-MAX_DISTANCE_KM=0 PORT=5001 python dynamic_backend/app.py
-```
-
-Open:
-- `http://127.0.0.1:5001/dashboard/`
-
-Generated files for web flow:
-- `data/web_input.json`
 - `output/web_latest/allocation_mcmf.json`
 - `output/web_latest/allocation_greedy.json`
 - `output/web_latest/allocation.json`
