@@ -9,6 +9,7 @@ import { ComparisonCharts } from "@/components/comparison-charts";
 import { GapMatrix } from "@/components/gap-matrix";
 import { AllocationTable } from "@/components/allocation-table";
 import { UnmetDemand } from "@/components/unmet-demand";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,8 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { fetchCurrentResults } from "@/lib/api";
-import type { ResultBundle } from "@/lib/types";
+import { fetchCurrentResults, fetchHistoryRun, fetchRunHistory } from "@/lib/api";
+import type { ResultBundle, RunSnapshotSummary } from "@/lib/types";
 
 const AllocationMap = dynamic(
   () => import("@/components/allocation-map").then((m) => m.AllocationMap),
@@ -34,13 +35,19 @@ const AllocationMap = dynamic(
 type Algorithm = "mcmf" | "greedy";
 
 export default function StatisticsPage() {
-  const [bundle, setBundle] = useState<ResultBundle | null>(null);
+  const [currentBundle, setCurrentBundle] = useState<ResultBundle | null>(null);
+  const [historyBundle, setHistoryBundle] = useState<ResultBundle | null>(null);
+  const [historyRuns, setHistoryRuns] = useState<RunSnapshotSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [algorithm, setAlgorithm] = useState<Algorithm>("mcmf");
+  const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchCurrentResults()
-      .then(setBundle)
+    Promise.all([fetchCurrentResults(), fetchRunHistory()])
+      .then(([bundle, runs]) => {
+        setCurrentBundle(bundle);
+        setHistoryRuns(runs);
+      })
       .catch((err) => setError(err.message));
   }, []);
 
@@ -61,7 +68,7 @@ export default function StatisticsPage() {
     );
   }
 
-  if (!bundle) {
+  if (!currentBundle) {
     return (
       <PageTransition>
         <div className="max-w-screen-xl mx-auto px-6 md:px-8 py-10 space-y-5">
@@ -80,13 +87,32 @@ export default function StatisticsPage() {
     );
   }
 
+  const bundle = historyBundle ?? currentBundle;
   const result = bundle[algorithm];
   const unmetCount = result.kpi.unmet_demand.length;
+  const activeRun = selectedRunId
+    ? historyRuns.find((run) => run.id === selectedRunId) ?? bundle.meta?.run_snapshot
+    : bundle.meta?.run_snapshot ?? historyRuns[0];
   
   // Calculate total demand from input data
   const totalDemand = bundle.input.schools.reduce((sum, school) => {
     return sum + Object.values(school.demand).reduce((a, b) => a + b, 0);
   }, 0);
+
+  const openRun = async (runId: string | null) => {
+    if (!runId) {
+      setSelectedRunId(null);
+      setHistoryBundle(null);
+      return;
+    }
+    try {
+      const snapshot = await fetchHistoryRun(runId);
+      setSelectedRunId(runId);
+      setHistoryBundle(snapshot);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load saved run");
+    }
+  };
 
   return (
     <PageTransition>
@@ -105,6 +131,15 @@ export default function StatisticsPage() {
             <Button asChild variant="outline" className="rounded-full">
               <Link href="/form">Back to Input</Link>
             </Button>
+            {selectedRunId && (
+              <Button
+                variant="outline"
+                className="rounded-full"
+                onClick={() => void openRun(null)}
+              >
+                Back to Latest
+              </Button>
+            )}
             <Badge
               variant="secondary"
               className="rounded-full text-xs"
@@ -155,6 +190,60 @@ export default function StatisticsPage() {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <AllocationTable allocations={result.allocations} />
             <div className="space-y-6">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base">Run History</CardTitle>
+                  <CardDescription>
+                    Reopen previous optimizer snapshots over time.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {activeRun && (
+                    <div className="rounded-lg border border-line/50 bg-mint/10 px-3 py-2 text-xs text-ink">
+                      Viewing {selectedRunId ? "saved snapshot" : "latest snapshot"} from{" "}
+                      {new Date(activeRun.created_at).toLocaleString()}.
+                    </div>
+                  )}
+                  <div className="max-h-64 space-y-2 overflow-auto pr-1">
+                    {historyRuns.length === 0 ? (
+                      <p className="text-sm text-muted">No saved runs yet.</p>
+                    ) : (
+                      historyRuns.map((run) => {
+                        const isActive = (selectedRunId ?? historyRuns[0]?.id ?? null) === run.id;
+                        return (
+                          <button
+                            key={run.id}
+                            type="button"
+                            onClick={() => void openRun(run.id)}
+                            className={`w-full rounded-lg border px-3 py-2 text-left transition-colors ${
+                              isActive
+                                ? "border-emerald/30 bg-mint/20"
+                                : "border-line/50 bg-card hover:bg-mint/10"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-sm font-medium text-ink">
+                                {new Date(run.created_at).toLocaleString()}
+                              </span>
+                              <Badge variant="secondary" className="rounded-full text-[10px]">
+                                {run.trigger.toUpperCase()}
+                              </Badge>
+                            </div>
+                            <p className="mt-1 text-xs text-muted">
+                              {run.teacher_count} teachers · {run.school_count} schools ·{" "}
+                              {run.allocation_count} allocations
+                            </p>
+                            <p className="mt-1 text-xs text-muted">
+                              Coverage {run.coverage_pct.toFixed(2)}% · Travel{" "}
+                              {run.total_travel_km.toFixed(1)} km
+                            </p>
+                          </button>
+                        );
+                      })
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
               <ComparisonCharts
                 mcmfKpi={bundle.mcmf.kpi}
                 greedyKpi={bundle.greedy.kpi}

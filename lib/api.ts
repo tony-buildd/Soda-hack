@@ -1,4 +1,4 @@
-import type { ResultBundle } from "./types";
+import type { ResultBundle, RunSnapshotSummary } from "./types";
 import { API_URLS } from "./constants";
 
 export async function loadJson<T>(url: string): Promise<T> {
@@ -27,6 +27,15 @@ export async function postForm<T>(url: string, formData: FormData): Promise<T> {
 
 export async function fetchCurrentResults(): Promise<ResultBundle> {
   return loadJson<ResultBundle>(API_URLS.current);
+}
+
+export async function fetchRunHistory(): Promise<RunSnapshotSummary[]> {
+  const data = await loadJson<{ runs: RunSnapshotSummary[] }>(API_URLS.history);
+  return data.runs;
+}
+
+export async function fetchHistoryRun(runId: string): Promise<ResultBundle> {
+  return loadJson<ResultBundle>(`${API_URLS.history}/${runId}`);
 }
 
 export async function runOptimizerJson(input: unknown): Promise<ResultBundle> {

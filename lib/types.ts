@@ -44,8 +44,26 @@ export interface AlgorithmResult {
   kpi: KPI;
 }
 
+export interface RunSnapshotSummary {
+  id: string;
+  created_at: string;
+  trigger: string;
+  teacher_count: number;
+  school_count: number;
+  allocation_count: number;
+  coverage_pct: number;
+  total_travel_km: number;
+  workload_std: number;
+}
+
+export interface ResultBundleMeta {
+  run_snapshot?: RunSnapshotSummary;
+  [key: string]: unknown;
+}
+
 export interface ResultBundle {
   input: InputData;
   mcmf: AlgorithmResult;
   greedy: AlgorithmResult;
+  meta?: ResultBundleMeta;
 }

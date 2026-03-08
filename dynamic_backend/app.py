@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import threading
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -67,6 +68,10 @@ def _normalize_subject_name(subject: str) -> str:
   if not normalized:
     raise ValueError("Subject name cannot be empty")
   return normalized
+
+
+def _now_iso() -> str:
+  return datetime.now(tz=timezone.utc).isoformat()
 
 
 def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -757,6 +762,8 @@ def create_app() -> Flask:
   default_input = project_root / "data" / "synthetic_input.json"
   web_input = project_root / "data" / "web_input.json"
   web_output_dir = project_root / "output" / "web_latest"
+  history_dir = project_root / "output" / "run_history"
+  history_index_path = history_dir / "index.json"
   allocator_binary = project_root / "bin" / "allocator"
 
   input_path = os.environ.get(
@@ -780,6 +787,58 @@ def create_app() -> Flask:
   def _write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+  def _build_history_summary(run_id: str, bundle: Dict[str, Any], trigger: str) -> Dict[str, Any]:
+    input_payload = bundle["input"]
+    mcmf = bundle["mcmf"]
+    return {
+      "id": run_id,
+      "created_at": _now_iso(),
+      "trigger": trigger,
+      "teacher_count": len(input_payload.get("teachers", [])),
+      "school_count": len(input_payload.get("schools", [])),
+      "allocation_count": len(mcmf.get("allocations", [])),
+      "coverage_pct": mcmf.get("kpi", {}).get("coverage_pct", 0),
+      "total_travel_km": mcmf.get("kpi", {}).get("total_travel_km", 0),
+      "workload_std": mcmf.get("kpi", {}).get("workload_std", 0),
+    }
+
+  def _record_run_snapshot(bundle: Dict[str, Any], trigger: str) -> Dict[str, Any]:
+    history_dir.mkdir(parents=True, exist_ok=True)
+    run_id = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    summary = _build_history_summary(run_id, bundle, trigger)
+
+    snapshot_bundle = json.loads(json.dumps(bundle))
+    snapshot_meta = snapshot_bundle.setdefault("meta", {})
+    snapshot_meta["run_snapshot"] = summary
+
+    history_file = history_dir / f"{run_id}.json"
+    _write_json(history_file, snapshot_bundle)
+
+    history_index: List[Dict[str, Any]] = []
+    if history_index_path.exists():
+      raw_index = _read_json(history_index_path)
+      history_index = list(raw_index.get("runs", []))
+
+    history_index = [summary, *[item for item in history_index if item.get("id") != run_id]][:100]
+    _write_json(history_index_path, {"runs": history_index})
+
+    bundle_meta = bundle.setdefault("meta", {})
+    bundle_meta["run_snapshot"] = summary
+    return bundle
+
+  def _load_run_history(limit: int = 20) -> List[Dict[str, Any]]:
+    if not history_index_path.exists():
+      return []
+    raw_index = _read_json(history_index_path)
+    return list(raw_index.get("runs", []))[:limit]
+
+  def _load_history_run(run_id: str) -> Dict[str, Any]:
+    safe_run_id = Path(run_id).name
+    history_file = history_dir / f"{safe_run_id}.json"
+    if not history_file.exists():
+      raise FileNotFoundError(f"Run snapshot not found: {run_id}")
+    return _read_json(history_file)
 
   def _ensure_allocator_binary() -> None:
     if allocator_binary.exists():
@@ -923,6 +982,26 @@ def create_app() -> Flask:
     except Exception as exc:
       return jsonify({"error": str(exc)}), 500
 
+  @app.get("/api/optimizer/history")
+  def get_optimizer_history() -> Any:
+    limit = int(request.args.get("limit", "20"))
+    limit = max(1, min(limit, 100))
+    try:
+      with optimizer_lock:
+        return jsonify({"runs": _load_run_history(limit=limit)})
+    except Exception as exc:
+      return jsonify({"error": str(exc)}), 500
+
+  @app.get("/api/optimizer/history/<run_id>")
+  def get_optimizer_history_run(run_id: str) -> Any:
+    try:
+      with optimizer_lock:
+        return jsonify(_load_history_run(run_id))
+    except FileNotFoundError as exc:
+      return jsonify({"error": str(exc)}), 404
+    except Exception as exc:
+      return jsonify({"error": str(exc)}), 500
+
   @app.post("/api/optimizer/json")
   def post_optimizer_json() -> Any:
     payload: Dict[str, Any] = request.get_json(silent=True) or {}
@@ -932,7 +1011,8 @@ def create_app() -> Flask:
       input_payload = _normalize_input_payload(raw_input)
       with optimizer_lock:
         with state_lock:
-          return jsonify(_apply_input_through_state(input_payload))
+          bundle = _apply_input_through_state(input_payload)
+          return jsonify(_record_run_snapshot(bundle, "json"))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:
@@ -968,7 +1048,8 @@ def create_app() -> Flask:
 
       with optimizer_lock:
         with state_lock:
-          return jsonify(_apply_input_through_state(input_payload))
+          bundle = _apply_input_through_state(input_payload)
+          return jsonify(_record_run_snapshot(bundle, "csv"))
     except ValueError as exc:
       return jsonify({"error": str(exc)}), 400
     except Exception as exc:

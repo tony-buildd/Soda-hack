@@ -12,6 +12,7 @@ export const COLORS = {
 
 export const API_URLS = {
   current: "/api/optimizer/current",
+  history: "/api/optimizer/history",
   runJson: "/api/optimizer/json",
   runCsv: "/api/optimizer/csv",
   csvTemplate: "/api/optimizer/csv-template",
