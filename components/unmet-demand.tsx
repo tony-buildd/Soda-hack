@@ -99,65 +99,79 @@ export function UnmetDemand({ items, totalDemand, schools }: UnmetDemandProps) {
       </CardHeader>
       
       <CardContent className="pb-4">
-         <div className="grid grid-cols-2 gap-3 mb-6">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             {sortedSubjects.map(([subject, hours]) => (
-              <div key={subject} className="bg-red-50 dark:bg-red-950/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
-                <div className="flex justify-between items-center mb-1">
-                   <span className="font-semibold text-sm text-red-900 dark:text-red-200">{subject}</span>
-                   <Badge variant="destructive" className="h-5 px-1.5 text-[10px]">{hours}h needed</Badge>
+              <div key={subject} className="relative overflow-hidden bg-white/50 dark:bg-zinc-900/50 p-4 rounded-xl border border-red-100 dark:border-red-900/30 shadow-sm group hover:border-red-200 dark:hover:border-red-900/50 transition-colors">
+                {/* Background decorative blob */}
+                <div className="absolute -right-6 -top-6 w-24 h-24 bg-red-500/5 rounded-full blur-2xl group-hover:bg-red-500/10 transition-colors" />
+                
+                <div className="relative flex justify-between items-end mb-3">
+                   <div>
+                     <span className="block font-medium text-sm text-zinc-500 dark:text-zinc-400 mb-0.5">Subject Gap</span>
+                     <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{subject}</span>
+                   </div>
+                   <div className="text-right">
+                     <span className="block text-2xl font-bold text-red-600 dark:text-red-400 tracking-tight">
+                       {hours}<span className="text-base font-normal text-red-400/80 ml-0.5">h</span>
+                     </span>
+                     <span className="text-xs font-medium text-red-600/60 dark:text-red-400/60">needed</span>
+                   </div>
                 </div>
-                <div className="w-full bg-red-200 dark:bg-red-900/50 h-1.5 rounded-full mt-2">
-                   <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${Math.min((hours / totalMissing) * 100 * 2, 100)}%` }}></div>
+                
+                <div className="relative h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                   <div 
+                     className="absolute h-full bg-gradient-to-r from-red-500 to-red-600 rounded-full transition-all duration-1000 ease-out" 
+                     style={{ width: `${Math.min((hours / totalMissing) * 100 * 2.5, 100)}%` }}
+                   />
                 </div>
               </div>
             ))}
          </div>
 
-         <div className="flex items-center justify-between mb-3 border-t border-line pt-4">
-          <h3 className="text-sm font-semibold text-muted">Impact by School</h3>
-          <div className="flex gap-2">
-            <Badge variant="secondary" className="rounded-full text-[10px] h-5">
-              {schoolCount} schools affected
-            </Badge>
-          </div>
+         <div className="flex items-center justify-between mb-4 pt-2">
+          <h3 className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Impact by School</h3>
+          <Badge variant="outline" className="rounded-full text-[10px] h-6 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-900 px-3">
+            {schoolCount} schools affected
+          </Badge>
         </div>
 
-        <div className="space-y-3 max-h-[300px] overflow-auto pr-1">
+        <div className="space-y-3 max-h-[360px] overflow-auto pr-2 custom-scrollbar">
           {Object.entries(bySchool).map(([school, unmetItems]) => (
             <div
               key={school}
-              className="rounded-lg border border-line p-3 bg-card hover:bg-muted/5 transition-colors"
+              className="flex items-center justify-between p-3 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white/40 dark:bg-zinc-900/40 hover:bg-white/60 dark:hover:bg-zinc-900/60 transition-colors"
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex flex-col gap-1.5 min-w-0 flex-1 mr-4">
                 <div className="flex items-center gap-2">
-                  <MapPin size={14} weight="fill" className="text-muted" />
-                  <span className="text-sm font-semibold text-ink">{school}</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+                  <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 truncate">{school}</span>
                 </div>
-                <Badge variant="outline" className="rounded-full text-[11px] h-6 border-destructive/20 text-destructive bg-destructive/5 px-2.5">
-                  Total: -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
-                </Badge>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {unmetItems.map((item, i) => {
-                  // Calculate context if available
-                  const schoolData = schoolMap[item.school];
-                  const demand = schoolData?.demand[item.subject] || 0;
-                  const percentMissing = demand > 0 ? Math.round((item.missing_hours / demand) * 100) : 0;
-                  
-                  return (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium bg-red-50 text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-300 dark:border-red-900/30"
-                      title={demand > 0 ? `${item.missing_hours}h missing out of ${demand}h required (${percentMissing}%)` : undefined}
-                    >
-                      {item.subject}
-                      <span className="opacity-70 text-[10px] font-normal flex items-center gap-1">
-                        -{item.missing_hours}h
-                        {demand > 0 && <span className="opacity-60 text-[9px]">({percentMissing}%)</span>}
+                <div className="flex flex-wrap gap-1.5">
+                  {unmetItems.map((item, i) => {
+                    const schoolData = schoolMap[item.school];
+                    const demand = schoolData?.demand[item.subject] || 0;
+                    const percentMissing = demand > 0 ? Math.round((item.missing_hours / demand) * 100) : 0;
+                    
+                    return (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-100/50 dark:border-red-900/30"
+                        title={demand > 0 ? `${item.missing_hours}h missing out of ${demand}h required (${percentMissing}%)` : undefined}
+                      >
+                        {item.subject}
+                        <span className="text-red-400 dark:text-red-500 font-normal">
+                          -{item.missing_hours}h
+                        </span>
                       </span>
-                    </span>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              </div>
+              
+              <div className="shrink-0 text-right">
+                <Badge variant="outline" className="rounded-md border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 text-red-600 dark:text-red-400 font-mono text-[11px]">
+                  -{unmetItems.reduce((s, i) => s + i.missing_hours, 0)}h
+                </Badge>
               </div>
             </div>
           ))}
