@@ -1,0 +1,71 @@
+teacher_id,name,base_district,base_lat,base_lng,subjects,capacity_hours_per_week
+LC001,Lo Van Son,Sin Ho,22.3712,103.5841,Math;Physics,20
+LC002,Giang Thi Pang,Sin Ho,22.3856,103.5712,Biology,19
+LC003,Mua A Pao,Sin Ho,22.3589,103.5934,Math,21
+LC004,Giang Van Thao,Sin Ho,22.3934,103.5589,IT;Math,21
+LC005,Cu Thi Xua,Sin Ho,22.3712,103.6012,Biology;IT,17
+LC006,Nguyen Van Tai,Sin Ho,22.3467,103.5723,English,21
+LC007,Tan Thi May,Sin Ho,22.4012,103.5467,Math;Biology,16
+LC008,Ha Thi Bac,Sin Ho,22.3623,103.5845,Physics;English,18
+LC009,Vu Thi Hang,Phong Tho,22.5234,103.7456,English,18
+LC010,Lu Thi Chau,Phong Tho,22.5345,103.7712,Math,19
+LC011,Pham Van Dung,Phong Tho,22.5567,103.7034,English,21
+LC012,Chao Thi Nhung,Phong Tho,22.5912,103.7567,Math;Physics,19
+LC013,Lo Thi Oanh,Phong Tho,22.5123,103.7589,Math;Physics,16
+LC014,Nguyen Van Khai,Phong Tho,22.5456,103.7289,IT;Biology,19
+LC015,Vang Thi Dinh,Phong Tho,22.5712,103.7123,English;Physics,22
+LC016,Sung Van The,Phong Tho,22.5289,103.7456,Math;Biology,20
+LC017,Cam Thi Nhung,Muong Te,22.3891,102.8234,Biology;IT,17
+LC018,Nguyen Thi Lien,Muong Te,22.4234,102.8345,English,17
+LC019,Mua Thi Xua,Muong Te,22.3756,102.8512,Physics,21
+LC020,Sung A Vang,Muong Te,22.3967,102.8689,English,16
+LC021,Sung Van The2,Muong Te,22.4012,102.8567,Math;English,20
+LC022,Vang Thi My,Muong Te,22.3589,102.8145,IT;Math,17
+LC023,Giang A Chinh,Tam Duong,22.4156,103.4923,Math,22
+LC024,Chao Van Son,Tam Duong,22.4067,103.4789,Physics;English,17
+LC025,Le Van Quang,Tam Duong,22.4512,103.4867,Biology;Math,17
+LC026,Hau A Sang,Tam Duong,22.4423,103.5189,Physics;Biology,20
+LC027,Dang Van Minh,Tam Duong,22.4289,103.5012,IT;Math,21
+LC028,Lo Thi Hien,Tam Duong,22.4712,103.5234,Biology,20
+LC029,Cam Van Duc,Tam Duong,22.4578,103.4923,Math;English,18
+LC030,Nguyen Thi Hoa,Tam Duong,22.4334,103.4756,English;IT,19
+LC031,Tan Thi So,Than Uyen,21.9823,103.9012,English;Biology,19
+LC032,Tran Thi Bich,Than Uyen,21.9756,103.9267,Math,18
+LC033,Tan Van Pao,Than Uyen,21.9867,103.9378,IT,20
+LC034,Le Thi Mai,Than Uyen,22.0012,103.8934,Biology,20
+LC035,Vu Thi Thu,Than Uyen,21.9934,103.9145,English;Physics,17
+LC036,Ha Van Lam,Than Uyen,22.0189,103.8712,Math;Biology,19
+LC037,Cam Van Duc2,Than Uyen,22.0123,103.8756,Math;English,18
+LC038,Tran Thi Huong,Than Uyen,21.9612,103.9234,Physics;IT,21
+LC039,Ly Thi Chau,Tan Uyen,21.9512,103.7834,Math;Biology,16
+LC040,Vang Thi Dinh2,Tan Uyen,21.9712,103.8067,English;Physics,22
+LC041,Ha Van Lam2,Tan Uyen,21.9934,103.8189,Math,22
+LC042,Tan Thi May2,Tan Uyen,21.9823,103.7712,Biology;English,16
+LC043,Ly Thi Binh,Tan Uyen,21.9634,103.7956,Biology;IT,22
+LC044,Sung Thi Cau,Tan Uyen,21.9489,103.8045,Math;Physics,18
+LC045,Ha Thi Bac2,Nam Nhun,22.0634,102.9712,Physics,18
+LC046,Lu Thi Pang,Nam Nhun,22.0345,102.9345,Biology;IT,16
+LC047,Sung Thi Cau2,Nam Nhun,22.0423,102.9456,Math;Physics,19
+LC048,Ha Van Quyet,Nam Nhun,22.0789,102.9834,Physics;Math,18
+LC049,Dang Van Tuan,Lai Chau City,22.3862,103.4523,IT;Physics,21
+LC050,Tan A Chau,Lai Chau City,22.3712,103.4389,Math,20
+LC051,Giang Thi Cau,Lai Chau City,22.3656,103.4256,English;Physics,18
+LC052,Ly Van Chuong,Lai Chau City,22.3789,103.4712,IT,22
+LC053,Cam Thi Hoa,Lai Chau City,22.3934,103.4634,Math;IT,18
+LC054,Tan A Sinh,Lai Chau City,22.4012,103.4178,Physics,22
+LC055,Nguyen Van Tai2,Lai Chau City,22.3823,103.4456,English,20
+LC056,Le Thi Hoa,Lai Chau City,22.3756,103.4589,Math;Biology,19
+LC057,Pham Van Duc,Lai Chau City,22.3912,103.4712,IT;English,21
+LC058,Vu Thi Lan,Lai Chau City,22.3678,103.4345,Physics;Math,20
+LC059,Tran Van Khanh,Lai Chau City,22.3845,103.4623,Biology,18
+LC060,Hoang Thi Mai,Lai Chau City,22.4023,103.4267,English;IT,22
+LC061,Nguyen Van Minh,Lai Chau City,22.3734,103.4489,Math;Physics,19
+LC062,Le Thi Huong,Lai Chau City,22.3867,103.4756,Biology;English,17
+LC063,Pham Thi Thu,Lai Chau City,22.3612,103.4523,IT,20
+LC064,Tran Thi Lan,Lai Chau City,22.3956,103.4389,Math,21
+LC065,Dinh Van Hung,Lai Chau City,22.3789,103.4623,Physics;IT,18
+LC066,Nguyen Thi Quynh,Lai Chau City,22.3845,103.4267,English,20
+LC067,Le Van Duc,Lai Chau City,22.3923,103.4534,Math;English,22
+LC068,Pham Van Long,Lai Chau City,22.3712,103.4678,Biology;Physics,19
+LC069,Cam Van Khoa,Lai Chau City,22.3856,103.4412,IT;Math,21
+LC070,Hoang Van Nam,Lai Chau City,22.3978,103.4589,English;Biology,18

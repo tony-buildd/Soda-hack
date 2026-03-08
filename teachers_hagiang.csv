@@ -1,0 +1,101 @@
+teacher_id,name,base_district,base_lat,base_lng,subjects,capacity_hours_per_week
+HG001,Nguyen Thi Mai,Dong Van,23.2741,105.3678,Math,18
+HG002,Vang A Pao,Meo Vac,23.1583,105.4021,Math;Physics,20
+HG003,Ly Thi Hoa,Yen Minh,23.1152,105.1547,English,16
+HG004,Giang Seo Phu,Quan Ba,23.0619,104.9872,IT,22
+HG005,Tran Van Hung,Vi Xuyen,22.8234,104.9213,Math;Biology,19
+HG006,Sung Thi Cho,Hoang Su Phi,22.7341,104.6789,Biology,17
+HG007,Pham Thi Lan,Xin Man,22.6914,104.4523,English;IT,21
+HG008,Lu Van Chien,Bac Me,22.7823,105.3412,Physics;Math,18
+HG009,Nong Thi Thu,Quang Binh,22.5134,104.8901,Biology;English,16
+HG010,Hau A Lu,Dong Van,23.2613,105.3512,Math;Physics;IT,20
+HG011,Dinh Thi Xuan,Ha Giang City,22.8236,104.9837,English,22
+HG012,Cu Thi Pang,Meo Vac,23.1437,105.3891,Biology,17
+HG013,Nguyen Van Binh,Vi Xuyen,22.7901,104.9561,IT;Math,19
+HG014,Thao Thi My,Yen Minh,23.1298,105.1734,Physics,16
+HG015,Le Van Duc,Quan Ba,23.0723,104.9634,Math;English,21
+HG016,Mua Thi Dinh,Dong Van,23.2891,105.3234,Math;English,19
+HG017,Vang Thi Chua,Meo Vac,23.1712,105.4189,Biology,16
+HG018,Ly A Tua,Yen Minh,23.1034,105.1823,Physics;IT,21
+HG019,Hoang Van Nam,Quan Ba,23.0512,104.9723,Math,18
+HG020,Sung A De,Vi Xuyen,22.8123,104.9345,English;Biology,20
+HG021,Tran Thi Nga,Hoang Su Phi,22.7512,104.6934,IT,22
+HG022,Chao Thi May,Xin Man,22.7012,104.4712,Math;Physics,17
+HG023,Nguyen Thi Phuong,Bac Me,22.8012,105.3234,English,19
+HG024,Lu Van Pao,Quang Binh,22.5289,104.8712,Biology;Math,16
+HG025,Giang Thi Sua,Dong Van,23.2512,105.3789,Physics,20
+HG026,Pham Van Long,Ha Giang City,22.8345,104.9712,IT;English,22
+HG027,Thao A Cho,Meo Vac,23.1623,105.3967,Math,18
+HG028,Vu Thi Linh,Vi Xuyen,22.7812,104.9423,Biology;Physics,21
+HG029,Cu A Lau,Yen Minh,23.1189,105.1612,Math;IT,17
+HG030,Le Thi Huong,Quan Ba,23.0634,104.9512,English,19
+HG031,Dinh Van Tu,Hoang Su Phi,22.7423,104.7012,Physics;Biology,20
+HG032,Nong Van Hai,Bac Me,22.7912,105.3589,Math,16
+HG033,Hau Thi Cho,Xin Man,22.6812,104.4634,English;Math,22
+HG034,Ly Thi My,Quang Binh,22.5412,104.8823,IT,18
+HG035,Vang A Chu,Dong Van,23.2634,105.3456,Biology;Physics,19
+HG036,Sung Thi Gia,Meo Vac,23.1512,105.4078,Math,21
+HG037,Tran Van Thang,Ha Giang City,22.8189,104.9623,English;IT,17
+HG038,Giang A Minh,Vi Xuyen,22.8067,104.9289,Physics,20
+HG039,Pham Thi Dung,Yen Minh,23.1356,105.1489,Math;Biology,22
+HG040,Dang Thi Thao,Ha Giang City,22.8412,104.9789,Math,22
+HG041,Vang A The,Dong Van,23.2789,105.3345,Math,20
+HG042,Lo Thi Chien,Meo Vac,23.1678,105.3812,Physics;English,18
+HG043,Hoang Thi Yen,Yen Minh,23.1423,105.1923,IT,22
+HG044,Giang Seo Minh,Quan Ba,23.0834,104.9789,Math;Biology,16
+HG045,Nong Thi Phuong,Vi Xuyen,22.8289,104.9134,English,19
+HG046,Thao Van Lu,Hoang Su Phi,22.7234,104.7134,Physics,21
+HG047,Pham Thi Tuyet,Xin Man,22.7123,104.4489,Math;IT,17
+HG048,Ly Thi Chan,Bac Me,22.7734,105.3289,Biology,20
+HG049,Sung A Co,Quang Binh,22.5067,104.8634,English;Physics,18
+HG050,Cu A Pao,Yen Minh,23.1512,105.1356,Biology;IT,19
+HG051,Sung Van Minh,Dong Van,23.2823,105.3712,Math;English,18
+HG052,Ma Thi Pao,Dong Van,23.2456,105.3923,Biology,16
+HG053,Vang Seo Lua,Dong Van,23.3034,105.3156,Physics;Math,20
+HG054,Giang A Gia,Dong Van,23.2167,105.4089,IT,17
+HG055,Cu Thi Xo,Dong Van,23.2934,105.3489,English,19
+HG056,Ly A Vang,Meo Vac,23.1289,105.3734,Math,18
+HG057,Thao Thi Su,Meo Vac,23.1834,105.4256,English;Biology,20
+HG058,Giang Thi Cang,Meo Vac,23.1056,105.3956,Physics,16
+HG059,Sung A Pao,Meo Vac,23.1967,105.3623,Math;IT,21
+HG060,Ma Van Cu,Meo Vac,23.1378,105.4134,Biology,17
+HG061,Nguyen Thi Lan,Yen Minh,23.0934,105.1412,Math;English,22
+HG062,Thao A Sung,Yen Minh,23.1512,105.2034,Physics;Biology,18
+HG063,Ly Thi Pao,Yen Minh,23.0756,105.1689,IT,16
+HG064,Giang Van Cu,Yen Minh,23.1623,105.1289,Math,19
+HG065,Pham Van Thanh,Yen Minh,23.1089,105.1945,English,21
+HG066,Sung Thi Vang,Quan Ba,23.0423,104.9456,Math;Biology,17
+HG067,Nong Van Duc,Quan Ba,23.0912,104.9912,Physics,20
+HG068,Ly Thi Sua,Quan Ba,23.0289,104.9634,English;IT,18
+HG069,Giang Seo Pao,Quan Ba,23.0756,104.9289,Math,22
+HG070,Hau Thi May,Quan Ba,23.0534,105.0056,Biology,16
+HG071,Tran Thi Hoa,Vi Xuyen,22.7534,104.9678,Math;Physics,19
+HG072,Le Van Khanh,Vi Xuyen,22.8423,104.9023,English,22
+HG073,Nong Thi Lan,Vi Xuyen,22.7689,104.9812,IT;Biology,17
+HG074,Giang A Sinh,Vi Xuyen,22.8156,104.9456,Math,20
+HG075,Dinh Van Phu,Vi Xuyen,22.7823,104.9134,Physics;English,18
+HG076,Sung Thi Hoa,Hoang Su Phi,22.7156,104.6612,Math,16
+HG077,Chao Van Minh,Hoang Su Phi,22.7634,104.7256,Biology;IT,21
+HG078,Lo Thi Xuan,Hoang Su Phi,22.6934,104.6934,English,19
+HG079,Ly Van Tuyen,Hoang Su Phi,22.7489,104.6489,Math;Physics,17
+HG080,Mua Thi Cho,Hoang Su Phi,22.7312,104.7089,Biology,20
+HG081,Giang Thi Lua,Xin Man,22.6723,104.4812,Math,18
+HG082,Sung A Minh,Xin Man,22.7234,104.4356,English;Physics,22
+HG083,Nong Thi Xuan,Xin Man,22.6589,104.5089,IT,16
+HG084,Lo Van Duc,Xin Man,22.7089,104.4623,Math;Biology,19
+HG085,Ly Thi Thanh,Xin Man,22.6845,104.4489,English,17
+HG086,Hau Van Son,Bac Me,22.8134,105.3156,Math;Physics,21
+HG087,Giang Thi My,Bac Me,22.7589,105.3712,English,18
+HG088,Sung A Lua,Bac Me,22.7423,105.3456,Biology;Math,16
+HG089,Cu Van Minh,Bac Me,22.8256,105.3289,IT,20
+HG090,Ly Thi Vang,Bac Me,22.7712,105.3834,Physics,19
+HG091,Tran Van Duc,Quang Binh,22.4923,104.8756,Math;English,22
+HG092,Nong Van Phu,Quang Binh,22.5567,104.8489,Biology,17
+HG093,Lo Thi Hoa,Quang Binh,22.5312,104.9034,IT;Math,20
+HG094,Giang Thi Bich,Quang Binh,22.4756,104.8923,English,18
+HG095,Sung Van Kien,Quang Binh,22.5689,104.8312,Physics;Biology,16
+HG096,Nguyen Thi Bich,Ha Giang City,22.8467,104.9923,Math;Physics,22
+HG097,Le Thi Thu,Ha Giang City,22.8123,104.9512,English;IT,20
+HG098,Pham Van Quang,Ha Giang City,22.8289,104.9678,Biology,19
+HG099,Dang Thi Nga,Ha Giang City,22.8356,104.9834,Math;English,21
+HG100,Tran Van Minh,Ha Giang City,22.8201,104.9601,IT;Physics,18

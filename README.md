@@ -32,6 +32,13 @@ This project uses Git Large File Storage (LFS) for media assets. You must instal
     
     > **Note**: If the background video on the landing page is not loading (or shows a small file size), verify that you have pulled the LFS files correctly. The file `public/vietnam_background.mp4` should be approximately 127MB.
 
+3.  **Troubleshooting Large File Push Errors**:
+    If you encounter an error like `GH001: Large files detected` when pushing:
+    - Ensure you have Git LFS installed (`brew install git-lfs`).
+    - Run `git lfs install` in your repo.
+    - Check `.gitattributes` tracks the large file (e.g., `*.mp4 filter=lfs diff=lfs merge=lfs -text`).
+    - If you already committed a large file without LFS, you may need to rewrite history or remove the file from history before pushing.
+
 ## Running the app
 Prerequisites: C++17 compiler, Node.js, Python 3.
 

@@ -134,12 +134,91 @@ def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
   return {"teachers": normalized_teachers, "schools": normalized_schools}
 
 
+def _detect_and_convert_csv(text: str) -> str:
+  """
+  Auto-detects teachers-only or schools-only CSV formats (e.g. teachers_laichau.csv /
+  schools_laichau.csv) and converts them to the combined entity-column format.
+  Passes combined-format CSVs through unchanged.
+  """
+  # Try to detect delimiter
+  try:
+    dialect = csv.Sniffer().sniff(text[:1024])
+    delimiter = dialect.delimiter
+  except csv.Error:
+    delimiter = ','
+
+  # Fallback: if we see semicolons but no commas in first line, assume semicolon
+  first_line = text.split('\n')[0]
+  if ';' in first_line and ',' not in first_line:
+    delimiter = ';'
+
+  reader = csv.DictReader(io.StringIO(text), delimiter=delimiter)
+  fields = [f.strip().lower() for f in (reader.fieldnames or [])]
+
+  # ── Teachers-only file (teacher_id, name, base_lat, base_lng, subjects, capacity_hours_per_week)
+  if "teacher_id" in fields and "entity" not in fields:
+    out = io.StringIO()
+    w = csv.writer(out)
+    w.writerow(["entity","id","name","capacity","subjects","lat","lng",
+                "priority","school_id","subject","hours"])
+    
+    # Re-read with correct delimiter
+    for row in csv.DictReader(io.StringIO(text), delimiter=delimiter):
+      subjects = (row.get("subjects") or "").replace(";", "|")
+      capacity = row.get("capacity_hours_per_week") or row.get("capacity") or "20"
+      lat = row.get("base_lat") or row.get("lat") or ""
+      lng = row.get("base_lng") or row.get("lng") or ""
+      w.writerow(["teacher", row["teacher_id"], row.get("name",""),
+                  capacity, subjects, lat, lng, "", "", "", ""])
+    return out.getvalue()
+
+
+  # ── Schools-only file (school_id, school_name, lat, lng, priority, demand_*)
+  if "school_id" in fields and "entity" not in fields:
+    demand_subjects = [f[len("demand_"):] for f in fields if f.startswith("demand_")]
+    out = io.StringIO()
+    w = csv.writer(out)
+    w.writerow(["entity","id","name","capacity","subjects","lat","lng",
+                "priority","school_id","subject","hours"])
+    for row in csv.DictReader(io.StringIO(text), delimiter=delimiter):
+      name = row.get("school_name") or row.get("name") or row["school_id"]
+      lat = row.get("lat") or ""
+      lng = row.get("lng") or ""
+      priority = row.get("priority") or "3"
+      w.writerow(["school", row["school_id"], name, "", "",
+                  lat, lng, priority, "", "", ""])
+      for subj in demand_subjects:
+        raw = row.get(f"demand_{subj}") or row.get(f"demand_{subj.lower()}") or "0"
+        hours = int(raw) if raw.strip().lstrip("-").isdigit() else 0
+        if hours > 0:
+          w.writerow(["demand", "", "", "", "", "", "", "",
+                      row["school_id"], subj, hours])
+    return out.getvalue()
+
+  # Already in combined format — pass through
+  return text
+
+
 def _parse_csv_input(csv_text: str) -> Dict[str, Any]:
   text = csv_text.lstrip("\ufeff").strip()
   if not text:
     raise ValueError("CSV file is empty")
 
-  reader = csv.DictReader(io.StringIO(text))
+  # Auto-convert if needed
+  text = _detect_and_convert_csv(text)
+
+  # Try to detect delimiter again (in case _detect_and_convert_csv returned original text with semicolons)
+  try:
+    dialect = csv.Sniffer().sniff(text[:1024])
+    delimiter = dialect.delimiter
+  except csv.Error:
+    delimiter = ','
+  
+  first_line = text.split('\n')[0]
+  if ';' in first_line and ',' not in first_line:
+    delimiter = ';'
+
+  reader = csv.DictReader(io.StringIO(text), delimiter=delimiter)
   if not reader.fieldnames:
     raise ValueError("CSV must include a header row")
 
