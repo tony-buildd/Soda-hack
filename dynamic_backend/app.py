@@ -134,6 +134,39 @@ def _normalize_input_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
   return {"teachers": normalized_teachers, "schools": normalized_schools}
 
 
+def _merge_input_payloads(payloads: List[Dict[str, Any]]) -> Dict[str, Any]:
+  teachers: List[Dict[str, Any]] = []
+  schools: List[Dict[str, Any]] = []
+  teacher_ids: set[str] = set()
+  school_ids: set[str] = set()
+
+  for payload in payloads:
+    for teacher in payload.get("teachers", []):
+      teacher_id = str(teacher.get("id", "")).strip()
+      if teacher_id in teacher_ids:
+        raise ValueError(f"Duplicate teacher id across uploaded CSV files: '{teacher_id}'")
+      teacher_ids.add(teacher_id)
+      teachers.append(teacher)
+
+    for school in payload.get("schools", []):
+      school_id = str(school.get("id", "")).strip()
+      if school_id in school_ids:
+        raise ValueError(f"Duplicate school id across uploaded CSV files: '{school_id}'")
+      school_ids.add(school_id)
+      schools.append(school)
+
+  if not teachers:
+    raise ValueError(
+      "No teacher rows found. Upload a teachers_*.csv file too, or use the combined CSV template."
+    )
+  if not schools:
+    raise ValueError(
+      "No school rows found. Upload a schools_*.csv file too, or use the combined CSV template."
+    )
+
+  return _normalize_input_payload({"teachers": teachers, "schools": schools})
+
+
 def _detect_and_convert_csv(text: str) -> str:
   """
   Auto-detects teachers-only or schools-only CSV formats (e.g. teachers_laichau.csv /
@@ -199,7 +232,7 @@ def _detect_and_convert_csv(text: str) -> str:
   return text
 
 
-def _parse_csv_input(csv_text: str) -> Dict[str, Any]:
+def _parse_csv_input(csv_text: str, require_complete: bool = True) -> Dict[str, Any]:
   text = csv_text.lstrip("\ufeff").strip()
   if not text:
     raise ValueError("CSV file is empty")
@@ -324,7 +357,9 @@ def _parse_csv_input(csv_text: str) -> Dict[str, Any]:
     )
 
   payload = {"teachers": list(teachers.values()), "schools": list(schools.values())}
-  return _normalize_input_payload(payload)
+  if require_complete:
+    return _normalize_input_payload(payload)
+  return payload
 
 
 def _event_urgency(event_type: str) -> str:
@@ -714,17 +749,32 @@ def create_app() -> Flask:
 
   @app.post("/api/optimizer/csv")
   def post_optimizer_csv() -> Any:
-    upload = request.files.get("file")
-    csv_text = ""
+    uploads = [upload for upload in request.files.getlist("files") if upload.filename]
+    legacy_upload = request.files.get("file")
 
-    if upload is not None:
-      csv_text = upload.stream.read().decode("utf-8-sig")
-    else:
-      payload: Dict[str, Any] = request.get_json(silent=True) or {}
-      csv_text = str(payload.get("csv", ""))
+    if not uploads and legacy_upload is not None and legacy_upload.filename:
+      uploads = [legacy_upload]
 
     try:
-      input_payload = _parse_csv_input(csv_text)
+      if uploads:
+        partial_payloads = [
+          _parse_csv_input(upload.stream.read().decode("utf-8-sig"), require_complete=False)
+          for upload in uploads
+        ]
+        input_payload = _merge_input_payloads(partial_payloads)
+      else:
+        payload: Dict[str, Any] = request.get_json(silent=True) or {}
+        csv_value = payload.get("csv", "")
+
+        if isinstance(csv_value, list):
+          partial_payloads = [
+            _parse_csv_input(str(part), require_complete=False)
+            for part in csv_value
+          ]
+          input_payload = _merge_input_payloads(partial_payloads)
+        else:
+          input_payload = _parse_csv_input(str(csv_value))
+
       with optimizer_lock:
         return jsonify(_run_allocator_with_diff(input_payload))
     except ValueError as exc:

@@ -25,34 +25,37 @@ const DEMO_DATASETS = [
 ] as const;
 
 interface CsvUploadProps {
-  onUpload: (file: File) => void;
+  onUpload: (files: File[]) => void;
   disabled?: boolean;
 }
 
 export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileNames, setFileNames] = useState<string[]>([]);
   const [dragging, setDragging] = useState(false);
 
-  const handleFile = useCallback((file: File | undefined) => {
-    if (!file) return;
-    setFileName(file.name);
-    onUpload(file);
+  const handleFiles = useCallback((files: FileList | File[] | null | undefined) => {
+    if (!files) return;
+    const nextFiles = Array.from(files).filter((file) => file.name.toLowerCase().endsWith(".csv"));
+    if (nextFiles.length === 0) return;
+
+    setFileNames(nextFiles.map((file) => file.name));
+    onUpload(nextFiles);
   }, [onUpload]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragging(false);
-    handleFile(e.dataTransfer.files[0]);
-  }, [handleFile]);
+    handleFiles(e.dataTransfer.files);
+  }, [handleFiles]);
 
   const loadDemo = useCallback(async (filePath: string, label: string) => {
     const res = await fetch(filePath);
     const text = await res.text();
     const blob = new Blob([text], { type: "text/csv" });
     const file = new File([blob], `${label.toLowerCase().replace(" ", "_")}_combined.csv`, { type: "text/csv" });
-    setFileName(file.name);
-    onUpload(file);
+    setFileNames([file.name]);
+    onUpload([file]);
   }, [onUpload]);
 
   return (
@@ -103,30 +106,35 @@ export function CsvUpload({ onUpload, disabled }: CsvUploadProps) {
             dragging ? "border-emerald bg-mint/30" : "border-line/60 bg-white/30 hover:border-sage/40 hover:bg-mint/10"
           }`}
         >
-          {fileName ? (
+          {fileNames.length > 0 ? (
             <>
               <FileText size={22} weight="duotone" className="text-emerald" />
-              <p className="text-sm font-medium text-ink">{fileName}</p>
-              <p className="text-xs text-muted">Click to replace</p>
+              <p className="text-sm font-medium text-ink">
+                {fileNames.length === 1 ? fileNames[0] : `${fileNames.length} CSV files selected`}
+              </p>
+              <p className="text-xs text-muted truncate max-w-full text-center">
+                {fileNames.join(", ")}
+              </p>
             </>
           ) : (
             <>
               <UploadSimple size={22} weight="duotone" className="text-muted/50" />
-              <p className="text-sm text-muted">Drop CSV here or click to browse</p>
-              <p className="text-xs text-muted/60">Accepts teachers, schools, or combined formats</p>
+              <p className="text-sm text-muted">Drop one or more CSV files here or click to browse</p>
+              <p className="text-xs text-muted/60">Accepts a combined CSV or separate teacher and school CSV files</p>
             </>
           )}
           <input
             ref={inputRef}
             type="file"
+            multiple
             accept=".csv,text/csv"
             className="hidden"
             disabled={disabled}
-            onChange={(e) => handleFile(e.target.files?.[0])}
+            onChange={(e) => handleFiles(e.target.files)}
           />
         </div>
         <a href={API_URLS.csvTemplate} className="text-xs font-semibold text-emerald no-underline hover:underline">
-          Download CSV template
+          Download combined CSV template
         </a>
       </CardContent>
     </Card>

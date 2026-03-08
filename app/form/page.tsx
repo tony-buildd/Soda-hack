@@ -98,7 +98,7 @@ export default function FormPage() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<"csv" | "manual">("csv");
-  const [csvFile, setCsvFile] = useState<File | null>(null);
+  const [csvFiles, setCsvFiles] = useState<File[]>([]);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -126,11 +126,11 @@ export default function FormPage() {
   };
 
   const handleCsvRun = async () => {
-    if (!csvFile) return;
+    if (csvFiles.length === 0) return;
     setLoading(true);
     setStatus("Uploading CSV and running optimizer...");
     try {
-      await runOptimizerCsv(csvFile);
+      await runOptimizerCsv(csvFiles);
       router.push("/statistics");
     } catch (err) {
       setStatus(
@@ -189,15 +189,15 @@ export default function FormPage() {
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6">
             <div className="space-y-5">
               <CsvUpload
-                onUpload={(file) => {
-                  setCsvFile(file);
+                onUpload={(files) => {
+                  setCsvFiles(files);
                   setStatus("");
                 }}
                 disabled={loading}
               />
 
               {/* Sanity check after file selected */}
-              {csvFile && (
+              {csvFiles.length > 0 && (
                 <Card>
                   <CardContent className="p-5">
                     <div className="flex items-center gap-3 mb-4">
@@ -207,13 +207,15 @@ export default function FormPage() {
                         className="text-emerald"
                       />
                       <p className="text-sm font-medium text-ink">
-                        File loaded: {csvFile.name}
+                        {csvFiles.length === 1
+                          ? `File loaded: ${csvFiles[0].name}`
+                          : `Files loaded: ${csvFiles.map((file) => file.name).join(", ")}`}
                       </p>
                     </div>
                     <p className="text-xs text-muted mb-4">
-                      The optimizer will parse teachers, schools, and demand rows
-                      from your CSV, then generate an assignment plan using
-                      Min-Cost Max-Flow.
+                      Upload one combined CSV or a teacher/school CSV pair. The
+                      optimizer will merge supported district exports, parse the
+                      data, and generate an assignment plan using Min-Cost Max-Flow.
                     </p>
                     <div className="flex items-center gap-3">
                       <Button
@@ -269,6 +271,10 @@ export default function FormPage() {
                     What the CSV should contain
                   </h3>
                   <div className="space-y-2 text-xs text-muted">
+                    <p className="leading-relaxed">
+                      Use either the combined template below, or upload separate
+                      teacher and school CSV files like the Hà Giang / Lai Châu datasets.
+                    </p>
                     <div className="flex items-start gap-2">
                       <ChalkboardTeacher size={14} weight="bold" className="text-emerald mt-0.5 shrink-0" />
                       <span>
@@ -287,7 +293,7 @@ export default function FormPage() {
                       <Clock size={14} weight="bold" className="text-emerald mt-0.5 shrink-0" />
                       <span>
                         <strong className="text-ink">demand</strong> rows:
-                        school_id, subject, hours_per_week
+                        school_id, subject, hours
                       </span>
                     </div>
                   </div>

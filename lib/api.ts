@@ -33,8 +33,10 @@ export async function runOptimizerJson(input: unknown): Promise<ResultBundle> {
   return postJson<ResultBundle>(API_URLS.runJson, { input });
 }
 
-export async function runOptimizerCsv(file: File): Promise<ResultBundle> {
+export async function runOptimizerCsv(files: File[]): Promise<ResultBundle> {
   const formData = new FormData();
-  formData.append("file", file);
+  for (const file of files) {
+    formData.append("files", file);
+  }
   return postForm<ResultBundle>(API_URLS.runCsv, formData);
 }

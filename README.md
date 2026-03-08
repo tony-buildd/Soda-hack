@@ -118,7 +118,7 @@ Important:
 - Urgency affects optimization only in event-driven re-optimization (`/events`, `/reoptimize`) via switching-penalty logic in Python reoptimizer.
 
 ### CSV format for upload
-Header:
+The download template is the combined single-file format:
 
 ```csv
 entity,id,name,capacity,subjects,lat,lng,priority,school_id,subject,hours
@@ -128,6 +128,12 @@ Supported row types:
 - `teacher`: use `id,name,capacity,subjects,lat,lng` (`subjects` split by `|`, `,`, or `;`)
 - `school`: use `id,name,priority,lat,lng`
 - `demand`: use `school_id,subject,hours`
+
+The backend also accepts separate district export files such as:
+- `teachers_hagiang.csv` / `teachers_laichau.csv`
+- `schools_hagiang.csv` / `schools_laichau.csv`
+
+If you use separate teacher and school files, upload both together so the optimizer has both sides of the input.
 
 Download template:
 - `http://127.0.0.1:5001/api/optimizer/csv-template`
