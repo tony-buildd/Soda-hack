@@ -30,7 +30,14 @@ export async function fetchCurrentResults(): Promise<ResultBundle> {
 }
 
 export async function fetchRunHistory(): Promise<RunSnapshotSummary[]> {
-  const data = await loadJson<{ runs: RunSnapshotSummary[] }>(API_URLS.history);
+  const res = await fetch(API_URLS.history);
+  if (res.status === 404) {
+    return [];
+  }
+  if (!res.ok) {
+    throw new Error(`Failed to load ${API_URLS.history}: ${res.status}`);
+  }
+  const data = (await res.json()) as { runs: RunSnapshotSummary[] };
   return data.runs;
 }
 
