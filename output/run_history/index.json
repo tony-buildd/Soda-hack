@@ -1,6 +1,39 @@
 {
   "runs": [
     {
+      "id": "20260506T003035172392Z",
+      "created_at": "2026-05-06T00:30:35.172392+00:00",
+      "trigger": "csv",
+      "teacher_count": 100,
+      "school_count": 60,
+      "allocation_count": 211,
+      "coverage_pct": 77.58,
+      "total_travel_km": 1536.44,
+      "workload_std": 1.23
+    },
+    {
+      "id": "20260506T002601787657Z",
+      "created_at": "2026-05-06T00:26:01.787657+00:00",
+      "trigger": "csv",
+      "teacher_count": 100,
+      "school_count": 60,
+      "allocation_count": 129,
+      "coverage_pct": 46.88,
+      "total_travel_km": 591.54,
+      "workload_std": 0.82
+    },
+    {
+      "id": "20260506T002514260076Z",
+      "created_at": "2026-05-06T00:25:14.262964+00:00",
+      "trigger": "csv",
+      "teacher_count": 100,
+      "school_count": 60,
+      "allocation_count": 234,
+      "coverage_pct": 100.0,
+      "total_travel_km": 1368.31,
+      "workload_std": 4.89
+    },
+    {
       "id": "20260506T001250944091Z",
       "created_at": "2026-05-06T00:12:50.944091+00:00",
       "trigger": "csv",

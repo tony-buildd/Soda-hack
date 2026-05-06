@@ -9,18 +9,9 @@ import { API_URLS } from "@/lib/constants";
 
 const DEMO_DATASETS = [
   {
-    label: "Lai Châu",
-    file: "/laichau_combined.csv",
-    teachers: 70,
-    schools: 40,
-    badge: "70T · 40S",
-  },
-  {
     label: "Hà Giang",
-    file: "/hagiang_combined.csv",
-    teachers: 0,
-    schools: 0,
-    badge: "full dataset",
+    files: ["/teachers_hagiang.csv", "/schools_hagiang.csv"],
+    badge: "Teacher + School",
   },
 ] as const;
 
@@ -170,12 +161,17 @@ export function CsvUpload({
     handleFiles(e.dataTransfer.files);
   }, [handleFiles]);
 
-  const loadDemo = useCallback(async (filePath: string, label: string) => {
-    const res = await fetch(filePath);
-    const text = await res.text();
-    const blob = new Blob([text], { type: "text/csv" });
-    const file = new File([blob], `${label.toLowerCase().replace(" ", "_")}_combined.csv`, { type: "text/csv" });
-    onUpload([file]);
+  const loadDemo = useCallback(async (filePaths: readonly string[]) => {
+    const loadedFiles = await Promise.all(
+      filePaths.map(async (filePath) => {
+        const res = await fetch(filePath);
+        const text = await res.text();
+        const blob = new Blob([text], { type: "text/csv" });
+        const fileName = filePath.split("/").pop() ?? "demo.csv";
+        return new File([blob], fileName, { type: "text/csv" });
+      })
+    );
+    onUpload(loadedFiles);
   }, [onUpload]);
 
   return (
@@ -198,7 +194,7 @@ export function CsvUpload({
                 variant="outline"
                 size="sm"
                 disabled={disabled}
-                onClick={() => loadDemo(d.file, d.label)}
+                onClick={() => loadDemo(d.files)}
                 className="h-8 text-xs rounded-full"
               >
                 {d.label}
