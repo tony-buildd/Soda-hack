@@ -1,0 +1,5681 @@
+{
+  "input": {
+    "teachers": [
+      {
+        "id": "HG001",
+        "name": "Nguyen Thi Mai",
+        "capacity": 11,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.2741,
+          105.3678
+        ]
+      },
+      {
+        "id": "HG002",
+        "name": "Vang A Pao",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          23.1583,
+          105.4021
+        ]
+      },
+      {
+        "id": "HG003",
+        "name": "Ly Thi Hoa",
+        "capacity": 10,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          23.1152,
+          105.1547
+        ]
+      },
+      {
+        "id": "HG004",
+        "name": "Giang Seo Phu",
+        "capacity": 14,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          23.0619,
+          104.9872
+        ]
+      },
+      {
+        "id": "HG005",
+        "name": "Tran Van Hung",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "biology"
+        ],
+        "base": [
+          22.8234,
+          104.9213
+        ]
+      },
+      {
+        "id": "HG006",
+        "name": "Sung Thi Cho",
+        "capacity": 11,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          22.7341,
+          104.6789
+        ]
+      },
+      {
+        "id": "HG007",
+        "name": "Pham Thi Lan",
+        "capacity": 13,
+        "subjects": [
+          "english",
+          "it"
+        ],
+        "base": [
+          22.6914,
+          104.4523
+        ]
+      },
+      {
+        "id": "HG008",
+        "name": "Lu Van Chien",
+        "capacity": 11,
+        "subjects": [
+          "physics",
+          "math"
+        ],
+        "base": [
+          22.7823,
+          105.3412
+        ]
+      },
+      {
+        "id": "HG009",
+        "name": "Nong Thi Thu",
+        "capacity": 10,
+        "subjects": [
+          "biology",
+          "english"
+        ],
+        "base": [
+          22.5134,
+          104.8901
+        ]
+      },
+      {
+        "id": "HG010",
+        "name": "Hau A Lu",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "physics",
+          "it"
+        ],
+        "base": [
+          23.2613,
+          105.3512
+        ]
+      },
+      {
+        "id": "HG011",
+        "name": "Dinh Thi Xuan",
+        "capacity": 14,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.8236,
+          104.9837
+        ]
+      },
+      {
+        "id": "HG012",
+        "name": "Cu Thi Pang",
+        "capacity": 11,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          23.1437,
+          105.3891
+        ]
+      },
+      {
+        "id": "HG013",
+        "name": "Nguyen Van Binh",
+        "capacity": 12,
+        "subjects": [
+          "it",
+          "math"
+        ],
+        "base": [
+          22.7901,
+          104.9561
+        ]
+      },
+      {
+        "id": "HG014",
+        "name": "Thao Thi My",
+        "capacity": 10,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          23.1298,
+          105.1734
+        ]
+      },
+      {
+        "id": "HG015",
+        "name": "Le Van Duc",
+        "capacity": 13,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          23.0723,
+          104.9634
+        ]
+      },
+      {
+        "id": "HG016",
+        "name": "Mua Thi Dinh",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          23.2891,
+          105.3234
+        ]
+      },
+      {
+        "id": "HG017",
+        "name": "Vang Thi Chua",
+        "capacity": 10,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          23.1712,
+          105.4189
+        ]
+      },
+      {
+        "id": "HG018",
+        "name": "Ly A Tua",
+        "capacity": 13,
+        "subjects": [
+          "physics",
+          "it"
+        ],
+        "base": [
+          23.1034,
+          105.1823
+        ]
+      },
+      {
+        "id": "HG019",
+        "name": "Hoang Van Nam",
+        "capacity": 11,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.0512,
+          104.9723
+        ]
+      },
+      {
+        "id": "HG020",
+        "name": "Sung A De",
+        "capacity": 12,
+        "subjects": [
+          "english",
+          "biology"
+        ],
+        "base": [
+          22.8123,
+          104.9345
+        ]
+      },
+      {
+        "id": "HG021",
+        "name": "Tran Thi Nga",
+        "capacity": 14,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          22.7512,
+          104.6934
+        ]
+      },
+      {
+        "id": "HG022",
+        "name": "Chao Thi May",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          22.7012,
+          104.4712
+        ]
+      },
+      {
+        "id": "HG023",
+        "name": "Nguyen Thi Phuong",
+        "capacity": 12,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.8012,
+          105.3234
+        ]
+      },
+      {
+        "id": "HG024",
+        "name": "Lu Van Pao",
+        "capacity": 10,
+        "subjects": [
+          "biology",
+          "math"
+        ],
+        "base": [
+          22.5289,
+          104.8712
+        ]
+      },
+      {
+        "id": "HG025",
+        "name": "Giang Thi Sua",
+        "capacity": 12,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          23.2512,
+          105.3789
+        ]
+      },
+      {
+        "id": "HG026",
+        "name": "Pham Van Long",
+        "capacity": 14,
+        "subjects": [
+          "it",
+          "english"
+        ],
+        "base": [
+          22.8345,
+          104.9712
+        ]
+      },
+      {
+        "id": "HG027",
+        "name": "Thao A Cho",
+        "capacity": 11,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.1623,
+          105.3967
+        ]
+      },
+      {
+        "id": "HG028",
+        "name": "Vu Thi Linh",
+        "capacity": 13,
+        "subjects": [
+          "biology",
+          "physics"
+        ],
+        "base": [
+          22.7812,
+          104.9423
+        ]
+      },
+      {
+        "id": "HG029",
+        "name": "Cu A Lau",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "it"
+        ],
+        "base": [
+          23.1189,
+          105.1612
+        ]
+      },
+      {
+        "id": "HG030",
+        "name": "Le Thi Huong",
+        "capacity": 12,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          23.0634,
+          104.9512
+        ]
+      },
+      {
+        "id": "HG031",
+        "name": "Dinh Van Tu",
+        "capacity": 12,
+        "subjects": [
+          "physics",
+          "biology"
+        ],
+        "base": [
+          22.7423,
+          104.7012
+        ]
+      },
+      {
+        "id": "HG032",
+        "name": "Nong Van Hai",
+        "capacity": 10,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          22.7912,
+          105.3589
+        ]
+      },
+      {
+        "id": "HG033",
+        "name": "Hau Thi Cho",
+        "capacity": 14,
+        "subjects": [
+          "english",
+          "math"
+        ],
+        "base": [
+          22.6812,
+          104.4634
+        ]
+      },
+      {
+        "id": "HG034",
+        "name": "Ly Thi My",
+        "capacity": 11,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          22.5412,
+          104.8823
+        ]
+      },
+      {
+        "id": "HG035",
+        "name": "Vang A Chu",
+        "capacity": 12,
+        "subjects": [
+          "biology",
+          "physics"
+        ],
+        "base": [
+          23.2634,
+          105.3456
+        ]
+      },
+      {
+        "id": "HG036",
+        "name": "Sung Thi Gia",
+        "capacity": 13,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.1512,
+          105.4078
+        ]
+      },
+      {
+        "id": "HG037",
+        "name": "Tran Van Thang",
+        "capacity": 11,
+        "subjects": [
+          "english",
+          "it"
+        ],
+        "base": [
+          22.8189,
+          104.9623
+        ]
+      },
+      {
+        "id": "HG038",
+        "name": "Giang A Minh",
+        "capacity": 12,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          22.8067,
+          104.9289
+        ]
+      },
+      {
+        "id": "HG039",
+        "name": "Pham Thi Dung",
+        "capacity": 14,
+        "subjects": [
+          "math",
+          "biology"
+        ],
+        "base": [
+          23.1356,
+          105.1489
+        ]
+      },
+      {
+        "id": "HG040",
+        "name": "Dang Thi Thao",
+        "capacity": 14,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          22.8412,
+          104.9789
+        ]
+      },
+      {
+        "id": "HG041",
+        "name": "Vang A The",
+        "capacity": 12,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.2789,
+          105.3345
+        ]
+      },
+      {
+        "id": "HG042",
+        "name": "Lo Thi Chien",
+        "capacity": 11,
+        "subjects": [
+          "physics",
+          "english"
+        ],
+        "base": [
+          23.1678,
+          105.3812
+        ]
+      },
+      {
+        "id": "HG043",
+        "name": "Hoang Thi Yen",
+        "capacity": 14,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          23.1423,
+          105.1923
+        ]
+      },
+      {
+        "id": "HG044",
+        "name": "Giang Seo Minh",
+        "capacity": 10,
+        "subjects": [
+          "math",
+          "biology"
+        ],
+        "base": [
+          23.0834,
+          104.9789
+        ]
+      },
+      {
+        "id": "HG045",
+        "name": "Nong Thi Phuong",
+        "capacity": 12,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.8289,
+          104.9134
+        ]
+      },
+      {
+        "id": "HG046",
+        "name": "Thao Van Lu",
+        "capacity": 13,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          22.7234,
+          104.7134
+        ]
+      },
+      {
+        "id": "HG047",
+        "name": "Pham Thi Tuyet",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "it"
+        ],
+        "base": [
+          22.7123,
+          104.4489
+        ]
+      },
+      {
+        "id": "HG048",
+        "name": "Ly Thi Chan",
+        "capacity": 12,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          22.7734,
+          105.3289
+        ]
+      },
+      {
+        "id": "HG049",
+        "name": "Sung A Co",
+        "capacity": 11,
+        "subjects": [
+          "english",
+          "physics"
+        ],
+        "base": [
+          22.5067,
+          104.8634
+        ]
+      },
+      {
+        "id": "HG050",
+        "name": "Cu A Pao",
+        "capacity": 12,
+        "subjects": [
+          "biology",
+          "it"
+        ],
+        "base": [
+          23.1512,
+          105.1356
+        ]
+      },
+      {
+        "id": "HG051",
+        "name": "Sung Van Minh",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          23.2823,
+          105.3712
+        ]
+      },
+      {
+        "id": "HG052",
+        "name": "Ma Thi Pao",
+        "capacity": 10,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          23.2456,
+          105.3923
+        ]
+      },
+      {
+        "id": "HG053",
+        "name": "Vang Seo Lua",
+        "capacity": 12,
+        "subjects": [
+          "physics",
+          "math"
+        ],
+        "base": [
+          23.3034,
+          105.3156
+        ]
+      },
+      {
+        "id": "HG054",
+        "name": "Giang A Gia",
+        "capacity": 11,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          23.2167,
+          105.4089
+        ]
+      },
+      {
+        "id": "HG055",
+        "name": "Cu Thi Xo",
+        "capacity": 12,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          23.2934,
+          105.3489
+        ]
+      },
+      {
+        "id": "HG056",
+        "name": "Ly A Vang",
+        "capacity": 11,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.1289,
+          105.3734
+        ]
+      },
+      {
+        "id": "HG057",
+        "name": "Thao Thi Su",
+        "capacity": 12,
+        "subjects": [
+          "english",
+          "biology"
+        ],
+        "base": [
+          23.1834,
+          105.4256
+        ]
+      },
+      {
+        "id": "HG058",
+        "name": "Giang Thi Cang",
+        "capacity": 10,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          23.1056,
+          105.3956
+        ]
+      },
+      {
+        "id": "HG059",
+        "name": "Sung A Pao",
+        "capacity": 13,
+        "subjects": [
+          "math",
+          "it"
+        ],
+        "base": [
+          23.1967,
+          105.3623
+        ]
+      },
+      {
+        "id": "HG060",
+        "name": "Ma Van Cu",
+        "capacity": 11,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          23.1378,
+          105.4134
+        ]
+      },
+      {
+        "id": "HG061",
+        "name": "Nguyen Thi Lan",
+        "capacity": 14,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          23.0934,
+          105.1412
+        ]
+      },
+      {
+        "id": "HG062",
+        "name": "Thao A Sung",
+        "capacity": 11,
+        "subjects": [
+          "physics",
+          "biology"
+        ],
+        "base": [
+          23.1512,
+          105.2034
+        ]
+      },
+      {
+        "id": "HG063",
+        "name": "Ly Thi Pao",
+        "capacity": 10,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          23.0756,
+          105.1689
+        ]
+      },
+      {
+        "id": "HG064",
+        "name": "Giang Van Cu",
+        "capacity": 12,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.1623,
+          105.1289
+        ]
+      },
+      {
+        "id": "HG065",
+        "name": "Pham Van Thanh",
+        "capacity": 13,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          23.1089,
+          105.1945
+        ]
+      },
+      {
+        "id": "HG066",
+        "name": "Sung Thi Vang",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "biology"
+        ],
+        "base": [
+          23.0423,
+          104.9456
+        ]
+      },
+      {
+        "id": "HG067",
+        "name": "Nong Van Duc",
+        "capacity": 12,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          23.0912,
+          104.9912
+        ]
+      },
+      {
+        "id": "HG068",
+        "name": "Ly Thi Sua",
+        "capacity": 11,
+        "subjects": [
+          "english",
+          "it"
+        ],
+        "base": [
+          23.0289,
+          104.9634
+        ]
+      },
+      {
+        "id": "HG069",
+        "name": "Giang Seo Pao",
+        "capacity": 14,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          23.0756,
+          104.9289
+        ]
+      },
+      {
+        "id": "HG070",
+        "name": "Hau Thi May",
+        "capacity": 10,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          23.0534,
+          105.0056
+        ]
+      },
+      {
+        "id": "HG071",
+        "name": "Tran Thi Hoa",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          22.7534,
+          104.9678
+        ]
+      },
+      {
+        "id": "HG072",
+        "name": "Le Van Khanh",
+        "capacity": 14,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.8423,
+          104.9023
+        ]
+      },
+      {
+        "id": "HG073",
+        "name": "Nong Thi Lan",
+        "capacity": 11,
+        "subjects": [
+          "it",
+          "biology"
+        ],
+        "base": [
+          22.7689,
+          104.9812
+        ]
+      },
+      {
+        "id": "HG074",
+        "name": "Giang A Sinh",
+        "capacity": 12,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          22.8156,
+          104.9456
+        ]
+      },
+      {
+        "id": "HG075",
+        "name": "Dinh Van Phu",
+        "capacity": 11,
+        "subjects": [
+          "physics",
+          "english"
+        ],
+        "base": [
+          22.7823,
+          104.9134
+        ]
+      },
+      {
+        "id": "HG076",
+        "name": "Sung Thi Hoa",
+        "capacity": 10,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          22.7156,
+          104.6612
+        ]
+      },
+      {
+        "id": "HG077",
+        "name": "Chao Van Minh",
+        "capacity": 13,
+        "subjects": [
+          "biology",
+          "it"
+        ],
+        "base": [
+          22.7634,
+          104.7256
+        ]
+      },
+      {
+        "id": "HG078",
+        "name": "Lo Thi Xuan",
+        "capacity": 12,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.6934,
+          104.6934
+        ]
+      },
+      {
+        "id": "HG079",
+        "name": "Ly Van Tuyen",
+        "capacity": 11,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          22.7489,
+          104.6489
+        ]
+      },
+      {
+        "id": "HG080",
+        "name": "Mua Thi Cho",
+        "capacity": 12,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          22.7312,
+          104.7089
+        ]
+      },
+      {
+        "id": "HG081",
+        "name": "Giang Thi Lua",
+        "capacity": 11,
+        "subjects": [
+          "math"
+        ],
+        "base": [
+          22.6723,
+          104.4812
+        ]
+      },
+      {
+        "id": "HG082",
+        "name": "Sung A Minh",
+        "capacity": 14,
+        "subjects": [
+          "english",
+          "physics"
+        ],
+        "base": [
+          22.7234,
+          104.4356
+        ]
+      },
+      {
+        "id": "HG083",
+        "name": "Nong Thi Xuan",
+        "capacity": 10,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          22.6589,
+          104.5089
+        ]
+      },
+      {
+        "id": "HG084",
+        "name": "Lo Van Duc",
+        "capacity": 12,
+        "subjects": [
+          "math",
+          "biology"
+        ],
+        "base": [
+          22.7089,
+          104.4623
+        ]
+      },
+      {
+        "id": "HG085",
+        "name": "Ly Thi Thanh",
+        "capacity": 11,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.6845,
+          104.4489
+        ]
+      },
+      {
+        "id": "HG086",
+        "name": "Hau Van Son",
+        "capacity": 13,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          22.8134,
+          105.3156
+        ]
+      },
+      {
+        "id": "HG087",
+        "name": "Giang Thi My",
+        "capacity": 11,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.7589,
+          105.3712
+        ]
+      },
+      {
+        "id": "HG088",
+        "name": "Sung A Lua",
+        "capacity": 10,
+        "subjects": [
+          "biology",
+          "math"
+        ],
+        "base": [
+          22.7423,
+          105.3456
+        ]
+      },
+      {
+        "id": "HG089",
+        "name": "Cu Van Minh",
+        "capacity": 12,
+        "subjects": [
+          "it"
+        ],
+        "base": [
+          22.8256,
+          105.3289
+        ]
+      },
+      {
+        "id": "HG090",
+        "name": "Ly Thi Vang",
+        "capacity": 12,
+        "subjects": [
+          "physics"
+        ],
+        "base": [
+          22.7712,
+          105.3834
+        ]
+      },
+      {
+        "id": "HG091",
+        "name": "Tran Van Duc",
+        "capacity": 14,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          22.4923,
+          104.8756
+        ]
+      },
+      {
+        "id": "HG092",
+        "name": "Nong Van Phu",
+        "capacity": 11,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          22.5567,
+          104.8489
+        ]
+      },
+      {
+        "id": "HG093",
+        "name": "Lo Thi Hoa",
+        "capacity": 12,
+        "subjects": [
+          "it",
+          "math"
+        ],
+        "base": [
+          22.5312,
+          104.9034
+        ]
+      },
+      {
+        "id": "HG094",
+        "name": "Giang Thi Bich",
+        "capacity": 11,
+        "subjects": [
+          "english"
+        ],
+        "base": [
+          22.4756,
+          104.8923
+        ]
+      },
+      {
+        "id": "HG095",
+        "name": "Sung Van Kien",
+        "capacity": 10,
+        "subjects": [
+          "physics",
+          "biology"
+        ],
+        "base": [
+          22.5689,
+          104.8312
+        ]
+      },
+      {
+        "id": "HG096",
+        "name": "Nguyen Thi Bich",
+        "capacity": 14,
+        "subjects": [
+          "math",
+          "physics"
+        ],
+        "base": [
+          22.8467,
+          104.9923
+        ]
+      },
+      {
+        "id": "HG097",
+        "name": "Le Thi Thu",
+        "capacity": 12,
+        "subjects": [
+          "english",
+          "it"
+        ],
+        "base": [
+          22.8123,
+          104.9512
+        ]
+      },
+      {
+        "id": "HG098",
+        "name": "Pham Van Quang",
+        "capacity": 12,
+        "subjects": [
+          "biology"
+        ],
+        "base": [
+          22.8289,
+          104.9678
+        ]
+      },
+      {
+        "id": "HG099",
+        "name": "Dang Thi Nga",
+        "capacity": 13,
+        "subjects": [
+          "math",
+          "english"
+        ],
+        "base": [
+          22.8356,
+          104.9834
+        ]
+      },
+      {
+        "id": "HG100",
+        "name": "Tran Van Minh",
+        "capacity": 11,
+        "subjects": [
+          "it",
+          "physics"
+        ],
+        "base": [
+          22.8201,
+          104.9601
+        ]
+      }
+    ],
+    "schools": [
+      {
+        "id": "HG-S01",
+        "name": "THPT Dong Van",
+        "priority": 5,
+        "location": [
+          23.2712,
+          105.3601
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10,
+          "it": 6
+        }
+      },
+      {
+        "id": "HG-S02",
+        "name": "THCS Thi Tran Dong Van",
+        "priority": 5,
+        "location": [
+          23.2689,
+          105.3578
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S03",
+        "name": "THCS Ma Le",
+        "priority": 5,
+        "location": [
+          23.3012,
+          105.3234
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S04",
+        "name": "THCS Lung Cu",
+        "priority": 5,
+        "location": [
+          23.3312,
+          105.3089
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S05",
+        "name": "THCS Pho Bang",
+        "priority": 5,
+        "location": [
+          23.2456,
+          105.3812
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S06",
+        "name": "THCS Sang Tung",
+        "priority": 5,
+        "location": [
+          23.2134,
+          105.4012
+        ],
+        "demand": {
+          "math": 6,
+          "english": 5,
+          "biology": 5
+        }
+      },
+      {
+        "id": "HG-S07",
+        "name": "THPT Meo Vac",
+        "priority": 5,
+        "location": [
+          23.1534,
+          105.3967
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10,
+          "it": 6
+        }
+      },
+      {
+        "id": "HG-S08",
+        "name": "THCS Thi Tran Meo Vac",
+        "priority": 5,
+        "location": [
+          23.1512,
+          105.3945
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S09",
+        "name": "THCS Giang Chu Phin",
+        "priority": 5,
+        "location": [
+          23.1823,
+          105.4134
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S10",
+        "name": "THCS Khau Vai",
+        "priority": 5,
+        "location": [
+          23.1234,
+          105.4289
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S11",
+        "name": "THCS Lung PU",
+        "priority": 5,
+        "location": [
+          23.1689,
+          105.3712
+        ],
+        "demand": {
+          "math": 6,
+          "english": 5,
+          "biology": 5
+        }
+      },
+      {
+        "id": "HG-S12",
+        "name": "THCS Thai An",
+        "priority": 5,
+        "location": [
+          23.1345,
+          105.3589
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S13",
+        "name": "THPT Yen Minh",
+        "priority": 4,
+        "location": [
+          23.1189,
+          105.1623
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10,
+          "it": 6
+        }
+      },
+      {
+        "id": "HG-S14",
+        "name": "THCS Thi Tran Yen Minh",
+        "priority": 4,
+        "location": [
+          23.1156,
+          105.1601
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S15",
+        "name": "THCS Du Gia",
+        "priority": 4,
+        "location": [
+          23.0812,
+          105.2134
+        ],
+        "demand": {
+          "math": 8,
+          "english": 7,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S16",
+        "name": "THCS Na Khe",
+        "priority": 4,
+        "location": [
+          23.1423,
+          105.1345
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S17",
+        "name": "THCS Bac Me Yen Minh",
+        "priority": 4,
+        "location": [
+          23.0956,
+          105.1789
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S18",
+        "name": "THCS Mau Due",
+        "priority": 4,
+        "location": [
+          23.1534,
+          105.1012
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S19",
+        "name": "THPT Quan Ba",
+        "priority": 4,
+        "location": [
+          23.0645,
+          104.9801
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10
+        }
+      },
+      {
+        "id": "HG-S20",
+        "name": "THCS Thi Tran Tam Son",
+        "priority": 4,
+        "location": [
+          23.0623,
+          104.9778
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S21",
+        "name": "THCS Quan Ba",
+        "priority": 4,
+        "location": [
+          23.0789,
+          104.9623
+        ],
+        "demand": {
+          "math": 8,
+          "english": 7,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S22",
+        "name": "THCS Bat Dai Son",
+        "priority": 4,
+        "location": [
+          23.0345,
+          105.0134
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S23",
+        "name": "THCS Ngam La",
+        "priority": 4,
+        "location": [
+          23.0912,
+          104.9345
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S24",
+        "name": "THCS Tung Vai",
+        "priority": 4,
+        "location": [
+          23.0512,
+          104.9512
+        ],
+        "demand": {
+          "math": 6,
+          "english": 5,
+          "biology": 5
+        }
+      },
+      {
+        "id": "HG-S25",
+        "name": "THPT Vi Xuyen So 1",
+        "priority": 3,
+        "location": [
+          22.8189,
+          104.9589
+        ],
+        "demand": {
+          "math": 14,
+          "english": 12,
+          "physics": 12,
+          "it": 8
+        }
+      },
+      {
+        "id": "HG-S26",
+        "name": "THPT Vi Xuyen So 2",
+        "priority": 3,
+        "location": [
+          22.7956,
+          104.9412
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10,
+          "it": 6
+        }
+      },
+      {
+        "id": "HG-S27",
+        "name": "THCS Thi Tran Vi Xuyen",
+        "priority": 3,
+        "location": [
+          22.8234,
+          104.9567
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S28",
+        "name": "THCS Trung Thanh",
+        "priority": 3,
+        "location": [
+          22.7812,
+          104.9234
+        ],
+        "demand": {
+          "math": 9,
+          "english": 7,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S29",
+        "name": "THCS Cao Bo",
+        "priority": 3,
+        "location": [
+          22.8512,
+          104.9789
+        ],
+        "demand": {
+          "math": 8,
+          "english": 7,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S30",
+        "name": "THCS Minh Tan",
+        "priority": 3,
+        "location": [
+          22.7634,
+          104.9456
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S31",
+        "name": "THCS Thuong Son",
+        "priority": 3,
+        "location": [
+          22.8789,
+          104.9134
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S32",
+        "name": "THPT Hoang Su Phi",
+        "priority": 4,
+        "location": [
+          22.7312,
+          104.6823
+        ],
+        "demand": {
+          "math": 12,
+          "english": 10,
+          "physics": 10
+        }
+      },
+      {
+        "id": "HG-S33",
+        "name": "THCS Thi Tran Viet Lam",
+        "priority": 4,
+        "location": [
+          22.7289,
+          104.6801
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S34",
+        "name": "THCS Ban Phung",
+        "priority": 4,
+        "location": [
+          22.7589,
+          104.6512
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S35",
+        "name": "THCS Ho Thau",
+        "priority": 4,
+        "location": [
+          22.7012,
+          104.7089
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S36",
+        "name": "THCS Nam Ty",
+        "priority": 4,
+        "location": [
+          22.6823,
+          104.6634
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S37",
+        "name": "THCS Pho Lu",
+        "priority": 4,
+        "location": [
+          22.7734,
+          104.6234
+        ],
+        "demand": {
+          "math": 6,
+          "english": 5,
+          "biology": 5
+        }
+      },
+      {
+        "id": "HG-S38",
+        "name": "THPT Xin Man",
+        "priority": 4,
+        "location": [
+          22.6867,
+          104.4589
+        ],
+        "demand": {
+          "math": 10,
+          "english": 10,
+          "physics": 8
+        }
+      },
+      {
+        "id": "HG-S39",
+        "name": "THCS Thi Tran Coc Pai",
+        "priority": 4,
+        "location": [
+          22.6845,
+          104.4567
+        ],
+        "demand": {
+          "math": 9,
+          "english": 8,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S40",
+        "name": "THCS Chung Chai",
+        "priority": 4,
+        "location": [
+          22.7156,
+          104.4312
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S41",
+        "name": "THCS Quang Nguyen",
+        "priority": 4,
+        "location": [
+          22.6612,
+          104.4789
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S42",
+        "name": "THCS Nam Dich",
+        "priority": 4,
+        "location": [
+          22.6423,
+          104.5012
+        ],
+        "demand": {
+          "math": 6,
+          "english": 5,
+          "biology": 5
+        }
+      },
+      {
+        "id": "HG-S43",
+        "name": "THPT Bac Me",
+        "priority": 4,
+        "location": [
+          22.7867,
+          105.3456
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "physics": 8
+        }
+      },
+      {
+        "id": "HG-S44",
+        "name": "THCS Yen Phu",
+        "priority": 4,
+        "location": [
+          22.7845,
+          105.3434
+        ],
+        "demand": {
+          "math": 9,
+          "english": 7,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S45",
+        "name": "THCS Yen Dinh",
+        "priority": 4,
+        "location": [
+          22.8123,
+          105.3234
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S46",
+        "name": "THCS Phu Nam",
+        "priority": 4,
+        "location": [
+          22.7612,
+          105.3678
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S47",
+        "name": "THCS Minh Nguyet",
+        "priority": 4,
+        "location": [
+          22.7389,
+          105.3123
+        ],
+        "demand": {
+          "math": 7,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S48",
+        "name": "THPT Quang Binh",
+        "priority": 3,
+        "location": [
+          22.5189,
+          104.8867
+        ],
+        "demand": {
+          "math": 10,
+          "english": 8,
+          "physics": 8
+        }
+      },
+      {
+        "id": "HG-S49",
+        "name": "THCS Thi Tran Yen Binh",
+        "priority": 3,
+        "location": [
+          22.5167,
+          104.8845
+        ],
+        "demand": {
+          "math": 9,
+          "english": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S50",
+        "name": "THCS Xuan Minh",
+        "priority": 3,
+        "location": [
+          22.5423,
+          104.8612
+        ],
+        "demand": {
+          "math": 8,
+          "english": 7,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S51",
+        "name": "THCS Tien Nguyen",
+        "priority": 3,
+        "location": [
+          22.4967,
+          104.9012
+        ],
+        "demand": {
+          "math": 8,
+          "english": 6,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S52",
+        "name": "THCS Yen Thanh",
+        "priority": 3,
+        "location": [
+          22.5634,
+          104.8345
+        ],
+        "demand": {
+          "math": 7,
+          "english": 5,
+          "biology": 6
+        }
+      },
+      {
+        "id": "HG-S53",
+        "name": "THPT So 1 Ha Giang",
+        "priority": 2,
+        "location": [
+          22.8289,
+          104.9845
+        ],
+        "demand": {
+          "math": 14,
+          "english": 12,
+          "physics": 14,
+          "it": 10
+        }
+      },
+      {
+        "id": "HG-S54",
+        "name": "THPT Chuyen Ha Giang",
+        "priority": 1,
+        "location": [
+          22.8156,
+          104.9712
+        ],
+        "demand": {
+          "math": 14,
+          "english": 14,
+          "physics": 14,
+          "it": 12
+        }
+      },
+      {
+        "id": "HG-S55",
+        "name": "THPT So 2 Ha Giang",
+        "priority": 2,
+        "location": [
+          22.8389,
+          104.9634
+        ],
+        "demand": {
+          "math": 12,
+          "english": 12,
+          "physics": 12,
+          "it": 8
+        }
+      },
+      {
+        "id": "HG-S56",
+        "name": "THCS Le Quy Don",
+        "priority": 2,
+        "location": [
+          22.8312,
+          104.9789
+        ],
+        "demand": {
+          "math": 10,
+          "english": 10,
+          "it": 8,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S57",
+        "name": "THCS Yen Bien",
+        "priority": 2,
+        "location": [
+          22.8234,
+          104.9678
+        ],
+        "demand": {
+          "math": 10,
+          "english": 9,
+          "it": 7,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S58",
+        "name": "THCS Nguyen Trai",
+        "priority": 2,
+        "location": [
+          22.8178,
+          104.9823
+        ],
+        "demand": {
+          "math": 10,
+          "english": 9,
+          "it": 7,
+          "biology": 8
+        }
+      },
+      {
+        "id": "HG-S59",
+        "name": "THCS Minh Khai",
+        "priority": 2,
+        "location": [
+          22.8089,
+          104.9567
+        ],
+        "demand": {
+          "math": 9,
+          "english": 9,
+          "it": 6,
+          "biology": 7
+        }
+      },
+      {
+        "id": "HG-S60",
+        "name": "THCS Phuong Thien",
+        "priority": 2,
+        "location": [
+          22.8023,
+          104.9456
+        ],
+        "demand": {
+          "math": 9,
+          "english": 8,
+          "it": 6,
+          "biology": 7
+        }
+      }
+    ]
+  },
+  "mcmf": {
+    "allocations": [
+      {
+        "teacher": "HG001",
+        "school": "HG-S01",
+        "subject": "math",
+        "hours": 11
+      },
+      {
+        "teacher": "HG002",
+        "school": "HG-S07",
+        "subject": "math",
+        "hours": 12
+      },
+      {
+        "teacher": "HG003",
+        "school": "HG-S13",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG004",
+        "school": "HG-S55",
+        "subject": "it",
+        "hours": 8
+      },
+      {
+        "teacher": "HG004",
+        "school": "HG-S57",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG005",
+        "school": "HG-S27",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG005",
+        "school": "HG-S28",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG006",
+        "school": "HG-S41",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG006",
+        "school": "HG-S42",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG007",
+        "school": "HG-S38",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG007",
+        "school": "HG-S39",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG008",
+        "school": "HG-S43",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG008",
+        "school": "HG-S44",
+        "subject": "math",
+        "hours": 9
+      },
+      {
+        "teacher": "HG009",
+        "school": "HG-S48",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG009",
+        "school": "HG-S49",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S02",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S05",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S06",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG011",
+        "school": "HG-S53",
+        "subject": "english",
+        "hours": 12
+      },
+      {
+        "teacher": "HG011",
+        "school": "HG-S56",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG012",
+        "school": "HG-S08",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG012",
+        "school": "HG-S11",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG012",
+        "school": "HG-S12",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG013",
+        "school": "HG-S26",
+        "subject": "math",
+        "hours": 12
+      },
+      {
+        "teacher": "HG014",
+        "school": "HG-S13",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S19",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S21",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S21",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S02",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S03",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S04",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG017",
+        "school": "HG-S09",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG017",
+        "school": "HG-S11",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG018",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG018",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 5
+      },
+      {
+        "teacher": "HG019",
+        "school": "HG-S19",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG019",
+        "school": "HG-S20",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG020",
+        "school": "HG-S26",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG020",
+        "school": "HG-S27",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG021",
+        "school": "HG-S25",
+        "subject": "it",
+        "hours": 8
+      },
+      {
+        "teacher": "HG021",
+        "school": "HG-S26",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG022",
+        "school": "HG-S38",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG022",
+        "school": "HG-S38",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG023",
+        "school": "HG-S43",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG023",
+        "school": "HG-S45",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG024",
+        "school": "HG-S49",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG024",
+        "school": "HG-S49",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG024",
+        "school": "HG-S50",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG025",
+        "school": "HG-S01",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG025",
+        "school": "HG-S07",
+        "subject": "physics",
+        "hours": 2
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S29",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S55",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S56",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG027",
+        "school": "HG-S08",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG027",
+        "school": "HG-S09",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S26",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S27",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S28",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG029",
+        "school": "HG-S13",
+        "subject": "math",
+        "hours": 11
+      },
+      {
+        "teacher": "HG030",
+        "school": "HG-S20",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG030",
+        "school": "HG-S24",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG031",
+        "school": "HG-S33",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG031",
+        "school": "HG-S34",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG032",
+        "school": "HG-S43",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG032",
+        "school": "HG-S46",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG033",
+        "school": "HG-S39",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG033",
+        "school": "HG-S41",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG033",
+        "school": "HG-S42",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG034",
+        "school": "HG-S54",
+        "subject": "it",
+        "hours": 9
+      },
+      {
+        "teacher": "HG034",
+        "school": "HG-S59",
+        "subject": "it",
+        "hours": 2
+      },
+      {
+        "teacher": "HG035",
+        "school": "HG-S02",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG035",
+        "school": "HG-S03",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG036",
+        "school": "HG-S08",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG036",
+        "school": "HG-S10",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG037",
+        "school": "HG-S25",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG037",
+        "school": "HG-S57",
+        "subject": "english",
+        "hours": 9
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S25",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S26",
+        "subject": "physics",
+        "hours": 6
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 5
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S13",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S14",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S14",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S16",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S25",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S27",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S56",
+        "subject": "math",
+        "hours": 9
+      },
+      {
+        "teacher": "HG041",
+        "school": "HG-S01",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG041",
+        "school": "HG-S02",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG041",
+        "school": "HG-S03",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG042",
+        "school": "HG-S07",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG042",
+        "school": "HG-S11",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S07",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S13",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S58",
+        "subject": "it",
+        "hours": 7
+      },
+      {
+        "teacher": "HG044",
+        "school": "HG-S19",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG044",
+        "school": "HG-S21",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S26",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S27",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S30",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S55",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG046",
+        "school": "HG-S32",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG046",
+        "school": "HG-S48",
+        "subject": "physics",
+        "hours": 3
+      },
+      {
+        "teacher": "HG047",
+        "school": "HG-S38",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG047",
+        "school": "HG-S39",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG047",
+        "school": "HG-S40",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG048",
+        "school": "HG-S44",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG048",
+        "school": "HG-S47",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S48",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S49",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S50",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG050",
+        "school": "HG-S16",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG050",
+        "school": "HG-S18",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG051",
+        "school": "HG-S01",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG051",
+        "school": "HG-S05",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG052",
+        "school": "HG-S05",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG052",
+        "school": "HG-S06",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG053",
+        "school": "HG-S03",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG053",
+        "school": "HG-S04",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG054",
+        "school": "HG-S01",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG054",
+        "school": "HG-S07",
+        "subject": "it",
+        "hours": 5
+      },
+      {
+        "teacher": "HG055",
+        "school": "HG-S01",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG055",
+        "school": "HG-S02",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG056",
+        "school": "HG-S12",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG056",
+        "school": "HG-S15",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG057",
+        "school": "HG-S06",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG057",
+        "school": "HG-S06",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG057",
+        "school": "HG-S09",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG058",
+        "school": "HG-S07",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG058",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 2
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S06",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S09",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S11",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S15",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG060",
+        "school": "HG-S08",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG060",
+        "school": "HG-S10",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S14",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S14",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S17",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG062",
+        "school": "HG-S14",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG062",
+        "school": "HG-S17",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG063",
+        "school": "HG-S53",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG063",
+        "school": "HG-S56",
+        "subject": "it",
+        "hours": 8
+      },
+      {
+        "teacher": "HG063",
+        "school": "HG-S57",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG064",
+        "school": "HG-S16",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG064",
+        "school": "HG-S18",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG065",
+        "school": "HG-S15",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG065",
+        "school": "HG-S17",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG066",
+        "school": "HG-S24",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG066",
+        "school": "HG-S24",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG067",
+        "school": "HG-S19",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG067",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 2
+      },
+      {
+        "teacher": "HG068",
+        "school": "HG-S19",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG068",
+        "school": "HG-S20",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG069",
+        "school": "HG-S21",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG069",
+        "school": "HG-S23",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG070",
+        "school": "HG-S20",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG070",
+        "school": "HG-S22",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG071",
+        "school": "HG-S28",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG071",
+        "school": "HG-S30",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG072",
+        "school": "HG-S31",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG072",
+        "school": "HG-S55",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG073",
+        "school": "HG-S27",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG073",
+        "school": "HG-S30",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG073",
+        "school": "HG-S57",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG074",
+        "school": "HG-S25",
+        "subject": "math",
+        "hours": 12
+      },
+      {
+        "teacher": "HG075",
+        "school": "HG-S28",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG075",
+        "school": "HG-S30",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG076",
+        "school": "HG-S33",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S31",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S34",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S37",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG078",
+        "school": "HG-S33",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG078",
+        "school": "HG-S35",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG078",
+        "school": "HG-S36",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG079",
+        "school": "HG-S34",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG079",
+        "school": "HG-S37",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG080",
+        "school": "HG-S35",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG080",
+        "school": "HG-S36",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG081",
+        "school": "HG-S41",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG081",
+        "school": "HG-S42",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG082",
+        "school": "HG-S37",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG082",
+        "school": "HG-S38",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG082",
+        "school": "HG-S40",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG083",
+        "school": "HG-S59",
+        "subject": "it",
+        "hours": 4
+      },
+      {
+        "teacher": "HG083",
+        "school": "HG-S60",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG084",
+        "school": "HG-S39",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG084",
+        "school": "HG-S40",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG085",
+        "school": "HG-S39",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG085",
+        "school": "HG-S41",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG085",
+        "school": "HG-S42",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG086",
+        "school": "HG-S43",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG086",
+        "school": "HG-S45",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG087",
+        "school": "HG-S44",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG087",
+        "school": "HG-S46",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG088",
+        "school": "HG-S46",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG088",
+        "school": "HG-S47",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG088",
+        "school": "HG-S47",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG089",
+        "school": "HG-S53",
+        "subject": "it",
+        "hours": 9
+      },
+      {
+        "teacher": "HG089",
+        "school": "HG-S54",
+        "subject": "it",
+        "hours": 3
+      },
+      {
+        "teacher": "HG090",
+        "school": "HG-S43",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG090",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG091",
+        "school": "HG-S49",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG091",
+        "school": "HG-S51",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG092",
+        "school": "HG-S49",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG092",
+        "school": "HG-S50",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG093",
+        "school": "HG-S48",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG093",
+        "school": "HG-S49",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG094",
+        "school": "HG-S48",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG094",
+        "school": "HG-S49",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG094",
+        "school": "HG-S51",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG095",
+        "school": "HG-S48",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG095",
+        "school": "HG-S52",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG096",
+        "school": "HG-S29",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG096",
+        "school": "HG-S53",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG097",
+        "school": "HG-S25",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG097",
+        "school": "HG-S27",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG098",
+        "school": "HG-S29",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG098",
+        "school": "HG-S57",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S53",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S56",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S56",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG100",
+        "school": "HG-S25",
+        "subject": "physics",
+        "hours": 11
+      }
+    ],
+    "kpi": {
+      "coverage_pct": 77.58,
+      "total_travel_km": 1395.56,
+      "workload_std": 1.23,
+      "unmet_demand": [
+        {
+          "school": "HG-S03",
+          "subject": "biology",
+          "missing_hours": 3
+        },
+        {
+          "school": "HG-S04",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S06",
+          "subject": "biology",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S07",
+          "subject": "english",
+          "missing_hours": 4
+        },
+        {
+          "school": "HG-S08",
+          "subject": "english",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S10",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S12",
+          "subject": "english",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S15",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S15",
+          "subject": "math",
+          "missing_hours": 2
+        },
+        {
+          "school": "HG-S16",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S17",
+          "subject": "math",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S18",
+          "subject": "english",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S19",
+          "subject": "math",
+          "missing_hours": 4
+        },
+        {
+          "school": "HG-S20",
+          "subject": "biology",
+          "missing_hours": 4
+        },
+        {
+          "school": "HG-S22",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S22",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S23",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S23",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S31",
+          "subject": "biology",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S31",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S32",
+          "subject": "english",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S32",
+          "subject": "math",
+          "missing_hours": 12
+        },
+        {
+          "school": "HG-S33",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S34",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S35",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S36",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S37",
+          "subject": "english",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S37",
+          "subject": "math",
+          "missing_hours": 3
+        },
+        {
+          "school": "HG-S40",
+          "subject": "biology",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S43",
+          "subject": "english",
+          "missing_hours": 2
+        },
+        {
+          "school": "HG-S44",
+          "subject": "english",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S45",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S47",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S47",
+          "subject": "math",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S50",
+          "subject": "english",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S51",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S52",
+          "subject": "english",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S52",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S54",
+          "subject": "english",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S54",
+          "subject": "math",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S54",
+          "subject": "physics",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S55",
+          "subject": "math",
+          "missing_hours": 12
+        },
+        {
+          "school": "HG-S56",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S57",
+          "subject": "math",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S58",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S58",
+          "subject": "english",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S58",
+          "subject": "math",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S59",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S59",
+          "subject": "english",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S59",
+          "subject": "math",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S60",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S60",
+          "subject": "english",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S60",
+          "subject": "math",
+          "missing_hours": 9
+        }
+      ]
+    }
+  },
+  "greedy": {
+    "allocations": [
+      {
+        "teacher": "HG001",
+        "school": "HG-S01",
+        "subject": "math",
+        "hours": 11
+      },
+      {
+        "teacher": "HG002",
+        "school": "HG-S07",
+        "subject": "math",
+        "hours": 12
+      },
+      {
+        "teacher": "HG003",
+        "school": "HG-S04",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG003",
+        "school": "HG-S06",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG003",
+        "school": "HG-S11",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG004",
+        "school": "HG-S25",
+        "subject": "it",
+        "hours": 7
+      },
+      {
+        "teacher": "HG004",
+        "school": "HG-S53",
+        "subject": "it",
+        "hours": 7
+      },
+      {
+        "teacher": "HG005",
+        "school": "HG-S16",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG005",
+        "school": "HG-S18",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG005",
+        "school": "HG-S23",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG006",
+        "school": "HG-S33",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG006",
+        "school": "HG-S34",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG007",
+        "school": "HG-S33",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG007",
+        "school": "HG-S34",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG007",
+        "school": "HG-S36",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG008",
+        "school": "HG-S43",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG008",
+        "school": "HG-S44",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG009",
+        "school": "HG-S27",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG009",
+        "school": "HG-S28",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S01",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S01",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG010",
+        "school": "HG-S02",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG011",
+        "school": "HG-S27",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG011",
+        "school": "HG-S46",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG011",
+        "school": "HG-S47",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG012",
+        "school": "HG-S08",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG012",
+        "school": "HG-S12",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG013",
+        "school": "HG-S25",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG013",
+        "school": "HG-S26",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG014",
+        "school": "HG-S13",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S13",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S19",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG015",
+        "school": "HG-S19",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S03",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S04",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S05",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG016",
+        "school": "HG-S09",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG017",
+        "school": "HG-S04",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG017",
+        "school": "HG-S06",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG017",
+        "school": "HG-S09",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG018",
+        "school": "HG-S13",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG018",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 7
+      },
+      {
+        "teacher": "HG019",
+        "school": "HG-S19",
+        "subject": "math",
+        "hours": 11
+      },
+      {
+        "teacher": "HG020",
+        "school": "HG-S18",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG020",
+        "school": "HG-S22",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG020",
+        "school": "HG-S24",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG021",
+        "school": "HG-S26",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG021",
+        "school": "HG-S53",
+        "subject": "it",
+        "hours": 3
+      },
+      {
+        "teacher": "HG021",
+        "school": "HG-S55",
+        "subject": "it",
+        "hours": 5
+      },
+      {
+        "teacher": "HG022",
+        "school": "HG-S38",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG022",
+        "school": "HG-S39",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG023",
+        "school": "HG-S15",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG023",
+        "school": "HG-S43",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG023",
+        "school": "HG-S44",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG024",
+        "school": "HG-S41",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG024",
+        "school": "HG-S42",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG025",
+        "school": "HG-S54",
+        "subject": "physics",
+        "hours": 12
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S18",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S22",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG026",
+        "school": "HG-S24",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG027",
+        "school": "HG-S08",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG027",
+        "school": "HG-S09",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S24",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S26",
+        "subject": "physics",
+        "hours": 7
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S37",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG028",
+        "school": "HG-S47",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG029",
+        "school": "HG-S13",
+        "subject": "math",
+        "hours": 11
+      },
+      {
+        "teacher": "HG030",
+        "school": "HG-S14",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG030",
+        "school": "HG-S19",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG030",
+        "school": "HG-S20",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG031",
+        "school": "HG-S32",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG031",
+        "school": "HG-S34",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG032",
+        "school": "HG-S44",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG032",
+        "school": "HG-S47",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG033",
+        "school": "HG-S38",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG033",
+        "school": "HG-S38",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG034",
+        "school": "HG-S56",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG034",
+        "school": "HG-S57",
+        "subject": "it",
+        "hours": 7
+      },
+      {
+        "teacher": "HG034",
+        "school": "HG-S58",
+        "subject": "it",
+        "hours": 3
+      },
+      {
+        "teacher": "HG035",
+        "school": "HG-S02",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG035",
+        "school": "HG-S03",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG036",
+        "school": "HG-S09",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG036",
+        "school": "HG-S10",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG037",
+        "school": "HG-S25",
+        "subject": "english",
+        "hours": 11
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S25",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S26",
+        "subject": "physics",
+        "hours": 3
+      },
+      {
+        "teacher": "HG038",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S13",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S14",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG039",
+        "school": "HG-S14",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S22",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S24",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG040",
+        "school": "HG-S27",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG041",
+        "school": "HG-S02",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG041",
+        "school": "HG-S11",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG042",
+        "school": "HG-S07",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG042",
+        "school": "HG-S07",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S07",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S54",
+        "subject": "it",
+        "hours": 9
+      },
+      {
+        "teacher": "HG043",
+        "school": "HG-S60",
+        "subject": "it",
+        "hours": 4
+      },
+      {
+        "teacher": "HG044",
+        "school": "HG-S20",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S27",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S28",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG045",
+        "school": "HG-S49",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG046",
+        "school": "HG-S48",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG046",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG046",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG047",
+        "school": "HG-S36",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG047",
+        "school": "HG-S40",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG048",
+        "school": "HG-S44",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG048",
+        "school": "HG-S45",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S41",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S42",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG049",
+        "school": "HG-S48",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG050",
+        "school": "HG-S14",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG050",
+        "school": "HG-S15",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG050",
+        "school": "HG-S17",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG051",
+        "school": "HG-S01",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG051",
+        "school": "HG-S02",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG052",
+        "school": "HG-S03",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG052",
+        "school": "HG-S05",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG053",
+        "school": "HG-S03",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG053",
+        "school": "HG-S04",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG054",
+        "school": "HG-S01",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG054",
+        "school": "HG-S07",
+        "subject": "it",
+        "hours": 5
+      },
+      {
+        "teacher": "HG055",
+        "school": "HG-S02",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG055",
+        "school": "HG-S05",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG056",
+        "school": "HG-S06",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG056",
+        "school": "HG-S11",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG056",
+        "school": "HG-S12",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG057",
+        "school": "HG-S04",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG057",
+        "school": "HG-S08",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG058",
+        "school": "HG-S07",
+        "subject": "physics",
+        "hours": 9
+      },
+      {
+        "teacher": "HG058",
+        "school": "HG-S54",
+        "subject": "physics",
+        "hours": 1
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S05",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S06",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG059",
+        "school": "HG-S09",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG060",
+        "school": "HG-S06",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG060",
+        "school": "HG-S10",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG060",
+        "school": "HG-S12",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S11",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S12",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG061",
+        "school": "HG-S13",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG062",
+        "school": "HG-S06",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG062",
+        "school": "HG-S11",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG062",
+        "school": "HG-S15",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG063",
+        "school": "HG-S55",
+        "subject": "it",
+        "hours": 3
+      },
+      {
+        "teacher": "HG063",
+        "school": "HG-S56",
+        "subject": "it",
+        "hours": 7
+      },
+      {
+        "teacher": "HG064",
+        "school": "HG-S15",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG064",
+        "school": "HG-S17",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG065",
+        "school": "HG-S04",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG065",
+        "school": "HG-S09",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG065",
+        "school": "HG-S10",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG066",
+        "school": "HG-S16",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG066",
+        "school": "HG-S17",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG066",
+        "school": "HG-S23",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG067",
+        "school": "HG-S19",
+        "subject": "physics",
+        "hours": 10
+      },
+      {
+        "teacher": "HG067",
+        "school": "HG-S53",
+        "subject": "physics",
+        "hours": 2
+      },
+      {
+        "teacher": "HG068",
+        "school": "HG-S15",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG068",
+        "school": "HG-S20",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG069",
+        "school": "HG-S21",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG069",
+        "school": "HG-S23",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG070",
+        "school": "HG-S17",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG070",
+        "school": "HG-S20",
+        "subject": "biology",
+        "hours": 8
+      },
+      {
+        "teacher": "HG071",
+        "school": "HG-S26",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG071",
+        "school": "HG-S27",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG072",
+        "school": "HG-S21",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG072",
+        "school": "HG-S23",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG072",
+        "school": "HG-S24",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG073",
+        "school": "HG-S46",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG073",
+        "school": "HG-S47",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG074",
+        "school": "HG-S25",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG074",
+        "school": "HG-S37",
+        "subject": "math",
+        "hours": 6
+      },
+      {
+        "teacher": "HG075",
+        "school": "HG-S35",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG075",
+        "school": "HG-S36",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG075",
+        "school": "HG-S37",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG076",
+        "school": "HG-S32",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S35",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S36",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG077",
+        "school": "HG-S40",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG078",
+        "school": "HG-S32",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG078",
+        "school": "HG-S33",
+        "subject": "english",
+        "hours": 2
+      },
+      {
+        "teacher": "HG079",
+        "school": "HG-S32",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG079",
+        "school": "HG-S33",
+        "subject": "math",
+        "hours": 9
+      },
+      {
+        "teacher": "HG080",
+        "school": "HG-S34",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG080",
+        "school": "HG-S35",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG080",
+        "school": "HG-S39",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG081",
+        "school": "HG-S33",
+        "subject": "math",
+        "hours": 1
+      },
+      {
+        "teacher": "HG081",
+        "school": "HG-S34",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG081",
+        "school": "HG-S35",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG082",
+        "school": "HG-S38",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG082",
+        "school": "HG-S40",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG083",
+        "school": "HG-S54",
+        "subject": "it",
+        "hours": 3
+      },
+      {
+        "teacher": "HG084",
+        "school": "HG-S35",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG084",
+        "school": "HG-S36",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG084",
+        "school": "HG-S39",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG085",
+        "school": "HG-S36",
+        "subject": "english",
+        "hours": 3
+      },
+      {
+        "teacher": "HG085",
+        "school": "HG-S39",
+        "subject": "english",
+        "hours": 8
+      },
+      {
+        "teacher": "HG086",
+        "school": "HG-S45",
+        "subject": "math",
+        "hours": 8
+      },
+      {
+        "teacher": "HG086",
+        "school": "HG-S47",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG087",
+        "school": "HG-S44",
+        "subject": "english",
+        "hours": 5
+      },
+      {
+        "teacher": "HG087",
+        "school": "HG-S45",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG088",
+        "school": "HG-S45",
+        "subject": "biology",
+        "hours": 3
+      },
+      {
+        "teacher": "HG088",
+        "school": "HG-S46",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG089",
+        "school": "HG-S58",
+        "subject": "it",
+        "hours": 4
+      },
+      {
+        "teacher": "HG089",
+        "school": "HG-S59",
+        "subject": "it",
+        "hours": 6
+      },
+      {
+        "teacher": "HG089",
+        "school": "HG-S60",
+        "subject": "it",
+        "hours": 2
+      },
+      {
+        "teacher": "HG090",
+        "school": "HG-S43",
+        "subject": "physics",
+        "hours": 8
+      },
+      {
+        "teacher": "HG090",
+        "school": "HG-S55",
+        "subject": "physics",
+        "hours": 4
+      },
+      {
+        "teacher": "HG091",
+        "school": "HG-S28",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG091",
+        "school": "HG-S42",
+        "subject": "math",
+        "hours": 3
+      },
+      {
+        "teacher": "HG091",
+        "school": "HG-S49",
+        "subject": "math",
+        "hours": 4
+      },
+      {
+        "teacher": "HG092",
+        "school": "HG-S27",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG092",
+        "school": "HG-S42",
+        "subject": "biology",
+        "hours": 5
+      },
+      {
+        "teacher": "HG093",
+        "school": "HG-S28",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG093",
+        "school": "HG-S48",
+        "subject": "math",
+        "hours": 10
+      },
+      {
+        "teacher": "HG094",
+        "school": "HG-S48",
+        "subject": "english",
+        "hours": 7
+      },
+      {
+        "teacher": "HG094",
+        "school": "HG-S49",
+        "subject": "english",
+        "hours": 4
+      },
+      {
+        "teacher": "HG095",
+        "school": "HG-S37",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG095",
+        "school": "HG-S40",
+        "subject": "biology",
+        "hours": 2
+      },
+      {
+        "teacher": "HG095",
+        "school": "HG-S41",
+        "subject": "biology",
+        "hours": 6
+      },
+      {
+        "teacher": "HG096",
+        "school": "HG-S16",
+        "subject": "math",
+        "hours": 2
+      },
+      {
+        "teacher": "HG096",
+        "school": "HG-S18",
+        "subject": "math",
+        "hours": 7
+      },
+      {
+        "teacher": "HG096",
+        "school": "HG-S22",
+        "subject": "math",
+        "hours": 5
+      },
+      {
+        "teacher": "HG097",
+        "school": "HG-S25",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG097",
+        "school": "HG-S25",
+        "subject": "it",
+        "hours": 1
+      },
+      {
+        "teacher": "HG097",
+        "school": "HG-S26",
+        "subject": "english",
+        "hours": 10
+      },
+      {
+        "teacher": "HG098",
+        "school": "HG-S17",
+        "subject": "biology",
+        "hours": 1
+      },
+      {
+        "teacher": "HG098",
+        "school": "HG-S21",
+        "subject": "biology",
+        "hours": 7
+      },
+      {
+        "teacher": "HG098",
+        "school": "HG-S23",
+        "subject": "biology",
+        "hours": 4
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S16",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S17",
+        "subject": "english",
+        "hours": 6
+      },
+      {
+        "teacher": "HG099",
+        "school": "HG-S22",
+        "subject": "english",
+        "hours": 1
+      },
+      {
+        "teacher": "HG100",
+        "school": "HG-S25",
+        "subject": "physics",
+        "hours": 11
+      }
+    ],
+    "kpi": {
+      "coverage_pct": 77.12,
+      "total_travel_km": 3714.11,
+      "workload_std": 1.5,
+      "unmet_demand": [
+        {
+          "school": "HG-S28",
+          "subject": "english",
+          "missing_hours": 4
+        },
+        {
+          "school": "HG-S29",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S29",
+          "subject": "english",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S29",
+          "subject": "math",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S30",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S30",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S30",
+          "subject": "math",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S31",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S31",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S31",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S49",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S49",
+          "subject": "math",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S50",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S50",
+          "subject": "english",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S50",
+          "subject": "math",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S51",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S51",
+          "subject": "english",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S51",
+          "subject": "math",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S52",
+          "subject": "biology",
+          "missing_hours": 6
+        },
+        {
+          "school": "HG-S52",
+          "subject": "english",
+          "missing_hours": 5
+        },
+        {
+          "school": "HG-S52",
+          "subject": "math",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S53",
+          "subject": "english",
+          "missing_hours": 12
+        },
+        {
+          "school": "HG-S53",
+          "subject": "math",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S54",
+          "subject": "english",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S54",
+          "subject": "math",
+          "missing_hours": 14
+        },
+        {
+          "school": "HG-S54",
+          "subject": "physics",
+          "missing_hours": 1
+        },
+        {
+          "school": "HG-S55",
+          "subject": "english",
+          "missing_hours": 12
+        },
+        {
+          "school": "HG-S55",
+          "subject": "math",
+          "missing_hours": 12
+        },
+        {
+          "school": "HG-S56",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S56",
+          "subject": "english",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S56",
+          "subject": "math",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S57",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S57",
+          "subject": "english",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S57",
+          "subject": "math",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S58",
+          "subject": "biology",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S58",
+          "subject": "english",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S58",
+          "subject": "math",
+          "missing_hours": 10
+        },
+        {
+          "school": "HG-S59",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S59",
+          "subject": "english",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S59",
+          "subject": "math",
+          "missing_hours": 9
+        },
+        {
+          "school": "HG-S60",
+          "subject": "biology",
+          "missing_hours": 7
+        },
+        {
+          "school": "HG-S60",
+          "subject": "english",
+          "missing_hours": 8
+        },
+        {
+          "school": "HG-S60",
+          "subject": "math",
+          "missing_hours": 9
+        }
+      ]
+    }
+  },
+  "meta": {
+    "source": "python_reoptimizer",
+    "reoptimize": {
+      "history_id": 2,
+      "trigger": "manual_input",
+      "urgency": "medium",
+      "solver": {
+        "total_demand": 1521,
+        "flow": 1521,
+        "real_assigned_hours": 1180,
+        "dummy_hours": 341,
+        "min_cost": 33998898,
+        "delta_km": 23.224,
+        "delta_cost": 232,
+        "urgency": "medium",
+        "urgency_factor": 1.0,
+        "average_feasible_dist_km": 46.448,
+        "max_distance_km": null
+      },
+      "changes": {
+        "num_changed_assignments": 14,
+        "num_switches": 7,
+        "total_hour_delta": 47,
+        "changes": [
+          {
+            "teacher": "HG002",
+            "school": "HG-S07",
+            "subject": "math",
+            "old_hours": 8,
+            "new_hours": 12,
+            "delta_hours": 4
+          },
+          {
+            "teacher": "HG002",
+            "school": "HG-S08",
+            "subject": "math",
+            "old_hours": 4,
+            "new_hours": 0,
+            "delta_hours": -4
+          },
+          {
+            "teacher": "HG027",
+            "school": "HG-S07",
+            "subject": "math",
+            "old_hours": 4,
+            "new_hours": 0,
+            "delta_hours": -4
+          },
+          {
+            "teacher": "HG027",
+            "school": "HG-S08",
+            "subject": "math",
+            "old_hours": 1,
+            "new_hours": 5,
+            "delta_hours": 4
+          },
+          {
+            "teacher": "HG030",
+            "school": "HG-S19",
+            "subject": "english",
+            "old_hours": 2,
+            "new_hours": 0,
+            "delta_hours": -2
+          },
+          {
+            "teacher": "HG030",
+            "school": "HG-S20",
+            "subject": "english",
+            "old_hours": 5,
+            "new_hours": 7,
+            "delta_hours": 2
+          },
+          {
+            "teacher": "HG034",
+            "school": "HG-S54",
+            "subject": "it",
+            "old_hours": 11,
+            "new_hours": 9,
+            "delta_hours": -2
+          },
+          {
+            "teacher": "HG034",
+            "school": "HG-S59",
+            "subject": "it",
+            "old_hours": 0,
+            "new_hours": 2,
+            "delta_hours": 2
+          },
+          {
+            "teacher": "HG043",
+            "school": "HG-S58",
+            "subject": "it",
+            "old_hours": 0,
+            "new_hours": 7,
+            "delta_hours": 7
+          },
+          {
+            "teacher": "HG068",
+            "school": "HG-S19",
+            "subject": "english",
+            "old_hours": 8,
+            "new_hours": 10,
+            "delta_hours": 2
+          },
+          {
+            "teacher": "HG068",
+            "school": "HG-S20",
+            "subject": "english",
+            "old_hours": 3,
+            "new_hours": 1,
+            "delta_hours": -2
+          },
+          {
+            "teacher": "HG083",
+            "school": "HG-S59",
+            "subject": "it",
+            "old_hours": 0,
+            "new_hours": 4,
+            "delta_hours": 4
+          },
+          {
+            "teacher": "HG083",
+            "school": "HG-S60",
+            "subject": "it",
+            "old_hours": 0,
+            "new_hours": 6,
+            "delta_hours": 6
+          },
+          {
+            "teacher": "HG089",
+            "school": "HG-S54",
+            "subject": "it",
+            "old_hours": 1,
+            "new_hours": 3,
+            "delta_hours": 2
+          }
+        ]
+      }
+    },
+    "input_diff": {
+      "summary": {
+        "effective_urgency": "medium",
+        "urgency_reason": "moderate_capacity_or_demand_shift",
+        "urgency_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 3
+        },
+        "type_counts": {
+          "school_new": 3
+        },
+        "total_events": 3,
+        "impact": {
+          "impact_hours": 95,
+          "relief_hours": 0,
+          "net_pressure_hours": 95,
+          "impact_ratio": 0.0666,
+          "net_pressure_ratio": 0.0666,
+          "old_total_capacity": 1180,
+          "new_total_capacity": 1180,
+          "old_total_demand": 1426,
+          "new_total_demand": 1521,
+          "capacity_loss_hours": 0,
+          "capacity_gain_hours": 0,
+          "demand_increase_hours": 95,
+          "demand_decrease_hours": 0
+        },
+        "thresholds": {
+          "high_impact_ratio": 0.12,
+          "high_net_pressure_ratio": 0.08,
+          "medium_impact_ratio": 0.03,
+          "medium_net_pressure_ratio": 0.01,
+          "medium_event_count": 5
+        }
+      },
+      "events": [
+        {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S58",
+            "name": "THCS Nguyen Trai",
+            "priority": 2,
+            "location": [
+              22.8178,
+              104.9823
+            ],
+            "demand": {
+              "math": 10,
+              "english": 9,
+              "it": 7,
+              "biology": 8
+            }
+          }
+        },
+        {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S59",
+            "name": "THCS Minh Khai",
+            "priority": 2,
+            "location": [
+              22.8089,
+              104.9567
+            ],
+            "demand": {
+              "math": 9,
+              "english": 9,
+              "it": 6,
+              "biology": 7
+            }
+          }
+        },
+        {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S60",
+            "name": "THCS Phuong Thien",
+            "priority": 2,
+            "location": [
+              22.8023,
+              104.9456
+            ],
+            "demand": {
+              "math": 9,
+              "english": 8,
+              "it": 6,
+              "biology": 7
+            }
+          }
+        }
+      ]
+    },
+    "applied_events": [
+      {
+        "id": 1,
+        "type": "school_new",
+        "payload": {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S58",
+            "name": "THCS Nguyen Trai",
+            "priority": 2,
+            "location": [
+              22.8178,
+              104.9823
+            ],
+            "demand": {
+              "math": 10,
+              "english": 9,
+              "it": 7,
+              "biology": 8
+            }
+          }
+        },
+        "triggered_at": "2026-05-06T00:12:48.003068+00:00",
+        "resolved_at": "2026-05-06T00:12:50.867030+00:00"
+      },
+      {
+        "id": 2,
+        "type": "school_new",
+        "payload": {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S59",
+            "name": "THCS Minh Khai",
+            "priority": 2,
+            "location": [
+              22.8089,
+              104.9567
+            ],
+            "demand": {
+              "math": 9,
+              "english": 9,
+              "it": 6,
+              "biology": 7
+            }
+          }
+        },
+        "triggered_at": "2026-05-06T00:12:48.003068+00:00",
+        "resolved_at": "2026-05-06T00:12:50.867030+00:00"
+      },
+      {
+        "id": 3,
+        "type": "school_new",
+        "payload": {
+          "type": "school_new",
+          "school": {
+            "id": "HG-S60",
+            "name": "THCS Phuong Thien",
+            "priority": 2,
+            "location": [
+              22.8023,
+              104.9456
+            ],
+            "demand": {
+              "math": 9,
+              "english": 8,
+              "it": 6,
+              "biology": 7
+            }
+          }
+        },
+        "triggered_at": "2026-05-06T00:12:48.003068+00:00",
+        "resolved_at": "2026-05-06T00:12:50.867030+00:00"
+      }
+    ],
+    "run_snapshot": {
+      "id": "20260506T001250944091Z",
+      "created_at": "2026-05-06T00:12:50.944091+00:00",
+      "trigger": "csv",
+      "teacher_count": 100,
+      "school_count": 60,
+      "allocation_count": 222,
+      "coverage_pct": 77.58,
+      "total_travel_km": 1395.56,
+      "workload_std": 1.23
+    },
+    "decision_summary": {
+      "available": false,
+      "category": "first_run",
+      "headline": "First saved run.",
+      "body": "Run the optimizer again after a data change to see which schools became easier or harder to staff.",
+      "coverage_delta_pct": 0.0,
+      "unmet_hours_delta": 0,
+      "travel_delta_km": 0.0,
+      "worsened_school_count": 0,
+      "school_section_title": "Pressure across schools",
+      "school_section_empty_text": "There is no earlier run to compare yet.",
+      "worsened_schools": []
+    }
+  }
+}

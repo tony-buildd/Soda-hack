@@ -7,8 +7,5 @@ Flask>=3.0,<4.0
 # HTTP client
 requests>=2.32,<3.0
 
-# Data processing
-pandas>=2.2,<3.0
-
-# Visualization
-matplotlib>=3.8,<4.0
+# Visualization (only needed for benchmark scripts, not the backend)
+# matplotlib>=3.8,<4.0
